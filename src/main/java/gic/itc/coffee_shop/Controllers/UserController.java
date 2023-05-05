@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import gic.itc.coffee_shop.Repository.UserRepo;
 import gic.itc.coffee_shop.Services.UserService;
 
 @RestController
-public class CafeController {
+public class UserController {
     @Autowired
     UserRepo Repository;
     @GetMapping("/")
@@ -27,7 +28,6 @@ public class CafeController {
         return new ModelAndView("loginform");
     }
 
-<<<<<<< HEAD
     @GetMapping("/user")
     public ResponseEntity<List<user>> getAllUser(){
         try{
@@ -65,13 +65,19 @@ public class CafeController {
         }catch(Exception e){
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
-=======
-    //create an api to create user
-    @PostMapping("/user")
-    public void addUser(@RequestBody user users){
-        // System.out.println(users.getEmail());
-        // UserService userService = new UserService();
-        userService.createUser(users);
->>>>>>> 7681c7ffe033f02a37635d7420811a21774344f0
+    }
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<HttpStatus> deleteUserByID(@PathVariable("id") int id){
+        try{
+            Optional<user> User = Repository.findById(id);
+            if(User.isPresent()){
+                Repository.deleteById(id);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        }catch(Exception e){
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
