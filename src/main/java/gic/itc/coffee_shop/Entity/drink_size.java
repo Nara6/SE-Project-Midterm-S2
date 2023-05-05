@@ -1,5 +1,6 @@
 package gic.itc.coffee_shop.Entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -12,8 +13,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tables")
-public class tables {
+@Table(name = "drink_size")
+public class drink_size {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,19 +23,11 @@ public class tables {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "status", columnDefinition = "boolean default true")
-    private boolean status;
+    @Column(name = "price")
+    private BigDecimal price;
 
-    @OneToMany(mappedBy = "table_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<history> history;
-
-    public List<history> getHistory() {
-        return history;
-    }
-
-    public void setHistory(List<history> history) {
-        this.history = history;
-    }
+    @OneToMany(mappedBy = "drink_size_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<order_details> orderDetails;
 
     public int getId() {
         return id;
@@ -52,12 +45,19 @@ public class tables {
         this.name = name;
     }
 
-    public boolean isStatus() {
-        return status;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
+    public List<order_details> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<order_details> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 }

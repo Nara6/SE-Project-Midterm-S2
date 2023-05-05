@@ -1,19 +1,15 @@
 package gic.itc.coffee_shop.Entity;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tables")
-public class tables {
+@Table(name = "drink_categories")
+public class drink_categories {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,19 +18,8 @@ public class tables {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "status", columnDefinition = "boolean default true")
-    private boolean status;
-
-    @OneToMany(mappedBy = "table_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<history> history;
-
-    public List<history> getHistory() {
-        return history;
-    }
-
-    public void setHistory(List<history> history) {
-        this.history = history;
-    }
+    @Column(name = "description")
+    private String description;
 
     public int getId() {
         return id;
@@ -52,12 +37,13 @@ public class tables {
         this.name = name;
     }
 
-    public boolean isStatus() {
-        return status;
+    public String getDescription() {
+        return description;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
+    
 }

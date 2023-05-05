@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CoffeeShopApplication<coffee_shop>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "gic.itc.coffee_shop.CoffeeShopApplication",
+            "projectName": "coffee_shop",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

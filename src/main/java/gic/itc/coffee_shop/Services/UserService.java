@@ -11,10 +11,12 @@ public class UserService {
     @Autowired
     public UserRepo Repo;
 
-    public void createUser(user users){
-        System.out.println(users.getEmail());
-        // user users = new user();
-        Repo.save(users);
-    }
+    // public void createUser(user users){
+    //     // Repo.save(users);
+    //     try{
+            
+    //     }
+    // }
+
 
 }
