@@ -12,7 +12,7 @@ public class UserService {
     public UserRepo Repo;
 
     public void createUser(user users){
-        System.out.println(users.getEmail());
+        // System.out.println(users.getEmail());
         // user users = new user();
         Repo.save(users);
     }

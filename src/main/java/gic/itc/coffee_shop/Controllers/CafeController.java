@@ -19,9 +19,10 @@ public class CafeController {
         return new ModelAndView("loginform");
     }
 
+    //create an api to create user
     @PostMapping("/user")
     public void addUser(@RequestBody user users){
-        System.out.println(users.getEmail());
+        // System.out.println(users.getEmail());
         // UserService userService = new UserService();
         userService.createUser(users);
     }
