@@ -36,7 +36,7 @@ public class user {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_type_id", referencedColumnName = "id")
-    private user_type user_type;
+    private user_type user_type_id;
 
 
     public int getId() {
@@ -90,10 +90,10 @@ public class user {
 
 
     public user_type getUser_type() {
-        return user_type;
+        return user_type_id;
     }
 
     public void setUser_type(user_type user_type) {
-        this.user_type = user_type;
+        this.user_type_id = user_type_id;
     }
 }
