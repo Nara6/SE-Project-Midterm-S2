@@ -35,16 +35,12 @@ public class user {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_type_id")
-    private user_type user_type_id;
-
-    // @OneToOne(cascade = CascadeType.ALL)
-    // @JoinColumn(name = "user_type_id", referencedColumnName = "id", nullable =
-    // false)
-    // private user_type user_type_id;
     @Column(name="image_url")
     private String image_url;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_type_id", referencedColumnName = "id")
+    private user_type user_type_id;
 
     @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<history> history;
@@ -93,10 +89,10 @@ public class user {
 
 
     public user_type getUser_type() {
-        return user_type;
+        return user_type_id;
     }
 
     public void setUser_type(user_type user_type) {
-        this.user_type = user_type;
+        this.user_type_id = user_type_id;
     }
 }
