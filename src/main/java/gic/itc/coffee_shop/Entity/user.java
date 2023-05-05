@@ -27,76 +27,10 @@ public class user {
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(nullable = false)
-    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
-
-    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_type_id")
-    private user_type user_type_id;
-
-    // @OneToOne(cascade = CascadeType.ALL)
-    // @JoinColumn(name = "user_type_id", referencedColumnName = "id", nullable =
-    // false)
-    // private user_type user_type_id;
-
-    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<history> history;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<history> getHistory() {
-        return history;
-    }
-
-    public void setHistory(List<history> history) {
-        this.history = history;
-    }
-
-    public user_type getUser_type_id() {
-        return user_type_id;
-    }
-
-    // public void setUser_type_id(user_type user_type_id) {
-    // this.user_type_id = user_type_id;
-    // }
-
-    public void setUser_type_id() {
-        this.user_type_id = new user_type();
-        this.user_type_id.setId(2);
-    }
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_type_id", referencedColumnName = "id")
+    private user_type user_type;
 }
