@@ -43,6 +43,8 @@ public class user {
     // @JoinColumn(name = "user_type_id", referencedColumnName = "id", nullable =
     // false)
     // private user_type user_type_id;
+    @Column(name="image_url")
+    private String image_url;
 
     @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<history> history;
@@ -79,23 +81,22 @@ public class user {
         this.email = email;
     }
 
-    public user_type getUser_type_id() {
-        return user_type_id;
+
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setUser_type_id(user_type user_type_id) {
-        this.user_type_id = user_type_id;
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 
-    public List<history> getHistory() {
-        return history;
+
+    public user_type getUser_type() {
+        return user_type;
     }
 
-    public void setHistory(List<history> history) {
-        this.history = history;
+    public void setUser_type(user_type user_type) {
+        this.user_type = user_type;
     }
-
-    
-    
-
 }

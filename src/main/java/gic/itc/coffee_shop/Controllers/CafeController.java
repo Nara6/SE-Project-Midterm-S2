@@ -27,6 +27,7 @@ public class CafeController {
         return new ModelAndView("loginform");
     }
 
+<<<<<<< HEAD
     @GetMapping("/user")
     public ResponseEntity<List<user>> getAllUser(){
         try{
@@ -64,5 +65,13 @@ public class CafeController {
         }catch(Exception e){
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
+=======
+    //create an api to create user
+    @PostMapping("/user")
+    public void addUser(@RequestBody user users){
+        // System.out.println(users.getEmail());
+        // UserService userService = new UserService();
+        userService.createUser(users);
+>>>>>>> 7681c7ffe033f02a37635d7420811a21774344f0
     }
 }
