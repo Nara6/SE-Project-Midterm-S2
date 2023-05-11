@@ -2,7 +2,6 @@ package gic.itc.coffee_shop.Entity;
 
 import java.util.List;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,18 +23,17 @@ public class user {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username")
     private String username;
-
 
     @Column(nullable = false)
     @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name="image_url")
+    @Column(name = "image_url")
     private String image_url;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -77,16 +75,13 @@ public class user {
         this.email = email;
     }
 
-
     public String getImage_url() {
         return image_url;
     }
 
-
     public void setImage_url(String image_url) {
         this.image_url = image_url;
     }
-
 
     public user_type getUser_type() {
         return user_type_id;
