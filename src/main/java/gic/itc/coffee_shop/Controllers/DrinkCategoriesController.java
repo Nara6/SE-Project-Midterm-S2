@@ -8,22 +8,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import ch.qos.logback.core.model.Model;
 import gic.itc.coffee_shop.Entity.drink_categories;
 import gic.itc.coffee_shop.Repository.DrinkCategoriesRepo;
+import gic.itc.coffee_shop.Repository.DrinkRepo;
 
 @RestController
 public class DrinkCategoriesController {
     @Autowired
     DrinkCategoriesRepo Repo;
 
-    // @Autowired
-    // DrinkCategoriesRepo Repo;
-    
+    @GetMapping("/addDrinkCategory")
+    public Object index2() {
+        return new ModelAndView("cruddrink");
+    }
+
     @GetMapping("/drinkCategories")
     // ResponseEntity is HTTP resposne of user by server
     public ResponseEntity<List<drink_categories>> getAllDrinkCategories() {
@@ -55,8 +63,8 @@ public class DrinkCategoriesController {
         }
     }
 
-
-    //create drink but it doesnt work when i uncomment the drink_categories entity list in getter setter 
+    // create drink but it doesnt work when i uncomment the drink_categories entity
+    // list in getter setter
     @PostMapping("/drinkCategories")
     public ResponseEntity<drink_categories> addDrnkCategories(@RequestBody drink_categories dc) {
         try {
@@ -68,4 +76,46 @@ public class DrinkCategoriesController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // add new drink category interaction with UI
+    @PostMapping("/addDrinkCategory")
+    @ResponseBody
+    public ModelAndView addDrinkCategory(@ModelAttribute("dc") drink_categories dc) {
+        if (dc.getName() == null) {
+            // Handle case where required fields are missing
+            ModelAndView mav = new ModelAndView("error");
+            mav.addObject("errorMessage", "Name and description are required");
+            return mav;
+        }
+
+        try {
+            Repo.save(dc); // Save the drink category to the database
+            return new ModelAndView("welcome");
+        } catch (Exception e) {
+            // Handle any exceptions that occur during database operation
+            ModelAndView mav = new ModelAndView("error");
+            mav.addObject("errorMessage", "Error saving drink category");
+            return mav;
+        }
+    }
+
+    @PostMapping("/cancelAddDrinkCategory")
+    @ResponseBody
+    public Object cancelDrinkCategory() {
+        return new ModelAndView("cruddrink");
+    }
+
+    // @PostMapping("/addDrinkCategory")
+    // @ResponseBody
+    // public Object task3(@ModelAttribute("dc") drink_categories dc, Model model) {
+    // Repo.save(dc); // save into database
+    // if (dc.getDescription() == null) {
+    // // model.addAttribute("error", "Password field cannot be empty");
+    // return new RedirectView("/login");
+    // }
+    // return new ModelAndView("/welcome");
+    // // }
+    // // return new RedirectView("/login");
+    // }
+
 }

@@ -43,6 +43,8 @@ public class drink {
     @OneToMany(mappedBy = "drink_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<order_details> orderDetails;
 
+    
+
     public List<order_details> getOrderDetails() {
         return orderDetails;
     }
@@ -90,7 +92,5 @@ public class drink {
     public void setCategory_id(drink_categories category_id) {
         this.category_id = category_id;
     }
-
-    
 
 }

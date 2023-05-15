@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import gic.itc.coffee_shop.Entity.drink_categories;
 import gic.itc.coffee_shop.Entity.user;
+import gic.itc.coffee_shop.Entity.user_type;
 import gic.itc.coffee_shop.Repository.DrinkCategoriesRepo;
 import gic.itc.coffee_shop.Repository.UserRepo;
 import gic.itc.coffee_shop.Services.UserService;
@@ -35,6 +36,11 @@ public class CafeController {
         return new ModelAndView("loginform");
     }
 
+    @GetMapping("/addCashier")
+    public Object index1() {
+        return new ModelAndView("addCashier");
+    }
+
     @PostMapping("/login")
     public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password) {
         // use email as refrence to retrive every row by email or not
@@ -43,8 +49,37 @@ public class CafeController {
             // retrieve a row of data from database
             user optionalUser = User.get();
             String Password = optionalUser.getPassword();
-            if (Password.equals(password)) {
+            user_type user_type = optionalUser.getUser_type();
+            // user_type user_type = optionalUser.getUser_type();
+            if (Password.equals(password) && user_type.getId() == 2) {
                 ModelAndView mav = new ModelAndView("welcome");
+                mav.addObject("email", email);
+                return mav;
+            } else {
+                ModelAndView mav = new ModelAndView("loginform");
+                mav.addObject("errorMessage", "Invalid password");
+                return mav;
+            }
+        } else {
+            ModelAndView mav = new ModelAndView("loginform");
+            mav.addObject("errorMessage", "Invalid email");
+            return mav;
+        }
+    }
+
+    //login as admin
+    @PostMapping("/admin")
+    public ModelAndView admin(@RequestParam("email") String email, @RequestParam("password") String password) {
+        // use email as refrence to retrive every row by email or not
+        Optional<user> User = Repository.findByEmail(email);
+        if (User.isPresent()) {
+            // retrieve a row of data from database
+            user optionalUser = User.get();
+            String Password = optionalUser.getPassword();
+            user_type user_type = optionalUser.getUser_type();
+            // user_type user_type = optionalUser.getUser_type();
+            if (Password.equals(password) && user_type.getId() == 1) {
+                ModelAndView mav = new ModelAndView("addCashier");
                 mav.addObject("email", email);
                 return mav;
             } else {
@@ -135,7 +170,7 @@ public class CafeController {
         }
     }
 
-    // signup and go to welcome
+    // add new cashier
     @PostMapping("/signup")
     @ResponseBody
     public Object task3(@ModelAttribute("User") user User, Model model) {
@@ -153,15 +188,16 @@ public class CafeController {
     // DrinkCategoriesRepo Repo;
 
     // @PostMapping("/drinkCategories")
-    // public ResponseEntity<drink_categories> addDrnkCategories(@RequestBody drink_categories dc) {
-    //     try {
-    //         // userService.createUser(users);
-    //         System.out.println(dc.getName());
-    //         Repo.save(dc);
-    //         return new ResponseEntity<>(dc, HttpStatus.CREATED);
-    //     } catch (Exception e) {
-    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
+    // public ResponseEntity<drink_categories> addDrnkCategories(@RequestBody
+    // drink_categories dc) {
+    // try {
+    // // userService.createUser(users);
+    // System.out.println(dc.getName());
+    // Repo.save(dc);
+    // return new ResponseEntity<>(dc, HttpStatus.CREATED);
+    // } catch (Exception e) {
+    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    // }
     // }
 
     // create drink categories
