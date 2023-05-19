@@ -83,11 +83,29 @@ public class user {
         this.image_url = image_url;
     }
 
-    public user_type getUser_type() {
+    public user_type getUser_type_id() {
         return user_type_id;
     }
 
-    public void setUser_type(user_type user_type) {
+    public void setUser_type_id(user_type user_type_id) {
         this.user_type_id = user_type_id;
     }
+
+    public List<history> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<history> history) {
+        this.history = history;
+    }
+
+    
+
+    // public user_type getUser_type() {
+    //     return user_type_id;
+    // }
+
+    // public void setUser_type(user_type user_type) {
+    //     this.user_type_id = user_type_id;
+    // }
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <html xmlns:th="http://www.thymeleaf.org"></html>
+    
+</head>
+<body>
+    
+    <h1>Category</h1>
+    <h1>Hot Drink</h1>
+
+    
+    <form action="/listDrink" method="get">
+        <div th:each="category : ${categories}">
+            <button type="submit" name="category" th:value="${category.id}"  th:text="${category.name}"></button>
+        </div>
+        
+    </form>
+    
+
+    <div th:each="drink : ${drinks}">
+        <!-- <img th:src="${drink.image_url}" alt="Drink Image" /> -->
+        <p th:text="${drink.name}"></p>
+    </div>
+    <!-- <div th:each="drink: ${Drinks}" th:text="${drink.name}"></div> -->
+    <!-- <ul> -->
+        <!-- Loop over the drinks and display their names -->
+        <!-- <th:block th:each="drink : ${drinks}">
+            <li th:text="${drink.name}"></li>
+        </th:block>
+    </ul> -->
+<!-- </form> -->
+</body>
+</html>

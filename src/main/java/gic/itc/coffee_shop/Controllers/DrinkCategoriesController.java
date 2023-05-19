@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,7 @@ import gic.itc.coffee_shop.Entity.drink_categories;
 import gic.itc.coffee_shop.Repository.DrinkCategoriesRepo;
 import gic.itc.coffee_shop.Repository.DrinkRepo;
 
-@RestController
+@Controller
 public class DrinkCategoriesController {
     @Autowired
     DrinkCategoriesRepo Repo;
@@ -31,6 +32,23 @@ public class DrinkCategoriesController {
     public Object index2() {
         return new ModelAndView("cruddrink");
     }
+
+    // @PostMapping("/category")
+    // public String category(Model model) {
+    //     List<drink_categories> categories =  Repo.findAll();
+    //     model.addAttribute("categories", categories);
+
+    //     return "listDrink";
+    // }
+
+    // get all categories
+    @GetMapping("/categories")
+    public ModelAndView showCategories() {
+    List<drink_categories> categories = (List<drink_categories>) Repo.findAll();
+    ModelAndView mav = new ModelAndView("listDrink");
+    mav.addObject("categories", categories);
+    return mav;
+}
 
     @GetMapping("/drinkCategories")
     // ResponseEntity is HTTP resposne of user by server

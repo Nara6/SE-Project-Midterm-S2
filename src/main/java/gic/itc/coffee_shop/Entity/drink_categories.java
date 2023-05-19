@@ -29,9 +29,9 @@ public class drink_categories {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy  = "category_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "category_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonDeserialize(using = AbstractDeserializer.class)
-    private List<drink> drink;
+    private List<drink> drinks;
 
     public int getId() {
         return id;
@@ -57,14 +57,12 @@ public class drink_categories {
         this.description = description;
     }
 
-    public List<drink> getDrink() {
-        return drink;
-    }
+    // public List<drink> getDrink() {
+    // return drink;
+    // }
 
-    public void setDrink(List<drink> drink) {
-        this.drink = drink;
-    }
-    
-
+    // public void setDrink(List<drink> drink) {
+    // this.drink = drink;
+    // }
 
 }

@@ -10,13 +10,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "drink")
+@Table(name = "Drink")
 public class drink {
     @Id
     @Column(nullable = false)
@@ -29,7 +30,8 @@ public class drink {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "image_url")
+    @Lob
+    @Column(name = "image_url", length = 9000)
     private String image_url;
 
     // @OneToOne(cascade = CascadeType.ALL)
@@ -37,13 +39,11 @@ public class drink {
     // private drink_categories d_categories;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private drink_categories category_id;
 
     @OneToMany(mappedBy = "drink_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<order_details> orderDetails;
-
-    
 
     public List<order_details> getOrderDetails() {
         return orderDetails;

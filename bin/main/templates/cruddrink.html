@@ -294,7 +294,7 @@ body{
 </head>
 
 <body>
-    <form th:action="@{/addDrink}" th:object="${drink}" method="post">
+    <form th:action="@{/addDrink}" th:object="${drink}" method="post" enctype="multipart/form-data">
     <div class="form">
         <div class="title">
             <h4>CREATE NEW DRINK</h4>
@@ -340,7 +340,7 @@ body{
                 </div>
                 <div class="file">
                     <label for="file">Upload</label>
-                    <input name="image_url" id="file" type="file" onchange="loadFile(event)">
+                    <input name="image" id="file" type="file" onchange="loadFile(event)">
                 </div>
             </div>
         </div>
