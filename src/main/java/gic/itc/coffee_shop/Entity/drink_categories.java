@@ -3,6 +3,8 @@ package gic.itc.coffee_shop.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Lock;
+
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.AbstractDeserializer;
 
@@ -12,6 +14,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -28,6 +31,10 @@ public class drink_categories {
 
     @Column(name = "description")
     private String description;
+
+    @Lob
+    @Column(name = "image_url", length = 9000)
+    private String image_url;
 
     @OneToMany(mappedBy = "category_id", cascade = CascadeType.ALL, orphanRemoval = true)
     // @JsonDeserialize(using = AbstractDeserializer.class)
@@ -55,6 +62,22 @@ public class drink_categories {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public List<drink> getDrinks() {
+        return drinks;
+    }
+
+    public void setDrinks(List<drink> drinks) {
+        this.drinks = drinks;
     }
 
     // public List<drink> getDrink() {
