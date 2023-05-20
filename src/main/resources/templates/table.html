@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIC Coffee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+        .text{
+        font-family:'Montserrat','Courier New', Courier, monospace;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="flex justify-center text-[60px] text-[#FF4B2B] font-bold mt-5 text">Table Management</div>
+    <div class="">
+        <div class="w-full flex justify-between flex-wrap p-7 gap-2 gap-y-3">
+            <div th:each="table:${listtables}" class="w-[200px] h-[155px] border-[4px] border-[#7C9070] hover:cursor-pointer flex justify-center items-center group flex-col text-[18px]">
+                <div th:if="${table.isStatus}==false" class="text-red-400"></div>
+                <div th:text="${table.getName()}" class="invisible group-hover:visible text-green-400"></div>
+                <div th:text="${table.getId()}" th:if="${table.isStatus}==false" class="text-red-400 font-bold"></div>
+                <div th:if="${table.isStatus}==false" class="invisible group-hover:visible text-red-400">Not Available</div>
+                <div th:text="${table.getId()}" th:unless="${table.isStatus}==false" class="font-bold"></div>
+                <div th:unless="${table.isStatus}==false" class=" invisible group-hover:visible">Available</div>
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>
