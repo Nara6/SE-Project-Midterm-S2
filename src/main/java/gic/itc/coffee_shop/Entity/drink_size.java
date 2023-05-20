@@ -27,7 +27,7 @@ public class drink_size {
     private BigDecimal price;
 
     @OneToMany(mappedBy = "drink_size_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<order_details> orderDetails;
+    private List<orders> orderDetails;
 
     public int getId() {
         return id;
@@ -53,11 +53,11 @@ public class drink_size {
         this.price = price;
     }
 
-    public List<order_details> getOrderDetails() {
+    public List<orders> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(List<order_details> orderDetails) {
+    public void setOrderDetails(List<orders> orderDetails) {
         this.orderDetails = orderDetails;
     }
 }

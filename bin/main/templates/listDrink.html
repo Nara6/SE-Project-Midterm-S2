@@ -14,6 +14,21 @@
 
       
 
+        .left::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .left::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 20px;
+    }
+
+    .left::-webkit-scrollbar-track {
+    background-color: #CBD5E0;
+    border-radius: 5px;
+    }
+      
+
 
 
     </style>
@@ -34,8 +49,9 @@
                     </div>
                 </form>
                 <!-- <hr class="w-[80%] h-[3px] bg-gray-300 ml-8"> -->
+
                 <div class="flex justify-content gap-[20px] mx-[15px] p-5 flex-wrap overflow-y-auto">
-                    <div class="flex flex-col w-[400px] h-[200px] bg-white rounded-lg border-2 border-gray-300 p-4" th:each="drink : ${drinks}">
+                    <div class="drink-box flex flex-col w-[400px] h-[200px] bg-white rounded-lg border-2 border-gray-300 p-4" th:each="drink : ${drinks}">
                        <div  class="flex gap-4">
                         <div>
                              <img class="w-[110px] h-[120px] rounded-lg" alt="" th:src="*{'data:image/jpeg;base64,'+{drink.image_url} }">
@@ -49,19 +65,19 @@
                         <div class="flex flex-col">
                             <div>
                                 <!-- <p th:text="'id:' + ${drink.id}"></p> -->
-                            <p class="font-bold my-[5px]" th:text="${drink.name}"></p> 
+                            <p class="font-bold my-[5px]" th:text="${drink.name}" id="drinkName"></p> 
                             
                             <p class="font-semibold"> Size: </p>
                             </div>
                             <div class="flex justify-content gap-2 mt-[5px]">
-                                 <button class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm"> small </button>
-                                <button  class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm"> medium </button>
-                                <button  class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm"> large </button>   
+                                 <button class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm active:bg-black active:text-white active:black" id="smallButton"> small </button>
+                                <button  class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm active:bg-black active:text-white active:black" id="mediumButton"> medium </button>
+                                <button  class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm active:bg-black active:text-white active:black" id="largeButton"> large </button>   
                             </div>
                             <div>
-                                <button class="w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px]"> Order </button>
+                                <button class="w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px]" id="orderButton"> Order </button>
                             </div>
-                            
+                        
                             
 
                         </div>
@@ -71,16 +87,87 @@
             </div>
             <div class="right w-[25%] bg-white border-2 rounded-[20px] m-[20px]">
                 <h2 class="p-5 align-items font-bold">Order information</h2>
+                <div id="orderInfo"></div>
             </div>
         </div>
     </div>
 </body>
 <script>
     const buttons = document.querySelectorAll('.category-button');
-    // Get the DOM elements
-    const decreaseButton = document.getElementById('decreaseButton');
-    const increaseButton = document.getElementById('increaseButton');
-    const countInput = document.getElementById('countInput');
+
+    // Get all the DOM elements with the class name 'drink-box'
+    const drinkBoxes = document.getElementsByClassName('drink-box');
+
+    
+
+    // Get the required elements
+    const orderButton = document.getElementById('orderButton');
+    const drinkNameElement = document.getElementById('drinkName');
+    const smallButton = document.getElementById('smallButton');
+    const mediumButton = document.getElementById('mediumButton');
+    const largeButton = document.getElementById('largeButton');
+
+// Add event listeners to the buttons
+    orderButton.addEventListener('click', () => {
+    const drinkName = drinkNameElement.innerText;
+    const size = getSize();
+
+    // Update the order information on the right div
+    const orderInfoElement = document.getElementById('orderInfo');
+    orderInfoElement.innerHTML = `<p>Drink: ${drinkName}</p><p>Size: ${size}</p>`;
+});
+
+    smallButton.addEventListener('click', () => {
+        // Handle small size button click
+        setSize('small');
+    });
+
+    mediumButton.addEventListener('click', () => {
+        // Handle medium size button click
+        setSize('medium');
+    });
+
+    largeButton.addEventListener('click', () => {
+        // Handle large size button click
+        setSize('large');
+    });
+
+// Helper function to get the selected size
+    function getSize() {
+    if (smallButton.classList.contains('selected')) {
+        return 'small';
+    } else if (mediumButton.classList.contains('selected')) {
+        return 'medium';
+    } else if (largeButton.classList.contains('selected')) {
+        return 'large';
+    } else {
+        return '';
+    }
+}
+
+// Helper function to set the selected size
+    function setSize(size) {
+    // Remove 'selected' class from all size buttons
+    smallButton.classList.remove('selected');
+    mediumButton.classList.remove('selected');
+    largeButton.classList.remove('selected');
+
+    // Add 'selected' class to the clicked size button
+    if (size === 'small') {
+        smallButton.classList.add('selected');
+    } else if (size === 'medium') {
+        mediumButton.classList.add('selected');
+    } else if (size === 'large') {
+        largeButton.classList.add('selected');
+    }
+}
+
+    // Iterate over each drink box
+    Array.from(drinkBoxes).forEach(function(drinkBox) {
+    // Get the DOM elements within the current drink box
+    const decreaseButton = drinkBox.querySelector('#decreaseButton');
+    const increaseButton = drinkBox.querySelector('#increaseButton');
+    const countInput = drinkBox.querySelector('#countInput');
 
     // Set the initial count value
     let count = 0;
@@ -88,15 +175,18 @@
 
     // Decrease button click event
     decreaseButton.addEventListener('click', function() {
-    count--;
-    countInput.value = count;
+        count--;
+        countInput.value = count;
     });
 
     // Increase button click event
     increaseButton.addEventListener('click', function() {
-    count++;
-    countInput.value = count;
+        count++;
+        countInput.value = count;
     });
+    });
+
+  
 
 
     buttons.forEach(button => {

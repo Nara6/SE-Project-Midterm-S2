@@ -1,9 +1,5 @@
 package gic.itc.coffee_shop.Entity;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,8 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,75 +17,28 @@ public class order_details {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    // other fields
-    // @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
-    private orders order_id;
+    private orders order;
 
-    // @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "drink_id")
-    private drink drink_id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "drink_size_id")
-    private drink_size drink_size_id;
-
-    public drink_size getDrink_size_id() {
-        return drink_size_id;
-    }
-
-    public void setDrink_size_id(drink_size drink_size_id) {
-        this.drink_size_id = drink_size_id;
-    }
-
-    @Column(name = "quantity")
-    private int quantity;
-
-    @Column(name = "price")
-    private BigDecimal price;
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public drink getDrink_id() {
-        return drink_id;
+    public orders getOrder() {
+        return order;
     }
 
-    public void setDrink_id(drink drink_id) {
-        this.drink_id = drink_id;
+    public void setOrder(orders order) {
+        this.order = order;
     }
 
-    public orders getOrder_id() {
-        return order_id;
-    }
-
-    public void setOrder_id(orders order_id) {
-        this.order_id = order_id;
-    }
-
+    
+    
 }

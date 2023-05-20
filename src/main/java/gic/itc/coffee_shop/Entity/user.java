@@ -1,5 +1,6 @@
 package gic.itc.coffee_shop.Entity;
 
+import java.security.Timestamp;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -36,12 +37,16 @@ public class user {
     @Column(name = "image_url")
     private String image_url;
 
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp orderTime;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_type_id", referencedColumnName = "id")
     private user_type user_type_id;
 
-    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<history> history;
+    // @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval =
+    // true)
+    // private List<history> history;
 
     public int getId() {
         return id;
@@ -91,21 +96,19 @@ public class user {
         this.user_type_id = user_type_id;
     }
 
-    public List<history> getHistory() {
-        return history;
-    }
+    // public List<history> getHistory() {
+    // return history;
+    // }
 
-    public void setHistory(List<history> history) {
-        this.history = history;
-    }
-
-    
+    // public void setHistory(List<history> history) {
+    // this.history = history;
+    // }
 
     // public user_type getUser_type() {
-    //     return user_type_id;
+    // return user_type_id;
     // }
 
     // public void setUser_type(user_type user_type) {
-    //     this.user_type_id = user_type_id;
+    // this.user_type_id = user_type_id;
     // }
 }

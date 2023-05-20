@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <html xmlns:th="http://www.thymeleaf.org"></html>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
+      
+
+        .left::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .left::-webkit-scrollbar-thumb {
+    background-color: black;
+    border-radius: 20px;
+    }
+
+    .left::-webkit-scrollbar-track {
+    background-color: #CBD5E0;
+    border-radius: 5px;
+    }
+      
+
+
+
+    </style>
+    
+</head>
+<body class="bg-white w-screen h-screen p-[20px]">
+    <div class="bg-[#F5F7FB] w-full h-full rounded-[30px] flex flex-col items-center justify-center ">
+        <h2 class="font-bold text-[40px] text-align flex justify-center font-montserrat">Drink Selection</h2>
+        <hr class="w-[95%] h-[2px] bg-black mx-7">
+        <div class="flex justify-center w-full h-[87%] mx-auto">
+            <div class="left w-[70%] h-full rounded-lg overflow-auto">
+                <form action="/listDrink" method="get">
+                    <div class="flex flex-wrap gap-4 p-4 mx-[15px]">
+                        <div th:each="category : ${categories}">
+                            <button class="category-button w-[100px] h-[30px] p-5 flex justify-center items-center bg-[#F5F7FB] rounded-2xl border-2 border-gray-500 font-semibold text-slate-700 font-montserrat active:bg-black active:text-white active:black" type="submit" name="category" th:value="${category.id}" th:text="${category.name}">
+                                <!-- <img class="w-[50px] h-[50px] rounded-lg" alt="" th:src="*{'data:image/jpeg;base64,'+{category.image_url } }"></button> -->
+                        </div>
+                    </div>
+                </form>
+                <!-- <hr class="w-[80%] h-[3px] bg-gray-300 ml-8"> -->
+
+                <div class="flex justify-content gap-[20px] mx-[15px] p-5 flex-wrap overflow-y-auto">
+                    <div class="drink-box flex flex-col w-[400px] h-[200px] bg-white rounded-lg border-2 border-gray-300 p-4" th:each="drink : ${drinks}">
+                       <div  class="flex gap-4">
+                        <div>
+                             <img class="w-[110px] h-[120px] rounded-lg" alt="" th:src="*{'data:image/jpeg;base64,'+{drink.image_url} }">
+                             <div class="flex items-center mt-[5px]">
+                                <button id="decreaseButton" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none">-</button>
+                                <input id="countInput" class="w-10 px-3 py-1 text-center bg-white text-gray-700" type="text" value="0" readonly>
+                                <button id="increaseButton" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none">+</button>
+                              </div>
+                              
+                        </div>
+                        <div class="flex flex-col">
+                            <div>
+                                <!-- <p th:text="'id:' + ${drink.id}"></p> -->
+                            <p class="font-bold my-[5px]" th:text="${drink.name}"></p> 
+                            
+                            <p class="font-semibold"> Size: </p>
+                            </div>
+                            <div class="flex justify-content gap-2 mt-[5px]">
+                                 <button class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm"> small </button>
+                                <button  class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm"> medium </button>
+                                <button  class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm"> large </button>   
+                            </div>
+                            <div>
+                                <button class="w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px]"> Order </button>
+                            </div>
+                        
+                            
+
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right w-[25%] bg-white border-2 rounded-[20px] m-[20px]">
+                <h2 class="p-5 align-items font-bold">Order information</h2>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const buttons = document.querySelectorAll('.category-button');
+
+    // Get all the DOM elements with the class name 'drink-box'
+    const drinkBoxes = document.getElementsByClassName('drink-box');
+
+    // Iterate over each drink box
+    Array.from(drinkBoxes).forEach(function(drinkBox) {
+    // Get the DOM elements within the current drink box
+    const decreaseButton = drinkBox.querySelector('#decreaseButton');
+    const increaseButton = drinkBox.querySelector('#increaseButton');
+    const countInput = drinkBox.querySelector('#countInput');
+
+    // Set the initial count value
+    let count = 0;
+    countInput.value = count;
+
+    // Decrease button click event
+    decreaseButton.addEventListener('click', function() {
+        count--;
+        countInput.value = count;
+    });
+
+    // Increase button click event
+    increaseButton.addEventListener('click', function() {
+        count++;
+        countInput.value = count;
+    });
+    });
+
+    // Get the DOM elements
+    // const decreaseButton = document.getElementById('decreaseButton');
+    // const increaseButton = document.getElementById('increaseButton');
+    // const countInput = document.getElementById('countInput');
+
+    // // Set the initial count value
+    // let count = 0;
+    // countInput.value = count;
+
+    // // Decrease button click event
+    // decreaseButton.addEventListener('click', function() {
+    // count--;
+    // countInput.value = count;
+    // });
+
+    // // Increase button click event
+    // increaseButton.addEventListener('click', function() {
+    // count++;
+    // countInput.value = count;
+    // });
+
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+    buttons.forEach(btn => {
+      btn.classList.remove('bg-black', 'text-white', 'border-black');
+      btn.removeAttribute('disabled');
+    });
+    this.classList.add('bg-black', 'text-white', 'border-black');
+    // this.setAttribute('disabled', 'disabled');
+  });
+});
+
+</script>
+
+
+</html>
