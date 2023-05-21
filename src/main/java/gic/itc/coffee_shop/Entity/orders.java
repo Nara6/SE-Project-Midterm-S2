@@ -33,12 +33,8 @@ public class orders {
     @JoinColumn(name = "drink_size_id", referencedColumnName = "id")
     private drink_size drink_size_id;
 
-
     @Column(name = "quantity")
     private int quantity;
-
-    @Column(name = "price")
-    private BigDecimal price;
 
     public drink_size getDrink_size_id() {
         return drink_size_id;
@@ -48,21 +44,12 @@ public class orders {
         this.drink_size_id = drink_size_id;
     }
 
-
     public int getQuantity() {
         return quantity;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     public int getId() {

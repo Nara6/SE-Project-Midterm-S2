@@ -56,26 +56,27 @@
                         <div>
                              <img class="w-[110px] h-[120px] rounded-lg" alt="" th:src="*{'data:image/jpeg;base64,'+{drink.image_url} }">
                              <div class="flex items-center mt-[5px]">
-                                <button id="decreaseButton" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none">-</button>
-                                <input id="countInput" class="w-10 px-3 py-1 text-center bg-white text-gray-700" type="text" value="0" readonly>
-                                <button id="increaseButton" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none">+</button>
+                                <button class="decreaseButton px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none">-</button>
+                                <input class="countInput w-10 px-3 py-1 text-center bg-white text-gray-700" type="text" value="0" readonly>
+                                <button class="increaseButton px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none">+</button>
                               </div>
                               
                         </div>
                         <div class="flex flex-col">
                             <div>
                                 <!-- <p th:text="'id:' + ${drink.id}"></p> -->
-                            <p class="font-bold my-[5px]" th:text="${drink.name}" id="drinkName"></p> 
+                            <p class="drinkName font-bold my-[5px]" th:text="${drink.name}"></p> 
+                            <p class="drinkPrice font-bold my-[5px]" ></p>
                             
                             <p class="font-semibold"> Size: </p>
                             </div>
                             <div class="flex justify-content gap-2 mt-[5px]">
-                                 <button class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm active:bg-black active:text-white active:black" id="smallButton"> small </button>
-                                <button  class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm active:bg-black active:text-white active:black" id="mediumButton"> medium </button>
-                                <button  class="w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm active:bg-black active:text-white active:black" id="largeButton"> large </button>   
+                                 <button class="size-button w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm active:bg-black active:text-white active:black" id="smallButton"  data-size-id="1"> small </button>
+                                <button  class="size-button w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm active:bg-black active:text-white active:black" id="mediumButton" data-size-id="2"> medium </button>
+                                <button  class="size-button w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm active:bg-black active:text-white active:black" id="largeButton"  data-size-id="3"> large </button>   
                             </div>
                             <div>
-                                <button class="w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px]" id="orderButton"> Order </button>
+                                <button class="order-button w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px]" id="orderButton"> Order </button>
                             </div>
                         
                             
@@ -95,96 +96,305 @@
 <script>
     const buttons = document.querySelectorAll('.category-button');
 
-    // Get all the DOM elements with the class name 'drink-box'
-    const drinkBoxes = document.getElementsByClassName('drink-box');
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const decreaseButtons = document.querySelectorAll('.decreaseButton');
+    const increaseButtons = document.querySelectorAll('.increaseButton');
+    const countInputs = document.querySelectorAll('.countInput');
+    const drinkNameElements = document.querySelectorAll('.drinkName');
+    const drinkPriceElements = document.querySelectorAll('.drinkPrice');
+    const sizeButtons = document.querySelectorAll('.size-button');
+    const orderButtons = document.querySelectorAll('.order-button');
+    const orderInfoElement = document.getElementById('orderInfo');
+
+    const sizePrices = {
+        1: 2.99, // Replace with the actual price for small size
+        2: 3.99, // Replace with the actual price for medium size
+        3: 4.99, // Replace with the actual price for large size
+    };
+
+    for (let i = 0; i < decreaseButtons.length; i++) {
+        let quantity = 0;
+        let selectedSize = '';
+
+        decreaseButtons[i].addEventListener('click', () => {
+        if (quantity > 0) {
+            quantity--;
+            countInputs[i].value = quantity;
+        }
+        });
+
+        increaseButtons[i].addEventListener('click', () => {
+        quantity++;
+        countInputs[i].value = quantity;
+        });
+
+        for (let j = 0; j < sizeButtons.length; j++) {
+        sizeButtons[j].addEventListener('click', () => {
+            const sizeId = sizeButtons[j].getAttribute('data-size-id');
+            selectedSize = getSizeName(sizeId);
+            const price = sizePrices[sizeId];
+            drinkPriceElements[i].innerText = price.toFixed(2);
+
+            // Remove the 'selected' class from all size buttons within the current container
+            const sizeButtonsInContainer = sizeButtons[i].parentElement.querySelectorAll('.size-button');
+            for (let k = 0; k < sizeButtonsInContainer.length; k++) {
+            sizeButtonsInContainer[k].classList.remove('selected');
+            }
+
+        // Add the 'selected' class to the clicked size button
+        sizeButtons[j].classList.add('selected');
+      });
+    }
+
+    orderButtons[i].addEventListener('click', () => {
+      const drinkName = drinkNameElements[i].innerText;
+      const price = parseFloat(drinkPriceElements[i].innerText);
+      const quantity = parseInt(countInputs[i].value);
+      const selectedSize = getSelectedSize(i);
+      const orderItem = {
+        drinkName,
+        price,
+        quantity,
+        selectedSize,
+      };
+
+      // Save the order item to local storage
+      let orderInfo = JSON.parse(localStorage.getItem('orderInfo')) || [];
+      orderInfo.push(orderItem);
+      localStorage.setItem('orderInfo', JSON.stringify(orderInfo));
+
+      // Create a new order information element
+      const newOrderInfoElement = document.createElement('div');
+      newOrderInfoElement.innerHTML = formatOrderInfo(orderItem);
+
+      // Append the new order information to the existing order information div
+      orderInfoElement.appendChild(newOrderInfoElement);
+    });
+  }
+
+  // Display the existing order information in the right div
+  let orderInfo = JSON.parse(localStorage.getItem('orderInfo')) || [];
+  orderInfo.forEach((orderItem) => {
+    const newOrderInfoElement = document.createElement('div');
+    newOrderInfoElement.innerHTML = formatOrderInfo(orderItem);
+    orderInfoElement.appendChild(newOrderInfoElement);
+  });
+
+  function getSizeName(sizeId) {
+    if (sizeId === '1') {
+      return 'Small';
+    } else if (sizeId === '2') {
+      return 'Medium';
+    } else if (sizeId === '3') {
+      return 'Large';
+    }
+  }
+
+  function getSelectedSize(index) {
+    const drinkBox = document.getElementsByClassName('drink-box')[index];
+    const selectedSizeButton = drinkBox.querySelector('.size-button.selected');
+    return selectedSizeButton.innerText;
+  }
+
+  function formatOrderInfo(orderItem) {
+    return `Drink: ${orderItem.drinkName}<br>Quantity: ${orderItem.quantity}<br>Size: ${orderItem.selectedSize}<br>Price: ${orderItem.price.toFixed(2)}<br>`;
+  }
+});
+
+    // Function to clear the order information from local storage
+    function clearOrderInfo() {
+        localStorage.removeItem('orderInfo');
+    }
+
+    // Call the function to clear the order information on page refresh
+    window.addEventListener('beforeunload', clearOrderInfo);
+//     // Function to clear the order information from local storage
+//     function clearOrderInfoOnRefresh() {
+//     if (performance.navigation.type === 1) {
+//         localStorage.removeItem('orderInfo');
+//     }
+// }
+
+//     // Call the function to clear the order information on page refresh
+//     window.addEventListener('beforeunload', clearOrderInfoOnRefresh);
+
+
+
+    // document.addEventListener('DOMContentLoaded', () => {
+    //         const decreaseButtons = document.querySelectorAll('.decreaseButton');
+    //         const increaseButtons = document.querySelectorAll('.increaseButton');
+    //         const countInputs = document.querySelectorAll('.countInput');
+    //         const drinkNameElements = document.querySelectorAll('.drinkName');
+    //         const drinkPriceElements = document.querySelectorAll('.drinkPrice');
+    //         const sizeButtons = document.querySelectorAll('.size-button');
+    //         const orderButtons = document.querySelectorAll('.order-button');
+    //         const orderInfoElement = document.getElementById('orderInfo');
+
+    //         const sizePrices = {
+    //             1: 2.99, // Replace with the actual price for small size
+    //             2: 3.99, // Replace with the actual price for medium size
+    //             3: 4.99, // Replace with the actual price for large size
+    //         };
+
+    //         for (let i = 0; i < decreaseButtons.length; i++) {
+    //             let quantity = 0;
+    //             let selectedSize = '';
+
+    //             decreaseButtons[i].addEventListener('click', () => {
+    //                 if (quantity > 0) {
+    //                     quantity--;
+    //                     countInputs[i].value = quantity;
+    //                 }
+    //             });
+
+    //             increaseButtons[i].addEventListener('click', () => {
+    //                 quantity++;
+    //                 countInputs[i].value = quantity;
+    //             });
+
+    //             for (let j = 0; j < sizeButtons.length; j++) {
+    //                 sizeButtons[j].addEventListener('click', () => {
+    //                     const sizeId = sizeButtons[j].getAttribute('data-size-id');
+    //                     selectedSize = getSizeName(sizeId);
+    //                     const price = sizePrices[sizeId];
+    //                     drinkPriceElements[i].innerText = price.toFixed(2);
+
+    //                     // Remove the 'selected' class from all size buttons within the current container
+    //                     const sizeButtonsInContainer = sizeButtons[i].parentElement.querySelectorAll('.size-button');
+    //                     for (let k = 0; k < sizeButtonsInContainer.length; k++) {
+    //                         sizeButtonsInContainer[k].classList.remove('selected');
+    //                     }
+
+    //                     // Add the 'selected' class to the clicked size button
+    //                     sizeButtons[j].classList.add('selected');
+    //                 });
+    //             }
+
+    //             orderButtons[i].addEventListener('click', () => {
+    //                 const drinkName = drinkNameElements[i].innerText;
+    //                 const price = parseFloat(drinkPriceElements[i].innerText);
+    //                 const quantity = parseInt(countInputs[i].value);
+    //                 const selectedSize = getSelectedSize(i);
+    //                 const orderInfo = `Drink: ${drinkName}<br>Quantity: ${quantity}<br>Size: ${selectedSize}<br>Price: ${price.toFixed(2)}<br>`;
+
+    //                 // Create a new order information element
+    //                 const newOrderInfoElement = document.createElement('div');
+    //                 newOrderInfoElement.innerHTML = orderInfo;
+
+    //                 // Append the new order information to the existing order information div
+    //                 orderInfoElement.appendChild(newOrderInfoElement);
+    //             });
+    //         }
+
+    //         function getSizeName(sizeId) {
+    //             if (sizeId === '1') {
+    //                 return 'Small';
+    //             } else if (sizeId === '2') {
+    //                 return 'Medium';
+    //             } else if (sizeId === '3') {
+    //                 return 'Large';
+    //             }
+    //         }
+
+    //         function getSelectedSize(index) {
+    //             const drinkBox = document.getElementsByClassName('drink-box')[index];
+    //             const selectedSizeButton = drinkBox.querySelector('.size-button.selected');
+    //             return selectedSizeButton.innerText;
+    //         }
+    //     });
+
+
+
 
     
 
     // Get the required elements
-    const orderButton = document.getElementById('orderButton');
-    const drinkNameElement = document.getElementById('drinkName');
-    const smallButton = document.getElementById('smallButton');
-    const mediumButton = document.getElementById('mediumButton');
-    const largeButton = document.getElementById('largeButton');
+//     const orderButton = document.getElementById('orderButton');
+//     const drinkNameElement = document.getElementById('drinkName');
+//     const drinkPriceElement = document.getElementById('drinkPrice');
+//     const smallButton = document.getElementById('smallButton');
+//     const mediumButton = document.getElementById('mediumButton');
+//     const largeButton = document.getElementById('largeButton');
 
-// Add event listeners to the buttons
-    orderButton.addEventListener('click', () => {
-    const drinkName = drinkNameElement.innerText;
-    const size = getSize();
+// // Add event listeners to the buttons
+//     orderButton.addEventListener('click', () => {
+//     const drinkName = drinkNameElement.innerText;
+//     const size = getSize();
 
-    // Update the order information on the right div
-    const orderInfoElement = document.getElementById('orderInfo');
-    orderInfoElement.innerHTML = `<p>Drink: ${drinkName}</p><p>Size: ${size}</p>`;
-});
+//     // Update the order information on the right div
+//     const orderInfoElement = document.getElementById('orderInfo');
+//     orderInfoElement.innerHTML = `<p>Drink: ${drinkName}</p><p>Size: ${size}</p>`;
+// });
 
-    smallButton.addEventListener('click', () => {
-        // Handle small size button click
-        setSize('small');
-    });
+//     smallButton.addEventListener('click', () => {
+//         // Handle small size button click
+//         setSize('small');
+//     });
 
-    mediumButton.addEventListener('click', () => {
-        // Handle medium size button click
-        setSize('medium');
-    });
+//     mediumButton.addEventListener('click', () => {
+//         // Handle medium size button click
+//         setSize('medium');
+//     });
 
-    largeButton.addEventListener('click', () => {
-        // Handle large size button click
-        setSize('large');
-    });
+//     largeButton.addEventListener('click', () => {
+//         // Handle large size button click
+//         setSize('large');
+//     });
 
-// Helper function to get the selected size
-    function getSize() {
-    if (smallButton.classList.contains('selected')) {
-        return 'small';
-    } else if (mediumButton.classList.contains('selected')) {
-        return 'medium';
-    } else if (largeButton.classList.contains('selected')) {
-        return 'large';
-    } else {
-        return '';
-    }
-}
+// // Helper function to get the selected size
+//     function getSize() {
+//     if (smallButton.classList.contains('selected')) {
+//         return 'small';
+//     } else if (mediumButton.classList.contains('selected')) {
+//         return 'medium';
+//     } else if (largeButton.classList.contains('selected')) {
+//         return 'large';
+//     } else {
+//         return '';
+//     }
+// }
 
-// Helper function to set the selected size
-    function setSize(size) {
-    // Remove 'selected' class from all size buttons
-    smallButton.classList.remove('selected');
-    mediumButton.classList.remove('selected');
-    largeButton.classList.remove('selected');
+// // Helper function to set the selected size
+//     function setSize(size) {
+//     // Remove 'selected' class from all size buttons
+//     smallButton.classList.remove('selected');
+//     mediumButton.classList.remove('selected');
+//     largeButton.classList.remove('selected');
 
-    // Add 'selected' class to the clicked size button
-    if (size === 'small') {
-        smallButton.classList.add('selected');
-    } else if (size === 'medium') {
-        mediumButton.classList.add('selected');
-    } else if (size === 'large') {
-        largeButton.classList.add('selected');
-    }
-}
+//     // Add 'selected' class to the clicked size button
+//     if (size === 'small') {
+//         smallButton.classList.add('selected');
+//     } else if (size === 'medium') {
+//         mediumButton.classList.add('selected');
+//     } else if (size === 'large') {
+//         largeButton.classList.add('selected');
+//     }
+// }
 
     // Iterate over each drink box
-    Array.from(drinkBoxes).forEach(function(drinkBox) {
-    // Get the DOM elements within the current drink box
-    const decreaseButton = drinkBox.querySelector('#decreaseButton');
-    const increaseButton = drinkBox.querySelector('#increaseButton');
-    const countInput = drinkBox.querySelector('#countInput');
+    // Array.from(drinkBoxes).forEach(function(drinkBox) {
+    // // Get the DOM elements within the current drink box
+    // const decreaseButton = drinkBox.querySelector('#decreaseButton');
+    // const increaseButton = drinkBox.querySelector('#increaseButton');
+    // const countInput = drinkBox.querySelector('#countInput');
 
-    // Set the initial count value
-    let count = 0;
-    countInput.value = count;
+    // // Set the initial count value
+    // let count = 0;
+    // countInput.value = count;
 
-    // Decrease button click event
-    decreaseButton.addEventListener('click', function() {
-        count--;
-        countInput.value = count;
-    });
+    // // Decrease button click event
+    // decreaseButton.addEventListener('click', function() {
+    //     count--;
+    //     countInput.value = count;
+    // });
 
-    // Increase button click event
-    increaseButton.addEventListener('click', function() {
-        count++;
-        countInput.value = count;
-    });
-    });
+    // // Increase button click event
+    // increaseButton.addEventListener('click', function() {
+    //     count++;
+    //     countInput.value = count;
+    // });
+    // });
 
   
 
