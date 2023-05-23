@@ -36,6 +36,11 @@ public class orders {
     @Column(name = "quantity")
     private int quantity;
 
+    @Column(name = "price")
+    private BigDecimal price;
+
+    
+
     public drink_size getDrink_size_id() {
         return drink_size_id;
     }
@@ -66,6 +71,14 @@ public class orders {
 
     public void setDrink_id(drink drink_id) {
         this.drink_id = drink_id;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
 }

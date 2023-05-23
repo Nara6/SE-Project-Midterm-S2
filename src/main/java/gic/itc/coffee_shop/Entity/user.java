@@ -37,6 +37,20 @@ public class user {
     @Column(name = "image_url")
     private String image_url;
 
+    @Column(name = "age")
+    private String age;
+
+    @Column(name = "gender")
+    private String gender;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp orderTime;
 

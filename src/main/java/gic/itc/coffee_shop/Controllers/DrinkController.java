@@ -98,53 +98,7 @@ public class DrinkController {
 }
 
 
-    // display drink according to it's category
-    // @PostMapping("/listDrink")
-    // public String getDrinksByCategory(@RequestParam String category, Model model) {
-    //     int categoryId;
-    //     if (category.equalsIgnoreCase("hots")) {
-    //         drink_categories drinkCategory = drinkCategoryRepo.findByName("hots")
-    //                 .orElseThrow(() -> new IllegalArgumentException("Invalid category: " +
-    //                         category));
-    //         categoryId = drinkCategory.getId();
-    //     } else if (category.equalsIgnoreCase("cold")) {
-    //         drink_categories drinkCategory = drinkCategoryRepo.findByName("cold")
-    //                 .orElseThrow(() -> new IllegalArgumentException("Invalid category: " +
-    //                         category));
-    //         categoryId = drinkCategory.getId();
-    //     } else {
-    //         // Handle invalid category
-    //         throw new IllegalArgumentException("Invalid category: " + category);
-    //     }
-
-    //     List<drink> drinks = drinkRepo.findByCategory_id(categoryId);
-    //     model.addAttribute("drinks", drinks);
-
-    //     return "listDrink";
-    // }
-
-    // @PostMapping("/listDrink")
-    // public String getDrinksByCategory(@RequestParam String category, Model model)
-    // {
-    // drink_categories drinkCategory;
-    // if (category.equalsIgnoreCase("hots")) {
-    // drinkCategory = drinkCategoryRepo.findByName("hots")
-    // .orElseThrow(() -> new IllegalArgumentException("Invalid category: " +
-    // category));
-    // } else if (category.equalsIgnoreCase("cold")) {
-    // drinkCategory = drinkCategoryRepo.findByName("cold")
-    // .orElseThrow(() -> new IllegalArgumentException("Invalid category: " +
-    // category));
-    // } else {
-    // // Handle invalid category
-    // throw new IllegalArgumentException("Invalid category: " + category);
-    // }
-
-    // List<drink> drink = drinkRepo.findByCategory_id(drinkCategory.getId());
-    // model.addAttribute("drink", drink);
-
-    // return "listDrink";
-    // }
+    
 
 }
 
