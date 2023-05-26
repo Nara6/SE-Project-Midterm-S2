@@ -1,19 +1,24 @@
 package gic.itc.coffee_shop.Controllers;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -22,7 +27,7 @@ import gic.itc.coffee_shop.Entity.drink_categories;
 import gic.itc.coffee_shop.Repository.DrinkCategoriesRepo;
 import gic.itc.coffee_shop.Repository.DrinkRepo;
 
-@RestController
+@Controller
 public class DrinkCategoriesController {
     @Autowired
     DrinkCategoriesRepo Repo;
@@ -30,6 +35,23 @@ public class DrinkCategoriesController {
     @GetMapping("/addDrinkCategory")
     public Object index2() {
         return new ModelAndView("cruddrink");
+    }
+
+    // @PostMapping("/category")
+    // public String category(Model model) {
+    // List<drink_categories> categories = Repo.findAll();
+    // model.addAttribute("categories", categories);
+
+    // return "listDrink";
+    // }
+
+    // get all categories
+    @GetMapping("/categories")
+    public ModelAndView showCategories() {
+        List<drink_categories> categories = (List<drink_categories>) Repo.findAll();
+        ModelAndView mav = new ModelAndView("listDrink");
+        mav.addObject("categories", categories);
+        return mav;
     }
 
     @GetMapping("/drinkCategories")
@@ -48,20 +70,20 @@ public class DrinkCategoriesController {
         }
     }
 
-    @GetMapping("/drinkCategories/{id}")
-    public ResponseEntity<drink_categories> getDrinkCategoriesByID(@PathVariable("id") int id) {
-        try {
-            Optional<drink_categories> dc = Repo.findById(id);
+    // @GetMapping("/drinkCategories/{id}")
+    // public ResponseEntity<drink_categories> getDrinkCategoriesByID(@PathVariable("id") int id) {
+    //     try {
+    //         Optional<drink_categories> dc = Repo.findById(id);
 
-            if (dc.isPresent()) {
-                return new ResponseEntity<>(dc.get(), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    //         if (dc.isPresent()) {
+    //             return new ResponseEntity<>(dc.get(), HttpStatus.OK);
+    //         } else {
+    //             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //         }
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 
     // create drink but it doesnt work when i uncomment the drink_categories entity
     // list in getter setter
@@ -80,7 +102,8 @@ public class DrinkCategoriesController {
     // add new drink category interaction with UI
     @PostMapping("/addDrinkCategory")
     @ResponseBody
-    public ModelAndView addDrinkCategory(@ModelAttribute("dc") drink_categories dc) {
+    public ModelAndView addDrinkCategory(@ModelAttribute("dc") drink_categories dc,
+            @RequestParam("image1") MultipartFile limage) {
         if (dc.getName() == null) {
             // Handle case where required fields are missing
             ModelAndView mav = new ModelAndView("error");
@@ -89,6 +112,17 @@ public class DrinkCategoriesController {
         }
 
         try {
+
+            String fileName = limage.getOriginalFilename();
+            // if fileName is "C:/path/to/my_image.jpg", then cleanFileName will contain
+            // "my_image.jpg", which is the extracted filename from the file path.
+            String cleanFileName = new File(fileName).getName();
+            if (cleanFileName.contains("..")) {
+                System.out.println("not a valid file");
+            }
+
+            dc.setImage_url(Base64.getEncoder().encodeToString(limage.getBytes()));
+
             Repo.save(dc); // Save the drink category to the database
             return new ModelAndView("welcome");
         } catch (Exception e) {
@@ -104,18 +138,5 @@ public class DrinkCategoriesController {
     public Object cancelDrinkCategory() {
         return new ModelAndView("cruddrink");
     }
-
-    // @PostMapping("/addDrinkCategory")
-    // @ResponseBody
-    // public Object task3(@ModelAttribute("dc") drink_categories dc, Model model) {
-    // Repo.save(dc); // save into database
-    // if (dc.getDescription() == null) {
-    // // model.addAttribute("error", "Password field cannot be empty");
-    // return new RedirectView("/login");
-    // }
-    // return new ModelAndView("/welcome");
-    // // }
-    // // return new RedirectView("/login");
-    // }
 
 }

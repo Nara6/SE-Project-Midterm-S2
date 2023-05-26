@@ -1,12 +1,12 @@
 package gic.itc.coffee_shop.Entity;
 
-import java.security.Timestamp;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,35 +19,51 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "orders")
 public class orders {
+
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private user user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "drink_id", referencedColumnName = "id")
+    private drink drink_id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "table_id", referencedColumnName = "id")
-    private tables tables;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "drink_size_id", referencedColumnName = "id")
+    private drink_size drink_size_id;
 
-    @OneToMany(mappedBy = "order_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<order_details> orderDetails;
 
-    @OneToMany(mappedBy = "order_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<history> history;
+    @Column(name = "quantity")
+    private int quantity;
 
-    public List<history> getHistory() {
-        return history;
+    @Column(name = "price")
+    private BigDecimal price;
+
+    public drink_size getDrink_size_id() {
+        return drink_size_id;
     }
 
-    public void setHistory(List<history> history) {
-        this.history = history;
+    public void setDrink_size_id(drink_size drink_size_id) {
+        this.drink_size_id = drink_size_id;
     }
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Timestamp orderTime;
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
     public int getId() {
         return id;
@@ -57,28 +73,12 @@ public class orders {
         this.id = id;
     }
 
-    public user getUser() {
-        return user;
+    public drink getDrink_id() {
+        return drink_id;
     }
 
-    public void setUser(user user) {
-        this.user = user;
-    }
-
-    public tables getTables() {
-        return tables;
-    }
-
-    public void setTables(tables tables) {
-        this.tables = tables;
-    }
-
-    public Timestamp getOrderTime() {
-        return orderTime;
-    }
-
-    public void setOrderTime(Timestamp orderTime) {
-        this.orderTime = orderTime;
+    public void setDrink_id(drink drink_id) {
+        this.drink_id = drink_id;
     }
 
 }

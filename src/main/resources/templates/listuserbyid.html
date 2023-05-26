@@ -7,7 +7,17 @@
     <title>Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
+         .bg{
+            background-image: url("/img/bg.svg");
+        }
     </style>
     
 </head>
@@ -89,7 +99,7 @@
                                  <a href="#listuser" th:href="@{/admin/user/listing}" id="listuser" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">List User</a>
                               </li>
                               <li>
-                                 <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create User</a>
+                                 <a th:href="@{/admin/user/create}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create User</a>
                               </li>
                              
                         </ul>
@@ -128,7 +138,7 @@
                                  <a th:href="@{/admin/drink/listing}" id="listdrink" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Listing</a>
                               </li>
                               <li>
-                                 <a href="#" th:href="@{/admin/drink/create}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Drink</a>
+                                 <a th:href="@{/admin/drink/create}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Drink</a>
                               </li>
                              
                         </ul>
@@ -156,10 +166,10 @@
                         </button>
                         <ul id="dropdown-example2" class="hidden py-2 space-y-2">
                               <li>
-                                 <a href="#" th:href="@{/admin/category/listing}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Listing</a>
+                                 <a th:href="@{/admin/category/listing}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Listing</a>
                               </li>
                               <li>
-                                 <a href="#" th:href="@{/admin/category/create}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Category</a>
+                                 <a th:href="@{/admin/category/create}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Category</a>
                               </li>
                              
                         </ul>
@@ -181,10 +191,11 @@
                         </button>
                         <ul id="dropdown-example3" class="hidden py-2 space-y-2">
                               <li>
-                                 <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Listing</a>
+                                <a th:href="@{/admin/table/listing}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Listing</a>
+
                               </li>
                               <li>
-                                 <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Table</a>
+                                 <a th:href="@{/admin/table/create}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Create Table</a>
                               </li>
                              
                         </ul>
@@ -192,35 +203,56 @@
                 </li>
             </ul>
         </nav>
-        <div class="w-full bg-white flex">
-            <div class=" w-[65%]">
-                <div th:each="data: ${listuser}" class="flex ml-6 pt-0 justify-between mr-6">
-                    <div th:text="${data.getId()}"></div>
-                    <a role="button" th:href="@{/admin/user/listing/{id} (id=${data.getId()})}" th:text="${data.getUsername()}"></a>
-                    <div th:text="${data.getEmail()}"></div>
-                    <div th:text="${data.getUser_type().getName()}"></div>
-                    <div class="flex gap-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="w-6 h-6" role="button">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                          </svg>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" role="button">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-                          </svg>
-                          
+        <div class="w-full bg-white flex bg">
+            <div class="bg-white w-[60%] m-5 mr-0">
+                <div class="flex justify-between bg-[#1F2937] items-center text-white font-bold w-full h-[50px] pl-5">
+                    <div class="w-[10%]">
+                        ID
+                    </div >
+                    <div class="w-[30%]"> 
+                        Username
+                    </div>
+                    <div class="w-[40%]">
+                        Email
+                    </div>
+                    <div class="w-[20%]">
+                        Action
+                    </div>
+                </div> 
+                <div th:each="data: ${listuser}" class="flex justify-between w-full items-center pl-5">
+                    <a class="w-[10%]" th:text="${data.getId()}" th:href="@{/admin/user/listing/{id} (id=${data.getId()})}"></a>
+                    <a class="w-[30%]" role="button" th:href="@{/admin/user/listing/{id} (id=${data.getId()})}" th:text="${data.getUsername()}"></a>
+                    <a class="w-[40%]" th:text="${data.getEmail()}" th:href="@{/admin/user/listing/{id} (id=${data.getId()})}"></a>
+                    <div class="flex gap-x-2 w-[20%]">
+                        <a th:href="@{/admin/user/delete/{id} (id=${data.getId()})}">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#DE3163" class="w-6 h-6" role="button">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                              </svg>
+                        </a>
+                        <a th:href="@{/admin/user/edit/{id} (id=${data.getId()})}" onclick="document.getElementById('edit-form').style.display='block'">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#6495ED" class="w-6 h-6" role="button">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                              </svg>
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class=" w-[35%] flex items-center font-bold text-[20px] mt-3 flex-col  bg-slate-400">
-                <span>Cashier Information</span>
+            <div class=" w-[40%] flex items-center font-bold text-[20px] p-5 flex-col bg-white m-4 rounded-[30px] h-[400px]">
+                <span class="text-[#F45050]" style="font-family:'Montserrat','Courier New', Courier, monospace;">CASHIER INFORMATION</span>
                 <div class="flex w-full">
+                    
                     <div>
-                        <img src="https://i.etsystatic.com/38881100/r/il/0d08bc/4642496341/il_fullxfull.4642496341_8mof.jpg" alt="" class="w-[220px] h-[200px]">
+                        <img src="data:image/jpeg;base64," th:attrappend="src=${userlistbyid.getImage_url()}" alt="" class="w-[200px] h-[200px] mt-4 rounded-full">
                     </div>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col ml-3 mt-4 gap-y-2">
                         <span th:text="${'Name: '+userlistbyid.getUsername()}"></span>
-                        <span>id</span>
-                        <span>id</span>
-
+                        <div th:if="${userlistbyid.getUser_type_id().getName()=='Admin'}">Type: Admin</div>
+                        <div th:unless="${userlistbyid.getUser_type_id().getName()=='Admin'}">Type: Cashier</div>
+                        <span th:text="${'Gender: '+userlistbyid.getGender()}"></span>
+                        <span th:text="${'Age: '+userlistbyid.getAge()}"></span>
+                        <span th:text="${'DoB: '+userlistbyid.getDob()}"></span>
+                        <span th:text="${'Hired Date: '+userlistbyid.getOrderTime()}"></span>
+                        <span th:text="${'Password: '+userlistbyid.getPassword()}"></span>
                     </div>
                 </div>
             </div>

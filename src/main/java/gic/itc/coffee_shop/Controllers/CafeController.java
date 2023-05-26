@@ -25,8 +25,7 @@ import gic.itc.coffee_shop.Entity.user;
 import gic.itc.coffee_shop.Entity.user_type;
 import gic.itc.coffee_shop.Repository.DrinkCategoriesRepo;
 import gic.itc.coffee_shop.Repository.UserRepo;
-// import gic.itc.coffee_shop.Services.UserService;
-// import gic.itc.coffee_shop.util.JwtUtil;
+import gic.itc.coffee_shop.Repository.UserTypeRepo;
 
 // @RestController
 @Controller
@@ -35,8 +34,8 @@ public class CafeController {
     UserRepo Repository;
 
     @GetMapping("/login")
-    public Object index() {
-        return new ModelAndView("loginform");
+    public String index() {
+        return ("loginform");
     }
 
     @GetMapping("/addCashier")
@@ -44,61 +43,64 @@ public class CafeController {
         return new ModelAndView("addCashier");
     }
 
-    @PostMapping("/login")
-    public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password) {
-        // use email as refrence to retrive every row by email or not
-        Optional<user> User = Repository.findByEmail(email);
-        if (User.isPresent()) {
-            // retrieve a row of data from database
-            user optionalUser = User.get();
-            String Password = optionalUser.getPassword();
-            user_type user_type = optionalUser.getUser_type();
-            // user_type user_type = optionalUser.getUser_type();
-            if (Password.equals(password) && user_type.getId() == 2) {
+    // return new route ?
+    // @PostMapping("/login")
+    // public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password) {
+    //     // use email as refrence to retrive every row by email or not
+    //     Optional<user> User = Repository.findByEmail(email);
+    //     if (User.isPresent()) {
+    //         // retrieve a row of data from database
+    //         user optionalUser = User.get();
+    //         String Password = optionalUser.getPassword();
+    //         user_type user_type = optionalUser.getUser_type_id();
+    //         // user_type user_type = optionalUser.getUser_type();
+    //         if (Password.equals(password) && user_type.getId() == 2) {
 
-                ModelAndView mav = new ModelAndView("welcome");
-                mav.addObject("email", email);
-                return mav;
-            } else {
-                ModelAndView mav = new ModelAndView("loginform");
-                mav.addObject("errorMessage", "Invalid password");
-                return mav;
-            }
-        } else {
-            ModelAndView mav = new ModelAndView("loginform");
-            mav.addObject("errorMessage", "Invalid email");
-            return mav;
-        }
-    }
-    @GetMapping("/user/casheir")
-    public Object home(){
-        return new ModelAndView("welcome");
-    }
+    //             ModelAndView mav = new ModelAndView("admin");
+    //             mav.addObject("email", email);
+    //             return mav;
+    //         } else {
+    //             ModelAndView mav = new ModelAndView("loginform");
+    //             mav.addObject("errorMessage", "Invalid password");
+    //             return mav;
+    //         }
+    //     } else {
+    //         ModelAndView mav = new ModelAndView("loginform");
+    //         mav.addObject("errorMessage", "Invalid email");
+    //         return mav;
+    //     }
+    // }
+    // @GetMapping("/user/casheir")
+    // public Object home(){
+    //     return new ModelAndView("welcome");
+    // }
 
-    //login as admin
-    @PostMapping("/admin")
-    public ModelAndView admin(@RequestParam("email") String email, @RequestParam("password") String password) {
+    // login as admin
+    @PostMapping("/login/admin")
+    public String admin(@RequestParam("email") String email, @RequestParam("password") String password) {
         // use email as refrence to retrive every row by email or not
-        Optional<user> User = Repository.findByEmail(email);
-        if (User.isPresent()) {
+        System.out.println(email);
+        user User = Repository.findByEmail(email);
+        if (User!=null) {
             // retrieve a row of data from database
-            user optionalUser = User.get();
-            String Password = optionalUser.getPassword();
-            user_type user_type = optionalUser.getUser_type();
+            // user optionalUser = User.get();
+            String Password = User.getPassword();
+            user_type user_type = User.getUser_type_id();
+            System.out.println(Password);
+            System.out.println(user_type.getId());
+
             // user_type user_type = optionalUser.getUser_type();
             if (Password.equals(password) && user_type.getId() == 1) {
-                ModelAndView mav = new ModelAndView("addCashier");
-                mav.addObject("email", email);
-                return mav;
+                // ModelAndView mav = new ModelAndView("admin");
+                    return "/admin";
             } else {
-                ModelAndView mav = new ModelAndView("loginform");
-                mav.addObject("errorMessage", "Invalid password");
-                return mav;
+                // ModelAndView mav = new ModelAndView("loginform");
+                return "redirect:/login";
+
             }
         } else {
-            ModelAndView mav = new ModelAndView("loginform");
-            mav.addObject("errorMessage", "Invalid email");
-            return mav;
+            System.out.println("hi");
+            return "redirect:/login";
         }
     }
 
@@ -118,36 +120,36 @@ public class CafeController {
         }
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<user> getUserByID(@PathVariable("id") int id) {
-        try {
-            Optional<user> User = Repository.findById(id);
+    // @GetMapping("/user/{id}")
+    // public ResponseEntity<user> getUserByID(@PathVariable("id") int id) {
+    //     try {
+    //         Optional<user> User = Repository.findById(id);
 
-            if (User.isPresent()) {
-                return new ResponseEntity<>(User.get(), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    //         if (User.isPresent()) {
+    //             return new ResponseEntity<>(User.get(), HttpStatus.OK);
+    //         } else {
+    //             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //         }
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 
-    @GetMapping("/user/email/{email}")
-    public ResponseEntity<user> getUserByEmail(@PathVariable("email") String email) {
-        try {
-            Optional<user> User = Repository.findByEmail(email);
-            // System.out.println(user.getEmail());
+    // @GetMapping("/user/email/{email}")
+    // public ResponseEntity<user> getUserByEmail(@PathVariable("email") String email) {
+    //     try {
+    //         Optional<user> User = Repository.findByEmail(email);
+    //         // System.out.println(user.getEmail());
 
-            if (User.isPresent()) {
-                return new ResponseEntity<>(User.get(), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    //         if (User.isPresent()) {
+    //             return new ResponseEntity<>(User.get(), HttpStatus.OK);
+    //         } else {
+    //             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //         }
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 
     @GetMapping("/user/password/{password}")
     public ResponseEntity<user> getUserByPassword(@PathVariable("password") String password) {
@@ -179,50 +181,67 @@ public class CafeController {
     }
 
     // add new cashier
-    @PostMapping("/signup")
-    @ResponseBody
-    public Object task3(@ModelAttribute("User") user User, Model model) {
-        Repository.save(User); // save into database
-        if (User.getPassword() == null || User.getPassword().isEmpty()) {
-            model.addAttribute("error", "Password field cannot be empty");
-            return new RedirectView("/login");
+    @Autowired
+    UserTypeRepo userTypeRepo;
+
+    @PostMapping("/addCashier")
+    public ModelAndView addDrink(@RequestParam("name") String name, @RequestParam("role") String role,
+             @RequestParam("email") String email, @RequestParam("password") String password,
+             @RequestParam("image_url") String image_url) {
+        try {
+            user user = new user();
+           user.setUsername(name);
+
+        // Get the category ID based on the category name
+            Optional<user_type> utOptional = userTypeRepo.findByName(role);
+            if (utOptional.isPresent()) {
+            user_type ut = utOptional.get();
+            user.setUser_type_id(ut);
+        } else {
+            // Handle the case where the category does not exist
+            ModelAndView mav = new ModelAndView("error");
+            mav.addObject("errorMessage", "Invalid category");
+            return mav;
         }
-        return new ModelAndView("/welcome");
-        // }
-        // return new RedirectView("/login");
+ 
+        // Set the price of the drink
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setImage_url(image_url);
+        
+        Repository.save(user);
+        // return new ModelAndView("welcome");
+        ModelAndView mav = new ModelAndView("welcome");
+        mav.addObject("user", user); // Add the drink object to the model with the attribute name "drink"
+        return mav;
+        }catch (Exception e) {
+            // Handle any exceptions that occur during database operation
+            ModelAndView mav = new ModelAndView("error");
+            mav.addObject("errorMessage", "Error saving drink category");
+            return mav;
+        }
     }
     @GetMapping("/calculate")
     public String calculatePrice(){
             return "calculateprice";
         }
 
-    // @Autowired
-    // DrinkCategoriesRepo Repo;
-
-    // @PostMapping("/drinkCategories")
-    // public ResponseEntity<drink_categories> addDrnkCategories(@RequestBody
-    // drink_categories dc) {
-    // try {
-    // // userService.createUser(users);
-    // System.out.println(dc.getName());
-    // Repo.save(dc);
-    // return new ResponseEntity<>(dc, HttpStatus.CREATED);
-    // } catch (Exception e) {
-    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    // add new cashier
+    // @PostMapping("/signup")
+    // @ResponseBody
+    // public Object task3(@ModelAttribute("User") user User, Model model) {
+    // Repository.save(User); // save into database
+    // if (User.getPassword() == null || User.getPassword().isEmpty()) {
+    // model.addAttribute("error", "Password field cannot be empty");
+    // return new RedirectView("/login");
     // }
+    // return new ModelAndView("/welcome");
+    // // }
+    // // return new RedirectView("/login");
     // }
 
-    // create drink categories
-    // @PostMapping("/drinkCategories")
-    // public ResponseEntity<drink_categories> addDrinkCategories(@RequestBody
-    // drink_categories dc) {
-    // try {
-    // System.out.println(dc.getName());
-    // Repo.save(dc);
-    // return new ResponseEntity<>(dc, HttpStatus.CREATED);
-    // } catch (Exception e) {
-    // return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    // }
-    // }
+    
+
+    
 
 }

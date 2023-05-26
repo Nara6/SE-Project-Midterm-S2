@@ -1,4 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="cruddrink.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 *{
     box-sizing: border-box;
     font-size: inherit;
@@ -13,7 +26,8 @@ body{
     justify-content: center;
     align-items: center;
     font-family:'Montserrat','Courier New', Courier, monospace;
-    background-color: lightgrey;
+
+    background-image: url("/img/bg-create.svg");
 }
 
 .form {
@@ -29,7 +43,7 @@ body{
 
 .form .title{
     position: relative;
-    margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 .form .title::after{
@@ -240,13 +254,21 @@ body{
      cursor: pointer;
 
    }
-   .container .button input:nth-child(1){
+   .container .button :nth-child(1){
     flex: 3;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
     background-color: #FF4B2B;
    
    }
-   .container .button input:nth-child(2){
+   .container .button :nth-child(2){
     flex: 1;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
     background-color: rgb(0,0,0);
    }
 
@@ -261,3 +283,127 @@ body{
     opacity: 0.2;
     display: none;
 }
+/* .cancelDrink button {
+    border: none;
+    padding: 7px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #FF4B2B;
+    color: #fff;
+    flex: 3;
+} */
+    </style>
+    
+</head>
+
+<body>
+    <form th:action="@{/admin/category/creating}" th:object="${category}" method="post" enctype="multipart/form-data">
+    <div class="form">
+        <div class="title">
+            <h4>CREATE NEW CATEGORY</h4>
+            <p>Input CATEGORY information</p>
+        </div>
+        <div class="even-column">
+            <div class="child">
+                <div class="input-element">
+                    <label for="">Name</label>
+                    <input type="text" name="name">
+                </div>
+                
+                <div class="input-element">
+                    <label for="">Description</label>
+                    <input type="text" name="description">
+                </div>
+                <div class="button-element">
+                    <button>Done</button>
+                    <!-- <button>Cancel</button> -->
+                </div>
+            </div>
+            <div class="child2">
+                <div class="image-container">
+                    <img src="" alt="" id="output">
+                    <span>Image</span>
+                </div>
+                <div class="file">
+                    <label for="file">Upload</label>
+                    <input name="image_url" id="file" type="file" onchange="loadFile(event)">
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+
+    <!-- <form class="cancelDrink"> 
+        <button>Cancel</button>
+    </form> -->
+
+    
+    <!-- <div class="container" id="popup"> -->
+        <!-- <form th:action="@{/addDrinkCategory}" th:object="${dc}" method="post">
+        <div class="box1">
+            <h3>New Category</h3>
+
+        </div>
+        <div class="box2">
+            <div class="input">
+                <label for="catecode">Category code </label><span>: </span>
+                <input type="text" id="catecode" name="id"><br>
+
+            </div>
+            <div class="input">
+                <label for="catecode">Category name </label><span>: </span>
+                <input type="text" id="catename" name="name"><br>
+
+            </div>
+
+        </div>
+        <div class="button">
+            <button value="OK" id="agree"> OK </button>
+        <form th:action="@{/cancelAddDrinkCategory}" th:object="${dc}" method="post"> -->
+            <!-- <button  value="Cancel" id="cancel" > Cancel </button> -->
+        <!-- </form> -->
+            <!-- <input type="button" value="OK" id="agree">
+            <input type="button" value="Cancel" id="cancel"> -->
+
+
+        <!-- </div> -->
+    <!-- </form> -->
+    <!-- </div> -->
+    
+
+    <div class="overlay" id="overlay"></div>
+</body>
+<script>
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+
+    const button_add = document.getElementById('add_category')
+    const overlay = document.getElementById('overlay')
+    const popup = document.getElementById('popup')
+    const cancel = document.getElementById('cancel')
+    const agree = document.getElementById('agree')
+
+    button_add.onclick = () => {
+        overlay.style.display = "block"
+        popup.style.display = "block"
+    }
+
+    cancel.onclick = () => {
+        overlay.style.display = "none"
+        popup.style.display = "none"
+    }
+
+    agree.onclick = () => {
+        overlay.style.display = "none"
+        popup.style.display = "none"
+    }
+
+</script>
+
+</html>

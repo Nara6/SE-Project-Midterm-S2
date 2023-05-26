@@ -12,14 +12,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-// @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "drink")
+@Table(name = "Drink")
 public class drink {
     @Id
     @Column(nullable = false)
@@ -32,7 +32,8 @@ public class drink {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "image_url")
+    @Lob
+    @Column(name = "image_url", length = 11111000)
     private String image_url;
 
     // @OneToOne(cascade = CascadeType.ALL)
@@ -40,19 +41,17 @@ public class drink {
     // private drink_categories d_categories;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id" ,referencedColumnName = "id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private drink_categories category_id;
 
-    @OneToMany(mappedBy = "drink_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<order_details> orderDetails;
+    @OneToMany(mappedBy = "drink_id", cascade = CascadeType.ALL)
+    private List<orders> orderDetails;
 
-    
-
-    public List<order_details> getOrderDetails() {
+    public List<orders> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(List<order_details> orderDetails) {
+    public void setOrderDetails(List<orders> orderDetails) {
         this.orderDetails = orderDetails;
     }
 

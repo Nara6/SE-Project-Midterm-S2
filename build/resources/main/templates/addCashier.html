@@ -1,309 +1,457 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIC Café</title>
-    <!-- <link rel="stylesheet" href="login.css" > -->
+    <title>Document</title>
+    <link rel="stylesheet" href="cruddrink.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"
+    rel="stylesheet" />
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+    <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    <script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+        fontFamily: {
+            sans: ["Roboto", "sans-serif"],
+            body: ["Roboto", "sans-serif"],
+            mono: ["ui-monospace", "monospace"],
+        },
+        },
+        corePlugins: {
+        preflight: false,
+        },
+    };
+    </script>
+
     <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+*{
+    box-sizing: border-box;
+    font-size: inherit;
+    padding: 0;
+    margin: 0;
+}
 
-    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:'Montserrat','Courier New', Courier, monospace;
+    background-image: url("/img/bg-create.svg");
+}
 
-    * {
-        box-sizing: border-box;
-    }
+.form {
+    width: 900px;
+    height: 600px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 40px;
+    border-top-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    z-index: 999;
+    background: #fff;
+}
 
-    body {
-        background: #f6f5f7;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        font-family: 'Montserrat', sans-serif;
-        height: 100vh;
-        margin: -20px 0 50px;
-    }
+.form .title{
+    position: relative;
+    margin-top: 50px;
+}
 
-    h1 {
-        font-weight: bold;
-        margin: 0;
-    }
+.form .title::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: 1px solid rgb(160, 135, 250);
+    height: 1px;
+    width: 80%;
+}
 
-    h2 {
-        text-align: center;
-    }
+.form .title h4{
+    font-weight: 600;
+    font-size: 32px;
+}
 
-    p {
-        font-size: 14px;
-        font-weight: 100;
-        line-height: 20px;
-        letter-spacing: 0.5px;
-        margin: 20px 0 30px;
-    }
+.form .title p{
+    font-size: 18px;
+}
 
-    span {
-        font-size: 12px;
-    }
+.form .even-column{
+    display: flex;
+    align-items: center;
+}
 
-    a {
-        color: #333;
-        font-size: 14px;
-        text-decoration: none;
-        margin: 15px 0;
-    }
+.form .even-column > *{
+    flex-basis: 100%;
+    /* border: 1px solid black; */
+}
 
-    button {
-        border-radius: 20px;
-        border: 1px solid #FF4B2B;
-        background-color: #FF4B2B;
-        color: #FFFFFF;
-        font-size: 12px;
-        font-weight: bold;
-        padding: 12px 45px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        transition: transform 80ms ease-in;
-    }
+.form .even-column .child .input-element{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    margin-bottom: 30px;
+}
 
-    button:active {
-        transform: scale(0.95);
-    }
+.form .even-column .child .input-element label{
+    position: absolute;
+    font-size: 12px;
+    left: 0px;
+    background: #FF4B2B;
+    width: 110px;
+    color: #fff;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+    border-radius: 5px;
+    font-weight: 600;
+}
 
-    button:focus {
-        outline: none;
-    }
+.form .even-column .child .input-element input{
+    width: 100%;
+    padding: 5px 10px;
+    border: 1px solid rgb(53, 85, 100);
+    border-radius: 5px;
+    outline: none;
+    padding-left: 120px;
+    padding-right: 30px;
+}
 
-    button.ghost {
-        background-color: transparent;
-        border-color: #FFFFFF;
-    }
+.form .even-column .child .input-element:nth-child(4) div{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
 
-    form {
-        background-color: #FFFFFF;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        padding: 0 50px;
-        height: 100%;
-        text-align: center;
-    }
+.form .even-column .child .button-element{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-    input {
-        background-color: #eee;
-        border: none;
-        padding: 12px 15px;
-        margin: 8px 0;
-        width: 100%;
-    }
+.form .even-column .child .button-element button{
+    border: none;
+    padding: 7px 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
-    .container {
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
-                0 10px 10px rgba(0,0,0,0.22);
-        position: relative;
-        overflow: hidden;
-        width: 768px;
-        max-width: 100%;
-        min-height: 480px;
-    }
+.form .even-column .child .button-element button:nth-child(1){
+    flex: 3;
+    background: #FF4B2B;
+    color: #fff;
+}
 
-    .form-container {
-        position: absolute;
-        top: 0;
-        height: 100%;
-        transition: all 0.6s ease-in-out;
-    }
+.form .even-column .child .button-element button:nth-child(2){
+    flex: 1;
+    background: rgb(0,0,0);
+    color: #fff;
+}
 
-    .sign-in-container {
-        left: 0;
-        width: 50%;
-        z-index: 2;
-    }
+.form .even-column .child2{
+    height: 300px;
+    display: flex;
+    gap: 60px;
+    flex-direction: column;
+    align-items: center;
+}
 
-    .container.right-panel-active .sign-in-container {
-        transform: translateX(100%);
-    }
+.form .even-column .child2 .image-container{
+    border: 1px solid slategray;
+    border-radius: 10px;
+    height: 200px;
+    width: 300px;
+    overflow: hidden;
+}
 
-    .sign-up-container {
-        left: 0;
-        width: 50%;
-        opacity: 0;
-        z-index: 1;
-    }
+.form .even-column .child2 .image-container img{
+    width: 100%;
+    object-fit: cover;
+}
 
-    .container.right-panel-active .sign-up-container {
-        transform: translateX(100%);
-        opacity: 1;
-        z-index: 5;
-        animation: show 0.6s;
-    }
+.form .even-column .child2 .image-container span{
+    font-size: 32px;
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: slategray;
+}
 
-    @keyframes show {
-        0%, 49.99% {
-            opacity: 0;
-            z-index: 1;
-        }
-        
-        50%, 100% {
-            opacity: 1;
-            z-index: 5;
-        }
-    }
+.form .even-column .child2 .file input{
+    display: none;
+}
 
-    .overlay-container {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 50%;
-        height: 100%;
-        overflow: hidden;
-        transition: transform 0.6s ease-in-out;
-        z-index: 100;
-    }
+.form .even-column .child2 .file label{
+    padding: 7px 40px;
+    background: #FF4B2B;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 800px;
+    cursor: pointer;
+}
 
-    .container.right-panel-active .overlay-container{
-        transform: translateX(-100%);
-    }
 
-    .overlay {
-        background: #FF416C;
-        background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-        background: linear-gradient(to right, #FF4B2B, #FF416C);
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: 0 0;
-        color: #FFFFFF;
-        position: relative;
-        left: -100%;
-        height: 100%;
-        width: 200%;
-        transform: translateX(0);
-        transition: transform 0.6s ease-in-out;
-    }
 
-    .container.right-panel-active .overlay {
-        transform: translateX(50%);
-    }
+/* container */
 
-    .overlay-panel {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        padding: 0 40px;
-        text-align: center;
-        top: 0;
-        height: 100%;
-        width: 50%;
-        transform: translateX(0);
-        transition: transform 0.6s ease-in-out;
-    }
 
-    .overlay-left {
-        transform: translateX(-20%);
-    }
+.container{
+    width: 400px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1001;
+    padding: 20px 20px;
+    border-radius: 10px;
+    display: none;
+}
+   .container .box1{
+    border-bottom: 1px solid silver;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
 
-    .container.right-panel-active .overlay-left {
-        transform: translateX(0);
-    }
+   }
+   .container .box2{
+    padding: 5px;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 5px;
+    padding-right: 15px;
+   }
+   .container .box2 input{
+    height: 20px;
+    border: 1px solid silver;
+   }
+   .container label{
+    width: 120px;
+   }
+   .container span{
+    width: 10px;
+   }
+   .container .input{
+    display: flex;
+    align-items: center;
 
-    .overlay-right {
-        right: 0;
-        transform: translateX(0);
-    }
+   }
+   .container .button{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+   }
+   .container .button input{
+    
+    text-align: center;
+    padding: 5px;
+     border: none;
+     border-radius: 5px;
+     color: white;
+     cursor: pointer;
 
-    .container.right-panel-active .overlay-right {
-        transform: translateX(20%);
-    }
+   }
+   .container .button :nth-child(1){
+    flex: 3;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FF4B2B;
+   
+   }
+   .container .button :nth-child(2){
+    flex: 1;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(0,0,0);
+   }
 
-    .social-container {
-        margin: 20px 0;
-    }
+/*  */
 
-    .social-container a {
-        border: 1px solid #DDDDDD;
-        border-radius: 50%;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 5px;
-        height: 40px;
-        width: 40px;
-    }
-
-    footer {
-        background-color: #222;
-        color: #fff;
-        font-size: 14px;
-        bottom: 0;
-        position: fixed;
-        left: 0;
-        right: 0;
-        text-align: center;
-        z-index: 999;
-    }
-
-    footer p {
-        margin: 10px 0;
-    }
-
-    footer i {
-        color: red;
-    }
-
-    footer a {
-        color: #3c97bf;
-        text-decoration: none;
-    }
-        </style>
+.overlay{
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.2;
+    display: none;
+}
+/* .cancelDrink button {
+    border: none;
+    padding: 7px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #FF4B2B;
+    color: #fff;
+    flex: 3;
+} */
+    </style>
     
 </head>
+
 <body>
-    <h2>Sign in and Sign up Form to <span style="color:#FF416C; font-size: 25px; ">Coffee Shop System</span></h2>
-<div class="container" id="container">
-	<div class="form-container sign-up-container">
-		<form th:action="@{/addCashier}" th:object="${users}" method="post">
-			<h1>Create Account</h1>
-			<span>or use your email for registration</span>
-			<input name="username" type="text" placeholder="Name"  />
-			<input name="email" type="email" placeholder="Email" />
-			<input name="password" type="password" placeholder="Password" />
-			<button>Sign Up</button>
-		</form>
-	</div>
-	
-	<div class="overlay-container">
-		<div class="overlay">
-			<div class="overlay-panel overlay-left">
-				<h1>Welcome Back!</h1>
-				<p>To keep connected with us please login with your personal info</p>
-				<button class="ghost" id="signIn">Sign In</button>
-			</div>
-			<div class="overlay-panel overlay-right">
-				<h1>Hello, Friend!</h1>
-				<p>Enter your personal details and start journey with us</p>
-				<button class="ghost" id="signUp">Sign Up</button>
-			</div>
-		</div>
-	</div>
-</div>
+    <form th:action="@{/admin/user/creating}" th:object="${user}" method="post" enctype="multipart/form-data">
+    <div class="form">
+        <div class="title">
+            <h4>CREATE NEW USER</h4>
+            <p>Input user information</p>
+        </div>
+        <div class="even-column">
+            <div class="child">
+                <div class="input-element">
+                    <label for="">Username</label>
+                    <input type="text" name="name">
+                </div>
+                <div class="input-element">
+                    <label for="">Email</label>
+                    <input type="text" name="email">
+                </div>
+                <div class="input-element">
+                    <label for="">Age</label>
+                    <input type="text" name="age">
+                </div>
+                <select name="gender" class="w-full h-[40px] border-[2px] border-black mb-4 text-center">
+                    <option th:value="0">Male</option>
+                    <option th:value="1">Female</option>
+                </select>
+                <div
+                    class="relative mb-3 border-black border-[2px]"
+                    data-te-datepicker-init
+                    data-te-format="yyyy-mm-dd"
+                    data-te-input-wrapper-init>
+                    <input name="dob" 
+                        type="text"
+                        class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                        placeholder="Select a date" />
+                    <label
+                        for="floatingInput"
+                        class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                        >Select a date</label
+                    >
+                </div>
+                
+  
+                <div class="input-element">
+                    <label for="">Password</label>
+                    <input type="password" name="password">
+                </div>
+                <div class="button-element">
+                    <button>Done</button>
+                    <!-- <button>Cancel</button> -->
+                </div>
+            </div>
+            <div class="child2">
+                <div class="image-container">
+                    <img src="" alt="" id="output">
+                    <span>Image</span>
+                </div>
+                <div class="file">
+                    <label for="file">Upload</label>
+                    <input name="image_url" id="file" type="file" onchange="loadFile(event)">
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
 
-<script>
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
-    const container = document.getElementById('container');
+    <!-- <form class="cancelDrink"> 
+        <button>Cancel</button>
+    </form> -->
 
-    signUpButton.addEventListener('click', () => {
-        container.classList.add("right-panel-active");
-    });
+    
+    <!-- <div class="container" id="popup"> -->
+        <!-- <form th:action="@{/addDrinkCategory}" th:object="${dc}" method="post">
+        <div class="box1">
+            <h3>New Category</h3>
 
-    signInButton.addEventListener('click', () => {
-        container.classList.remove("right-panel-active");
-    });
-</script>
+        </div>
+        <div class="box2">
+            <div class="input">
+                <label for="catecode">Category code </label><span>: </span>
+                <input type="text" id="catecode" name="id"><br>
+
+            </div>
+            <div class="input">
+                <label for="catecode">Category name </label><span>: </span>
+                <input type="text" id="catename" name="name"><br>
+
+            </div>
+
+        </div>
+        <div class="button">
+            <button value="OK" id="agree"> OK </button>
+        <form th:action="@{/cancelAddDrinkCategory}" th:object="${dc}" method="post"> -->
+            <!-- <button  value="Cancel" id="cancel" > Cancel </button> -->
+        <!-- </form> -->
+            <!-- <input type="button" value="OK" id="agree">
+            <input type="button" value="Cancel" id="cancel"> -->
+
+
+        <!-- </div> -->
+    <!-- </form> -->
+    <!-- </div> -->
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script> -->
+    <!-- <div class="overlay" id="overlay"></div> -->
 </body>
+<script>
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+
+    const button_add = document.getElementById('add_category')
+    const overlay = document.getElementById('overlay')
+    const popup = document.getElementById('popup')
+    const cancel = document.getElementById('cancel')
+    const agree = document.getElementById('agree')
+
+    button_add.onclick = () => {
+        overlay.style.display = "block"
+        popup.style.display = "block"
+    }
+
+    cancel.onclick = () => {
+        overlay.style.display = "none"
+        popup.style.display = "none"
+    }
+
+    agree.onclick = () => {
+        overlay.style.display = "none"
+        popup.style.display = "none"
+    }
+
+</script>
+
 </html>

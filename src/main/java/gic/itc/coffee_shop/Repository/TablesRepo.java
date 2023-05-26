@@ -7,5 +7,5 @@ import gic.itc.coffee_shop.Entity.tables;
 
 @Repository
 public interface TablesRepo extends CrudRepository<tables,Integer>{
-    
+    tables findById(int id);
 }

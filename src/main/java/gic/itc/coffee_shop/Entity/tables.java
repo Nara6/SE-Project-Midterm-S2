@@ -25,16 +25,17 @@ public class tables {
     @Column(name = "status", columnDefinition = "boolean default true")
     private boolean status;
 
-    @OneToMany(mappedBy = "table_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<history> history;
+    // @OneToMany(mappedBy = "table_id", cascade = CascadeType.ALL, orphanRemoval =
+    // true)
+    // private List<history> history;
 
-    public List<history> getHistory() {
-        return history;
-    }
+    // public List<history> getHistory() {
+    //     return history;
+    // }
 
-    public void setHistory(List<history> history) {
-        this.history = history;
-    }
+    // public vsoid setHistory(List<history> history) {
+    //     this.history = history;
+    // }
 
     public int getId() {
         return id;

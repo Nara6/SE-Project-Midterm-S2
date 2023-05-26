@@ -15,7 +15,7 @@
     }
 
     body {
-        background: #f6f5f7;
+        /* background: #f6f5f7; */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -23,6 +23,8 @@
         font-family: 'Montserrat', sans-serif;
         height: 100vh;
         margin: -20px 0 50px;
+        background-image: url("/img/bg.svg");
+        backdrop-filter: blur(6px);
     }
 
     h1 {
@@ -170,7 +172,7 @@
 
     .overlay {
         background: #FF416C;
-        background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+        background: -webkit-linear-gradient(to right, rgb(255, 75, 43), #FF416C);
         background: linear-gradient(to right, #FF4B2B, #FF416C);
         background-repeat: no-repeat;
         background-size: cover;
@@ -263,10 +265,10 @@
     
 </head>
 <body>
-    <h2>Admin and Cashier Form to <span style="color:#FF416C; font-size: 25px; ">Coffee Shop System</span></h2>
+    <h2 style="color: white;">Admin and Cashier Form to <span style="color:#FF416C; font-size: 25px; ">Coffee Shop System</span></h2>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form th:action="@{/admin}" th:object="${users}" method="post">
+		<form th:action="@{/login/admin}" th:object="${users}" method="post">
 			<h1>Admin</h1>
 			<span>or use your email for registration</span>
 			<!-- <input name="username" type="text" placeholder="Name"  /> -->

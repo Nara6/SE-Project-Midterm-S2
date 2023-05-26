@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan({"gic.itc.coffee_shop.Controllers","gic.itc.coffee_shop.Services"})
 @EntityScan("gic.itc.coffee_shop.Entity")
 @EnableJpaRepositories("gic.itc.coffee_shop.Repository")
-@SpringBootApplication(exclude={SecurityAutoConfiguration.class})
+// @SpringBootApplication(exclude={SecurityAutoConfiguration.class})
 public class CoffeeShopApplication {
 
 	public static void main(String[] args) {
