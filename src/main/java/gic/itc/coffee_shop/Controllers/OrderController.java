@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 
+// import aj.org.objectweb.asm.TypeReference;
 import gic.itc.coffee_shop.Entity.OrderData;
 import gic.itc.coffee_shop.Entity.OrderDataList;
 import gic.itc.coffee_shop.Entity.orders;
 import gic.itc.coffee_shop.Repository.OrderRepo;
+
 
 @Controller
 public class OrderController {
@@ -29,43 +32,35 @@ public class OrderController {
 
     @PostMapping("/saveOrder")
     public String saveOrder(@RequestParam("orderData") String orderDataString) {
-        // orders order = new orders();
-    try {
-        ObjectMapper objectMapper = new ObjectMapper();
-            OrderDataList orderDataList = objectMapper.readValue(orderDataString, OrderDataList.class);
-
-            List<OrderData> orderList = orderDataList.getOrderList();
-            for (OrderData orderData : orderList) {
-                orders order = new orders(); // Create a new 'orders' object for each order item
-
+        try {
+            // Use ObjectMapper to convert the JSON string to a List<OrderData>
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<OrderData> orderDataList = objectMapper.readValue(orderDataString, new TypeReference<List<OrderData>>() {});
+    
+            for (OrderData orderData : orderDataList) {
+                // Create a new 'orders' object for each order item
+                orders order = new orders();
+    
                 // Access individual OrderData object properties
                 String drinkName = orderData.getDrinkName();
-                String drinkSize = orderData.getDrinkSize();
+                String drinkSize = orderData.getSelectedSize();
                 BigDecimal price = orderData.getPrice();
                 int quantity = orderData.getQuantity();
-
+    
+                order.setDrinkName(drinkName);
+                order.setDrinkSize(drinkSize);
                 order.setPrice(price);
                 order.setQuantity(quantity);
-
+    
                 orderRepo.save(order);
-    // Process the OrderData object
-    // ...
-}
-        // orderRepo.save(order);
-        // Access the properties of the orderData object
-        // String productName = orderData.getProductName();
-        // int quantity = orderData.getQuantity();
-        // ...
-
-        // Process the order data and save it to the database
-        // ...
-
-        // Redirect to a success page or return a response
-        return "redirect:/welcome";
-    } catch (Exception e) {
-        // Handle any exceptions during deserialization
-        // ...
-        return "redirect:/errorPage";
-    }
-}
+            }
+    
+            // Redirect to a success page or return a response
+            return "redirect:/welcome";
+        } catch (Exception e) {
+            // Handle any exceptions during deserialization
+            e.printStackTrace();
+            return "redirect:/errorPage";
+        }
+    }   
 }

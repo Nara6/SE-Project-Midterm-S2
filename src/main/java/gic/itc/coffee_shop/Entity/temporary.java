@@ -17,27 +17,19 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "orders")
-public class orders {
+@Table(name = "temporary")
+public class temporary {
 
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "drink_id", referencedColumnName = "id")
-    private drink drink_id;
+    @Column(name = "drink_name")
+    private String drink_name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "drink_size_id", referencedColumnName = "id")
-    private drink_size drink_size_id;
-
-    @Column(name = "drinkName")
-    private String drinkName;
-
-    @Column(name = "drinkSize")
-    private String drinkSize;
+    @Column(name = "size")
+    private String size;
 
     @Column(name = "quantity")
     private int quantity;
@@ -45,7 +37,6 @@ public class orders {
     @Column(name = "price")
     private BigDecimal price;
 
-    
     public int getId() {
         return id;
     }
@@ -54,36 +45,20 @@ public class orders {
         this.id = id;
     }
 
-    public drink getDrink_id() {
-        return drink_id;
+    public String getDrink_name() {
+        return drink_name;
     }
 
-    public void setDrink_id(drink drink_id) {
-        this.drink_id = drink_id;
+    public void setDrink_name(String drink_name) {
+        this.drink_name = drink_name;
     }
 
-    public drink_size getDrink_size_id() {
-        return drink_size_id;
+    public String getSize() {
+        return size;
     }
 
-    public void setDrink_size_id(drink_size drink_size_id) {
-        this.drink_size_id = drink_size_id;
-    }
-
-    public String getDrinkName() {
-        return drinkName;
-    }
-
-    public void setDrinkName(String drinkName) {
-        this.drinkName = drinkName;
-    }
-
-    public String getDrinkSize() {
-        return drinkSize;
-    }
-
-    public void setDrinkSize(String drinkSize) {
-        this.drinkSize = drinkSize;
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public int getQuantity() {
@@ -103,7 +78,8 @@ public class orders {
     }
 
     
+
     
 
-
+   
 }

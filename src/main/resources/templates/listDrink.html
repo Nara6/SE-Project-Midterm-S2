@@ -40,6 +40,7 @@
         <hr class="w-[95%] h-[2px] bg-black mx-7">
         <div class="flex justify-center w-full h-[87%] mx-auto">
             <div class="left w-[70%] h-full rounded-lg overflow-auto">
+              
                 <form action="/listDrink" method="get">
                     <div class="flex flex-wrap gap-4 p-4 mx-[15px]">
                         <div th:each="category : ${categories}">
@@ -65,10 +66,10 @@
                         <div class="flex flex-col">
                             <div>
                                 <!-- <p th:text="'id:' + ${drink.id}"></p> -->
-                            <p class="drinkName font-bold my-[5px]" th:text="${drink.name}"></p> 
-                            <p class="drinkPrice font-bold my-[5px]" ></p>
-                            
-                            <p class="font-semibold"> Size: </p>
+                              <p class="drinkName font-bold my-[5px]" th:text="${drink.name}"></p> 
+                              <p class="drinkPrice font-bold my-[5px]" ></p>
+                              
+                              <p class="font-semibold"> Size: </p>
                             </div>
                             <div class="flex justify-content gap-2 mt-[5px]">
                                  <button class="size-button w-[70px] h-[2px] p-4 flex justify-center items-center bg-[#F5F7FB] rounded-[60px] border-2 border-gray-500 font-semibold text-slate-700 text-sm active:bg-black active:text-white active:black" id="smallButton"  data-size-id="1"> small </button>
@@ -78,9 +79,6 @@
                             <div>
                                 <button class="order-button w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px] active:bg-[#F5F7FB] active:text-black" id="orderButton"> Order </button>
                             </div>
-                        
-                            
-
                         </div>
                     </div>
                     </div>
@@ -88,14 +86,15 @@
             </div>
             <div class="right w-[25%] bg-white border-2 rounded-[20px] m-[20px]">
                 <h2 class="p-5 align-items font-bold">Order information</h2>
-                <form action="/saveOrder" method="post" id="orderForm">
-                <div id="orderInfo"></div>    
-                <!-- <button class="w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px] active:bg-[#F5F7FB] active:text-black" id="clearButton"> clear </button> -->
-                <button class="w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px] active:bg-[#F5F7FB] active:text-black"> confirm order </button>
+              <form action="/saveOrder" method="post" id="orderForm">
+                  <div id="orderInfo"></div>    
+                  <!-- <button class="w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px] active:bg-[#F5F7FB] active:text-black" id="clearButton"> clear </button> -->
+                  <button class="w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px] active:bg-[#F5F7FB] active:text-black" id="confirmButton"> confirm order </button>
 
-                <!-- Hidden input field to store the order data -->
-                <input type="hidden" name="orderData" id="orderData">
+                  <!-- Hidden input field to store the order data -->
+                  <input type="hidden" name="orderData" id="orderData">
               </form>
+              <button class="w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px] active:bg-[#F5F7FB] active:text-black" id="clearButton"> clear </button>
               </div>
         </div>
     </div>
@@ -105,6 +104,7 @@
     const clearButton = document.getElementById('clearButton');
     const orderInfoElement = document.getElementById('orderInfo');
 
+    //ui of admin dashboard
     document.addEventListener('DOMContentLoaded', () => {
     const decreaseButtons = document.querySelectorAll('.decreaseButton');
     const increaseButtons = document.querySelectorAll('.increaseButton');
@@ -114,6 +114,9 @@
     const sizeButtons = document.querySelectorAll('.size-button');
     const orderButtons = document.querySelectorAll('.order-button');
     const orderInfoElement = document.getElementById('orderInfo');
+
+
+
 
     const sizePrices = {
         1: 2.99, // Replace with the actual price for small size
@@ -180,6 +183,12 @@
       const newOrderInfoElement = document.createElement('div');
       newOrderInfoElement.innerHTML = formatOrderInfo(orderItem);
 
+      //print data from localstorage
+      // Retrieve the order data from localStorage
+      const orderData = JSON.parse(localStorage.getItem('orderInfo'));
+      // Print the retrieved order data on the console
+      console.log(orderData);
+
       // Append the new order information to the existing order information div
       orderInfoElement.appendChild(newOrderInfoElement);
     });
@@ -213,20 +222,32 @@
     return `Drink: ${orderItem.drinkName}<br>Quantity: ${orderItem.quantity}<br>Size: ${orderItem.selectedSize}<br>Price: ${orderItem.price.toFixed(2)}<br>`;
   }
   
-  // Retrieve the order data from local storage
-  const orderData = JSON.parse(localStorage.getItem('orderInfo')) || [];
-
-  // Set the order data to the hidden input field
-  const orderDataField = document.getElementById('orderData');
-  orderDataField.value = JSON.stringify(orderData)
-
-//    window.addEventListener('beforeunload', clearOrderInfoOnRefresh);
-
-//     clearButton.addEventListener('click', () => {
-//     localStorage.removeItem('orderInfo');
-//     orderInfoElement.innerHTML = ''; // Clear the content of the orderInfo element
-// });
 });
+
+  //save into db
+  function submitOrderForm(){
+      // Retrieve the order data from localStorage
+      // const orderData = JSON.parse(localStorage.getItem('orderInfo'));
+      let orderData = JSON.parse(localStorage.getItem('orderInfo')) || [];
+
+      // Print the retrieved order data on the console
+      console.log(orderData);
+
+      // Convert the order data to a string
+      const orderDataString = JSON.stringify(orderData);
+
+
+      // Set the order data to the hidden input field
+      const orderDataField = document.getElementById('orderData');
+      orderDataField.value = orderDataString;
+
+      // Submit the form programmatically
+      const orderForm = document.getElementById('orderForm');
+      orderForm.submit();
+    }
+
+  const confirmButton = document.getElementById('confirmButton');
+  confirmButton.addEventListener('click', submitOrderForm);
   
 
     // Function to clear the order information from local storage

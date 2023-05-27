@@ -124,7 +124,7 @@ public class DrinkCategoriesController {
             dc.setImage_url(Base64.getEncoder().encodeToString(limage.getBytes()));
 
             Repo.save(dc); // Save the drink category to the database
-            return new ModelAndView("welcome");
+            return new ModelAndView("cruddrink");
         } catch (Exception e) {
             // Handle any exceptions that occur during database operation
             ModelAndView mav = new ModelAndView("error");

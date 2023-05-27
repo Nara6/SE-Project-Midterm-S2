@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class OrderData {
     private String drinkName;
-    private String drinkSize;
+    private String selectedSize;
     private int quantity;
     private BigDecimal price;
     
@@ -14,11 +14,12 @@ public class OrderData {
     public void setDrinkName(String drinkName) {
         this.drinkName = drinkName;
     }
-    public String getDrinkSize() {
-        return drinkSize;
+    
+    public String getSelectedSize() {
+        return selectedSize;
     }
-    public void setDrinkSize(String drinkSize) {
-        this.drinkSize = drinkSize;
+    public void setSelectedSize(String selectedSize) {
+        this.selectedSize = selectedSize;
     }
     public int getQuantity() {
         return quantity;
@@ -32,7 +33,4 @@ public class OrderData {
     public void setPrice(BigDecimal price) {
         this.price = price;
     } 
-
-    
-
 }
