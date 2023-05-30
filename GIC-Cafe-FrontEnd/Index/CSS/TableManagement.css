@@ -1,0 +1,42 @@
+
+body{
+   margin: 0;
+   padding: 0;
+}
+.wrapper{
+   margin: auto;
+   width: 600px;
+   border: 4px solid black;
+   height: auto;
+   padding: 30px;
+  background-color: #ff8d02;
+  
+}
+h2{
+   display: flex;
+   justify-content: center;
+}
+.border{
+   border-bottom: 4px solid black;
+}
+.content{
+   display: flex;
+   margin-top: 10px;
+}
+.btn{
+   margin-top: 10px;
+}
+button{
+   color:whitesmoke;
+   background-color: #a66a03;
+   font-size: 1.1rem;
+   width: 100px;
+   border-radius: 50px;
+}
+input{
+   border-radius: 5px;
+   height: 20px;
+}
+label{
+   color: #151111;
+}
