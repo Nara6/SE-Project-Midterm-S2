@@ -52,7 +52,9 @@
                         </div>
     
                         <div class="flex flex-col ml-4">
-                            <span>Admin</span>
+                            <form th:action="@{/logout}" method="post">
+                                <input type="submit" value="LOG OUT" />
+                           </form>
                         </div>
                     </div>
     
@@ -202,11 +204,9 @@
                 </ul>
             </nav>
             <div class="w-full bg flex">
-                <div class="bg-white w-[60%] rounded-[30px] m-5 mr-0">
-                    <div class="flex justify-between p-6 bg-[#1F2937] text-white overflow-y-auto">
-                        <div class="w-[10px]">
-                            ID
-                        </div >
+                <div class="bg-white w-[60%] rounded-[30px] m-5 mr-0 overflow-y-auto">
+                    <div class="flex justify-between p-6 bg-[#F5F5F5] text-gray-700 uppercase font-bold ">
+                     
                         <div class="w-[50px]"> 
                             Name
                         </div>
@@ -218,7 +218,6 @@
                         </div>
                     </div> 
                     <div th:each="data: ${listtable}" class="flex ml-6 pt-0 justify-between mr-6 ">
-                        <a class="w-[10px]" th:text="${data.getId()}" th:href="@{/admin/table/listing/{id} (id=${data.getId()})}"></a>
                         <a class="w-[50px]" role="button" th:href="@{/admin/table/listing/{id} (id=${data.getId()})}" th:text="${data.getName()}"></a>
                         <a class="w-[100px] text-green-500" th:if="${data.isStatus()}==true" th:href="@{/admin/table/listing/{id} (id=${data.getId()})}">Available</a>
                         <a class="w-[100px] text-red-500" th:unless="${data.isStatus()}==true" th:href="@{/admin/table/listing/{id} (id=${data.getId()})}">Not Available</a>

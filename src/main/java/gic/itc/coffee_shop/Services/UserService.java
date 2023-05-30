@@ -17,12 +17,12 @@
 //         this.userRepo = userRepo;
 //     }
 //     @Override
-//     UserDetails loadUserByEmail(String email) throws UserNotFoundException{
+//     UserDetails loadUserByEmail(String email) throws UsernameNotFoundException{
 //         boolean User = userRepo.findUserByEmail(email);
 //         if(User){
 //             throw new UsernameNotFoundException(email);
 //         }else{
-//             return new user()
+//             return new user();
 //         }
 
 //     }

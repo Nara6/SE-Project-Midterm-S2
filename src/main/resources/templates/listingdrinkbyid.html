@@ -53,7 +53,9 @@
                     </div>
 
                     <div class="flex flex-col ml-4">
-                        <span>Admin</span>
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" value="LOG OUT" />
+                       </form>
                     </div>
                 </div>
 
@@ -204,7 +206,7 @@
         </nav>
         <div class="w-full bg flex">
             <div class=" bg-white w-[60%] rounded-[30px] m-5 mr-0">
-                <div class="flex justify-between p-6 bg-[#1F2937] text-white">
+                <div class="flex justify-between p-6 bg-[#F5F5F5] text-gray-700 uppercase font-bold">
                     <div class="w-[10px]">
                         ID
                     </div>
