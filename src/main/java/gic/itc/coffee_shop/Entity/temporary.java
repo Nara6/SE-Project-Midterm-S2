@@ -25,17 +25,31 @@ public class temporary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "drink_name")
-    private String drink_name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "drink_id", referencedColumnName = "id")
+    private drink drink_id;
 
-    @Column(name = "size")
-    private String size;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "drink_size_id", referencedColumnName = "id")
+    private drink_size drink_size_id;
+
+    @Column(name = "drinkName")
+    private String drinkName;
+
+    @Column(name = "drinkSize")
+    private String drinkSize;
 
     @Column(name = "quantity")
     private int quantity;
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @Column(name = "total")
+    private BigDecimal total;
+
+    @Column(name = "changed")
+    private BigDecimal changed;
 
     public int getId() {
         return id;
@@ -45,20 +59,36 @@ public class temporary {
         this.id = id;
     }
 
-    public String getDrink_name() {
-        return drink_name;
+    public drink getDrink_id() {
+        return drink_id;
     }
 
-    public void setDrink_name(String drink_name) {
-        this.drink_name = drink_name;
+    public void setDrink_id(drink drink_id) {
+        this.drink_id = drink_id;
     }
 
-    public String getSize() {
-        return size;
+    public drink_size getDrink_size_id() {
+        return drink_size_id;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setDrink_size_id(drink_size drink_size_id) {
+        this.drink_size_id = drink_size_id;
+    }
+
+    public String getDrinkName() {
+        return drinkName;
+    }
+
+    public void setDrinkName(String drinkName) {
+        this.drinkName = drinkName;
+    }
+
+    public String getDrinkSize() {
+        return drinkSize;
+    }
+
+    public void setDrinkSize(String drinkSize) {
+        this.drinkSize = drinkSize;
     }
 
     public int getQuantity() {
@@ -77,9 +107,4 @@ public class temporary {
         this.price = price;
     }
 
-    
-
-    
-
-   
 }

@@ -20,9 +20,11 @@ import gic.itc.coffee_shop.Entity.OrderDataList;
 import gic.itc.coffee_shop.Entity.drink;
 import gic.itc.coffee_shop.Entity.drink_size;
 import gic.itc.coffee_shop.Entity.orders;
+import gic.itc.coffee_shop.Entity.temporary;
 import gic.itc.coffee_shop.Repository.DrinkRepo;
 import gic.itc.coffee_shop.Repository.OrderRepo;
 import gic.itc.coffee_shop.Repository.SizeRepo;
+import gic.itc.coffee_shop.Repository.TemporaryRepo;
 
 @Controller
 public class OrderController {
@@ -35,10 +37,13 @@ public class OrderController {
     @Autowired
     SizeRepo sizeRepo;
 
-    @GetMapping("/saveOrder")
-    public Object index() {
-        return new ModelAndView("welcome");
-    }
+    @Autowired
+    TemporaryRepo tmpRepo;
+
+    // @GetMapping("/saveOrder")
+    // public Object index() {
+    //     return new ModelAndView("welcome");
+    // }
 
     @PostMapping("/saveOrder")
     public String saveOrder(@RequestParam("orderData") String orderDataString) {
@@ -52,6 +57,7 @@ public class OrderController {
             for (OrderData orderData : orderDataList) {
                 // Create a new 'orders' object for each order item
                 orders order = new orders();
+                temporary tmp = new temporary();
 
                 // Access individual OrderData object properties
                 String drinkName = orderData.getDrinkName();
@@ -67,9 +73,11 @@ public class OrderController {
                     // drink.setCategory_id(category);
                     drink_size size = drinkSizeOptional.get();
                     order.setDrink_size_id(size);
+                    tmp.setDrink_size_id(size);
 
                     drink drink = drinkOptional.get();
                     order.setDrink_id(drink);
+                    tmp.setDrink_id(drink);
 
                 } else {
                     // Handle the case where the category does not exist
@@ -84,11 +92,18 @@ public class OrderController {
                 order.setPrice(price);
                 order.setQuantity(quantity);
 
+                tmp.setDrinkName(drinkName);
+                tmp.setDrinkSize(drinkSize);
+                tmp.setPrice(price);
+                tmp.setQuantity(quantity);
+
                 orderRepo.save(order);
+                tmpRepo.save(tmp);
+                
             }
 
             // Redirect to a success page or return a response
-            return "welcome";
+            return "redirect:/table";
         } catch (Exception e) {
             // Handle any exceptions during deserialization
             e.printStackTrace();
