@@ -214,19 +214,7 @@ public class CafeController {
         }
     }
 
-    // add new cashier
-    // @PostMapping("/signup")
-    // @ResponseBody
-    // public Object task3(@ModelAttribute("User") user User, Model model) {
-    // Repository.save(User); // save into database
-    // if (User.getPassword() == null || User.getPassword().isEmpty()) {
-    // model.addAttribute("error", "Password field cannot be empty");
-    // return new RedirectView("/login");
-    // }
-    // return new ModelAndView("/welcome");
-    // // }
-    // // return new RedirectView("/login");
-    // }
+   
 
     
 

@@ -1,12 +1,7 @@
 package gic.itc.coffee_shop.Controllers;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,43 +55,43 @@ public class TablesController {
         return new ModelAndView("calculateprice");
     } else {
         // Handle cancel action or other scenarios
-        return new ModelAndView("table");
+        return new ModelAndView("redirect:/table");
     }
     }
 
-    @PostMapping("/sum")
-    public String saveOrder(@RequestParam("orderData") String orderDataString, Model model) {
-        try {
-            // Use ObjectMapper to convert the JSON string to a List<OrderData>
-            ObjectMapper objectMapper = new ObjectMapper();
-            List<OrderData> orderDataList = objectMapper.readValue(orderDataString,
-                    new TypeReference<List<OrderData>>() {
-                    });
+    // @PostMapping("/sum")
+    // public String saveOrder(@RequestParam("orderData") String orderDataString, Model model) {
+    //     try {
+    //         // Use ObjectMapper to convert the JSON string to a List<OrderData>
+    //         ObjectMapper objectMapper = new ObjectMapper();
+    //         List<OrderData> orderDataList = objectMapper.readValue(orderDataString,
+    //                 new TypeReference<List<OrderData>>() {
+    //                 });
 
             
-            BigDecimal totalPrice = BigDecimal.ZERO;
+    //         BigDecimal totalPrice = BigDecimal.ZERO;
 
-            for (OrderData orderData : orderDataList) {
-                // Access individual OrderData object properties
-                BigDecimal price = orderData.getPrice();
-                int quantity = orderData.getQuantity();
+    //         for (OrderData orderData : orderDataList) {
+    //             // Access individual OrderData object properties
+    //             BigDecimal price = orderData.getPrice();
+    //             int quantity = orderData.getQuantity();
 
-                // Calculate the total price for each order item
-                BigDecimal itemTotal = price.multiply(BigDecimal.valueOf(quantity));
-                totalPrice = totalPrice.add(itemTotal);
-            }
+    //             // Calculate the total price for each order item
+    //             BigDecimal itemTotal = price.multiply(BigDecimal.valueOf(quantity));
+    //             totalPrice = totalPrice.add(itemTotal);
+    //         }
 
-            // Add the totalPrice as an attribute to the model
-            model.addAttribute("totalPrice", totalPrice);
+    //         // Add the totalPrice as an attribute to the model
+    //         model.addAttribute("totalPrice", totalPrice);
 
-            // Redirect to a success page or return a response
-            return "calculateprice";
-        } catch (Exception e) {
-            // Handle any exceptions during deserialization
-            e.printStackTrace();
-            return "tables";
-        }
-    }
+    //         // Redirect to a success page or return a response
+    //         return "calculateprice";
+    //     } catch (Exception e) {
+    //         // Handle any exceptions during deserialization
+    //         e.printStackTrace();
+    //         return "tables";
+    //     }
+    // }
 
 }
 

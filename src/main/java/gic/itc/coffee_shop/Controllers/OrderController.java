@@ -57,7 +57,7 @@ public class OrderController {
             for (OrderData orderData : orderDataList) {
                 // Create a new 'orders' object for each order item
                 orders order = new orders();
-                temporary tmp = new temporary();
+                // temporary tmp = new temporary();
 
                 // Access individual OrderData object properties
                 String drinkName = orderData.getDrinkName();
@@ -69,15 +69,14 @@ public class OrderController {
                 Optional<drink_size> drinkSizeOptional = sizeRepo.findByName(drinkSize);
                 Optional<drink> drinkOptional = drinkRepo.findByName(drinkName);
                 if (drinkSizeOptional.isPresent() && drinkOptional.isPresent()) {
-                    // drink_categories category = categoryOptional.get();
-                    // drink.setCategory_id(category);
+                    
                     drink_size size = drinkSizeOptional.get();
                     order.setDrink_size_id(size);
-                    tmp.setDrink_size_id(size);
+                    // tmp.setDrink_size_id(size);
 
                     drink drink = drinkOptional.get();
                     order.setDrink_id(drink);
-                    tmp.setDrink_id(drink);
+                    // tmp.setDrink_id(drink);
 
                 } else {
                     // Handle the case where the category does not exist
@@ -92,13 +91,13 @@ public class OrderController {
                 order.setPrice(price);
                 order.setQuantity(quantity);
 
-                tmp.setDrinkName(drinkName);
-                tmp.setDrinkSize(drinkSize);
-                tmp.setPrice(price);
-                tmp.setQuantity(quantity);
+                // tmp.setDrinkName(drinkName);
+                // tmp.setDrinkSize(drinkSize);
+                // tmp.setPrice(price);
+                // tmp.setQuantity(quantity);
 
                 orderRepo.save(order);
-                tmpRepo.save(tmp);
+                // tmpRepo.save(tmp);
                 
             }
 

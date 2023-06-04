@@ -29,8 +29,8 @@ public class tables {
     private boolean status;
 
     // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "order_details_id")
-    // private order_details ;
+    // @JoinColumn(name = "invoice")
+    // private   ;
 
     // @OneToMany(mappedBy = "table_id", cascade = CascadeType.ALL, orphanRemoval =
     // true)

@@ -10,19 +10,23 @@
 <body>
     <div id="myForm2" class="w-[100vw] h-[100vh] fixed top-0 left-0 flex items-center justify-center">
         <div id="container" class="bg-gray-50 p-4 rounded shadow-lg w-1/3 popup-form2 drop-shadow-2xl">
-            <input id="result" type="text" class="w-full mb-4 p-2 border border-gray-300 rounded" readonly>
-            <span>Total: </span><span class="text-gray-600" id="total" th:text="${total}"></span>
-            <div></div>
-            <span>Change: </span><span class="text-gray-600" id="change"></span>
             
-            <!-- <form action="/sum" method="post" id="orderForm">
-                
-                <input type="hidden" id="cash_change" name="cash_change" value="">
-                <input type="hidden" id="cash_received" name="cash_received" value="">
-        
-              
-                <button type="submit" id="equals" class="h-14 w-full bg-green-500 text-white p-2 rounded">OK</button>
-            </form> -->
+            <input id="result" type="text" class="w-full mb-4 p-2 border border-gray-300 rounded" readonly>
+            <form action="/invoice" id="invoiceForm" method="post">
+            <span>Total: </span><span class="text-gray-600" id="total" th:text="${total}" ></span>
+            <div></div>
+            <span>Change: </span><span class="text-gray-600" id="change" ></span>
+            
+            <!-- <form action="/invoice" id="invoiceForm" method="post"> -->
+                <input type="hidden" name="orderData" id="orderDataInput" value="">
+                <input type="hidden" name="selectedTableId" id="selectedTableIdInput" value="">
+                <input type="hidden" name="change" id="changeInput" value="change">
+                <input type="hidden" name="total" id="totalInput" value="total">
+               
+            
+                <button onclick="generateInvoice()" class="w-full px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none" type="submit">Generate Invoice</button>
+            </form>
+            
 
             <div class="grid grid-cols-4 gap-2">
                 <button onclick="appendNumber('7')" class="h-14 number bg-gray-200 p-2 rounded">7</button>
@@ -100,14 +104,6 @@
                 totalElement.innerText = total.toFixed(2);
                 }
 
-                // Add event listeners to number buttons
-                // let numberButtons = document.getElementsByClassName('number');
-                // for (let button of numberButtons) {
-                // button.addEventListener('click', function() {
-                //     appendNumber(button.innerText);
-                // });
-                // }
-
                 // Add event listeners to operator buttons
                 let operatorButtons = document.getElementsByClassName('operator');
                 for (let button of operatorButtons) {
@@ -119,6 +115,24 @@
                     }
                 });
                 }
+
+                function generateInvoice() {
+                    // Retrieve the orderData, selectedTableId, change, and total from localStorage
+                    let orderDataString = localStorage.getItem('orderInfo');
+                    let selectedTableId = localStorage.getItem('selectedTableId');
+                    let change = document.getElementById('change').innerText;
+                    let total = document.getElementById('total').innerText;
+
+                    // Populate the hidden input fields with the values
+                    document.getElementById('orderDataInput').value = orderDataString;
+                    document.getElementById('selectedTableIdInput').value = selectedTableId;
+                    document.getElementById('changeInput').value = change;
+                    document.getElementById('totalInput').value = total;
+
+                    // Submit the form
+                    document.getElementById("invoiceForm").submit();
+}
+
 
     </script>
 </body>

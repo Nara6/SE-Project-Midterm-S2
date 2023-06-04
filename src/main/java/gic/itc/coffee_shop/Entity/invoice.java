@@ -17,8 +17,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "temporary")
-public class temporary {
+@Table(name = "invoice")
+public class invoice {
 
     @Id
     @Column(nullable = false)
@@ -41,10 +41,6 @@ public class temporary {
     @JoinColumn(name = "username", referencedColumnName = "id")
     private user username;
 
-    @Column(name = "price")
-    private BigDecimal price;
-
-    
     public user getUsername() {
         return username;
     }
@@ -67,6 +63,10 @@ public class temporary {
 
     @Column(name = "changed")
     private BigDecimal changed;
+
+    @Column(name = "price")
+    private BigDecimal price;
+    
 
     public BigDecimal getChanged() {
         return changed;

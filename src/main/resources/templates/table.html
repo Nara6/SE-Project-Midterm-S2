@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GIC Coffee</title>
+    <html xmlns:th="http://www.thymeleaf.org"></html>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
@@ -45,7 +46,7 @@
     <div class="flex justify-center text-[60px] text-[#FF4B2B] font-bold mt-5 text">Table Management</div>
     <div class="">
         <div class="w-full flex justify-between flex-wrap p-7 gap-2 gap-y-3">
-            <div th:each="table:${listtables}" class="w-[200px] h-[155px] border-[4px] border-[#7C9070] hover:cursor-pointer flex justify-center items-center group flex-col text-[18px]" onclick="showConfirmation()">
+            <div th:each="table:${listtables}" class="w-[200px] h-[155px] border-[4px] border-[#7C9070] hover:cursor-pointer flex justify-center items-center group flex-col text-[18px]" th:data-table-id="${table.id}" onclick="showConfirmation(this)">
                 <div th:if="${table.isStatus}==false" class="text-red-400"></div>
                 <div th:text="${table.getName()}" class="invisible group-hover:visible text-green-400"></div>
                 <div th:text="${table.getId()}" th:if="${table.isStatus}==false" class="text-red-400 font-bold"></div>
@@ -59,14 +60,12 @@
     <!-- Confirmation Popup -->
     
     <div id="confirmation-popup" class="w-[300px] h-[150px]">
-        <form th:action="@{/calculate}" th:object="${calculate}" method="post" >
+        <!-- <form th:action="@{/calculate}" th:object="${calculate}" method="post" > -->
+        <form action="/calculate" id="tableSelection" method="post" >
         <h3  class="p-5 align-items font-bold" >Confirmation</h3>
-        <!-- <p>Are you sure you want to select this table?</p> -->
-        <!-- <div th:each="table:${listtables}">
-            <div th:text="${table.getId()}"></div> -->
-        <!-- </div> -->
+        <input type="hidden" name="tableId" id="tableIdInput" value="">
         <button onclick="confirmSelection()" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none" type="submit" name="confirm" value="OK">OK</button>
-        <button onclick="closeConfirmation()" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none" type="submit" name="confirm" value="Cancel">Cancel</button>
+        <button onclick="closeConfirmation()" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none" type="button" name="confirm" value="Cancel">Cancel</button>
     </form> 
     </div>
     
@@ -77,11 +76,17 @@
 <script>
     const confirmationPopup = document.getElementById("confirmation-popup");
     const overlay = document.getElementById('overlay')
+    // const tableIdInput = document.getElementById('tableIdInput');
 
-    function showConfirmation() {
+    function showConfirmation(element) {
         
         confirmationPopup.style.display = "block";
         overlay.style.display = "block";
+        
+        const tableId = element.getAttribute('data-table-id');
+        localStorage.setItem('selectedTableId', tableId);
+        // tableIdInput.value = tableId;
+        // console.log(tableId);
          
     }
     
@@ -94,7 +99,13 @@
     
     function confirmSelection() {
         // Perform further actions here after confirmation
+        // const tableId = document.getElementById('tableIdInput').value;
+        // console.log(tableId);
+        const tableId = element.getAttribute('data-table-id');
+        localStorage.setItem('selectedTableId', tableId);
         closeConfirmation();
+        // document.getElementById("tableSelection").submit();
     }
+
 </script>
 </html>
