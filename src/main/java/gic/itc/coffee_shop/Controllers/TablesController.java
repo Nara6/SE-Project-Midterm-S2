@@ -59,39 +59,7 @@ public class TablesController {
     }
     }
 
-    // @PostMapping("/sum")
-    // public String saveOrder(@RequestParam("orderData") String orderDataString, Model model) {
-    //     try {
-    //         // Use ObjectMapper to convert the JSON string to a List<OrderData>
-    //         ObjectMapper objectMapper = new ObjectMapper();
-    //         List<OrderData> orderDataList = objectMapper.readValue(orderDataString,
-    //                 new TypeReference<List<OrderData>>() {
-    //                 });
-
-            
-    //         BigDecimal totalPrice = BigDecimal.ZERO;
-
-    //         for (OrderData orderData : orderDataList) {
-    //             // Access individual OrderData object properties
-    //             BigDecimal price = orderData.getPrice();
-    //             int quantity = orderData.getQuantity();
-
-    //             // Calculate the total price for each order item
-    //             BigDecimal itemTotal = price.multiply(BigDecimal.valueOf(quantity));
-    //             totalPrice = totalPrice.add(itemTotal);
-    //         }
-
-    //         // Add the totalPrice as an attribute to the model
-    //         model.addAttribute("totalPrice", totalPrice);
-
-    //         // Redirect to a success page or return a response
-    //         return "calculateprice";
-    //     } catch (Exception e) {
-    //         // Handle any exceptions during deserialization
-    //         e.printStackTrace();
-    //         return "tables";
-    //     }
-    // }
+    
 
 }
 

@@ -105,6 +105,12 @@
         .clear-button:hover {
             background-color: #cccccc;
         }
+
+        .order{
+            display: flex;
+            justify-content: start;
+            gap: 20px;
+        }
     </style>
 </head>
 <body>
@@ -118,8 +124,13 @@
                     <hr>
                     <form action="/receipt" method="get" id="receipt-form">
                         <div id="orderInfo"></div>
-                        <div class="title">
-                            <p>Order by:</p>
+                        <div class="title"> 
+                            <div class="order" >
+                                <!-- <div class="subtotal"> -->
+                                    <p>Order number:</p>
+                                    <p th:text="${invoices[invoices.size() - 1].id}"></p>
+                                    
+                                </div> 
                         </div>
                         <div th:each="receipt : ${invoices}" class="flex justify-between m-auto px-[5%] py-[10px] ">
                             <div class="drink-info">
