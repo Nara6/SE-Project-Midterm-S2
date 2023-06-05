@@ -57,7 +57,7 @@ public class WebSecurityConfig  {
                   .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
                   .logoutSuccessUrl("/")
                   .permitAll());
-      http.exceptionHandling(handling -> handling.accessDeniedHandler(accessDeniedHandler()));
+      // http.exceptionHandling(handling -> handling.accessDeniedHandler(accessDeniedHandler()));
     return http.build();
 
   }

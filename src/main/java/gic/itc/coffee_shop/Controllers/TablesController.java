@@ -1,18 +1,22 @@
 package gic.itc.coffee_shop.Controllers;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import gic.itc.coffee_shop.Entity.OrderData;
+import gic.itc.coffee_shop.Entity.orders;
 import gic.itc.coffee_shop.Entity.tables;
+import gic.itc.coffee_shop.Entity.temporary;
 import gic.itc.coffee_shop.Repository.TablesRepo;
 
 @Controller
@@ -20,7 +24,7 @@ public class TablesController {
     @Autowired
     TablesRepo tablesRepo;
 
-    @GetMapping("/")
+    @GetMapping("/cashier/table")
     public String getAllTables(Model model) {
         try{
             // List<tables> tables = new ArrayList<tables>();
@@ -35,4 +39,27 @@ public class TablesController {
             return "redirect:/";
         }
     }
+
+    @GetMapping("/cashier/calculate")
+    public String Calculate() {
+
+        return "calculateprice";
+       
+    }
+
+    @PostMapping("/cashier/calculate")
+    public String index(@RequestParam(name ="confirm") String confirm) {
+        // Handle form submission
+        if (confirm.equalsIgnoreCase("OK")) {
+        // Perform calculations or other logic
+        return "calculateprice";
+    } else {
+        // Handle cancel action or other scenarios
+        return "redirect:/table";
+    }
+    }
+
+    
+
 }
+

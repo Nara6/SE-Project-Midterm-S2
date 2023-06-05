@@ -45,10 +45,7 @@ public class CafeController {
         return "redirect:/login";
     }
 
-    @GetMapping("/table")
-    public Object index1() {
-        return "table";
-    }
+   
     @GetMapping("/admin")
     public String adminDashboard1(Model model) {
         List<user> users = (List<user>) Repository.findAll();
@@ -59,66 +56,66 @@ public class CafeController {
     }
 
     // return new route ?
-    @PostMapping("/login")
-    public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password) {
-        // use email as refrence to retrive every row by email or not
-        System.out.println(email);
-        user User = Repository.findByEmail(email);
-        if (User!=null) {
-            // retrieve a row of data from database
-            // user optionalUser = User.get();
-            String Password = User.getPassword();
-            user_type user_type = User.getUser_type_id();
-            // user_type user_type = optionalUser.getUser_type();
-            if (Password.equals(password) && user_type.getId() == 2) {
+    // @PostMapping("/login")
+    // public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password) {
+    //     // use email as refrence to retrive every row by email or not
+    //     System.out.println(email);
+    //     user User = Repository.findByEmail(email);
+    //     if (User!=null) {
+    //         // retrieve a row of data from database
+    //         // user optionalUser = User.get();
+    //         String Password = User.getPassword();
+    //         user_type user_type = User.getUser_type_id();
+    //         // user_type user_type = optionalUser.getUser_type();
+    //         if (Password.equals(password) && user_type.getId() == 2) {
 
-                ModelAndView mav = new ModelAndView("admin");
-                mav.addObject("email", email);
-                return mav;
-            } else {
-                ModelAndView mav = new ModelAndView("loginform");
-                mav.addObject("errorMessage", "Invalid password");
-                return mav;
-            }
-        } else {
-            ModelAndView mav = new ModelAndView("loginform");
-            mav.addObject("errorMessage", "Invalid email");
-            return mav;
-        }
-    }
-    // @GetMapping("/user/casheir")
-    // public Object home(){
-    //     return new ModelAndView("welcome");
+    //             ModelAndView mav = new ModelAndView("admin");
+    //             mav.addObject("email", email);
+    //             return mav;
+    //         } else {
+    //             ModelAndView mav = new ModelAndView("loginform");
+    //             mav.addObject("errorMessage", "Invalid password");
+    //             return mav;
+    //         }
+    //     } else {
+    //         ModelAndView mav = new ModelAndView("loginform");
+    //         mav.addObject("errorMessage", "Invalid email");
+    //         return mav;
+    //     }
     // }
+    // // @GetMapping("/user/casheir")
+    // // public Object home(){
+    // //     return new ModelAndView("welcome");
+    // // }
 
-    // login as admin
-    @PostMapping("/login/admin")
-    public String admin(@RequestParam("email") String email, @RequestParam("password") String password) {
-        // use email as refrence to retrive every row by email or not
-        System.out.println(email);
-        user User = Repository.findByEmail(email);
-        if (User!=null) {
-            // retrieve a row of data from database
-            // user optionalUser = User.get();
-            String Password = User.getPassword();
-            user_type user_type = User.getUser_type_id();
-            System.out.println(Password);
-            System.out.println(user_type.getId());
+    // // login as admin
+    // @PostMapping("/login/admin")
+    // public String admin(@RequestParam("email") String email, @RequestParam("password") String password) {
+    //     // use email as refrence to retrive every row by email or not
+    //     System.out.println(email);
+    //     user User = Repository.findByEmail(email);
+    //     if (User!=null) {
+    //         // retrieve a row of data from database
+    //         // user optionalUser = User.get();
+    //         String Password = User.getPassword();
+    //         user_type user_type = User.getUser_type_id();
+    //         System.out.println(Password);
+    //         System.out.println(user_type.getId());
 
-            // user_type user_type = optionalUser.getUser_type();
-            if (Password.equals(password) && user_type.getId() == 1) {
-                // ModelAndView mav = new ModelAndView("admin");
-                    return "admin";
-            } else {
-                // ModelAndView mav = new ModelAndView("loginform");
-                return "redirect:/login";
+    //         // user_type user_type = optionalUser.getUser_type();
+    //         if (Password.equals(password) && user_type.getId() == 1) {
+    //             // ModelAndView mav = new ModelAndView("admin");
+    //                 return "admin";
+    //         } else {
+    //             // ModelAndView mav = new ModelAndView("loginform");
+    //             return "redirect:/login";
 
-            }
-        } else {
-            System.out.println("hi");
-            return "redirect:/login";
-        }
-    }
+    //         }
+    //     } else {
+    //         System.out.println("hi");
+    //         return "redirect:/login";
+    //     }
+    // }
 
     // @GetMapping("/user")
     // // ResponseEntity is HTTP resposne of user by server
@@ -242,19 +239,7 @@ public class CafeController {
     //         return "calculateprice";
     //     }
 
-    // add new cashier
-    // @PostMapping("/signup")
-    // @ResponseBody
-    // public Object task3(@ModelAttribute("User") user User, Model model) {
-    // Repository.save(User); // save into database
-    // if (User.getPassword() == null || User.getPassword().isEmpty()) {
-    // model.addAttribute("error", "Password field cannot be empty");
-    // return new RedirectView("/login");
-    // }
-    // return new ModelAndView("/welcome");
-    // // }
-    // // return new RedirectView("/login");
-    // }
+   
 
     
 

@@ -39,10 +39,12 @@ public class user {
     @Column(name = "image_url", length=1111232443)
     private String image_url;
 
-    @Column(name="gender")
-    private String gender;
-    @Column(name="age")
+    @Column(name = "age")
     private int age;
+
+    @Column(name = "gender")
+    private String gender;
+
     public String getGender() {
         return gender;
     }

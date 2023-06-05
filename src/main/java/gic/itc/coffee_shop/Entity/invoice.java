@@ -17,8 +17,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "orders")
-public class orders {
+@Table(name = "invoice")
+public class invoice {
 
     @Id
     @Column(nullable = false)
@@ -33,6 +33,22 @@ public class orders {
     @JoinColumn(name = "drink_size_id", referencedColumnName = "id")
     private drink_size drink_size_id;
 
+    @ManyToOne
+    @JoinColumn(name = "table_id", referencedColumnName = "id")
+    private tables table_id;
+
+    @ManyToOne
+    @JoinColumn(name = "username", referencedColumnName = "id")
+    private user username;
+
+    public user getUsername() {
+        return username;
+    }
+
+    public void setUsername(user username) {
+        this.username = username;
+    }
+
     @Column(name = "drinkName")
     private String drinkName;
 
@@ -42,10 +58,24 @@ public class orders {
     @Column(name = "quantity")
     private int quantity;
 
+    @Column(name = "total")
+    private BigDecimal total;
+
+    @Column(name = "changed")
+    private BigDecimal changed;
+
     @Column(name = "price")
     private BigDecimal price;
-
     
+
+    public BigDecimal getChanged() {
+        return changed;
+    }
+
+    public void setChanged(BigDecimal changed) {
+        this.changed = changed;
+    }
+
     public int getId() {
         return id;
     }
@@ -94,6 +124,22 @@ public class orders {
         this.quantity = quantity;
     }
 
+    public tables getTable_id() {
+        return table_id;
+    }
+
+    public void setTable_id(tables table_id) {
+        this.table_id = table_id;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }
@@ -101,9 +147,5 @@ public class orders {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-
-    
-    
-
 
 }

@@ -19,10 +19,6 @@ public interface DrinkRepo extends CrudRepository<drink, Integer> {
     Iterable<drink> findAllById(int id);
     drink findById(int id);
 
-    // @Query("SELECT d FROM drink d JOIN d.categories dc WHERE dc.name =
-    // :categoryName")
-    // List<drink> findByCategoryName(@Param("category") String category);
-
     // retrieve a list of drinks that belong to a specific category.
     // @Query("SELECT d FROM drink_categories dc JOIN drink d On dc.id = d.category_id where dc.id=:category_id")
     // List<drink> findByCategory_id(@Param("category_id") int category_id);

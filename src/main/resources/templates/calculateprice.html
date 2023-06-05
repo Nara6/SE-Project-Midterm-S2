@@ -10,10 +10,24 @@
 <body>
     <div id="myForm2" class="w-[100vw] h-[100vh] fixed top-0 left-0 flex items-center justify-center">
         <div id="container" class="bg-gray-50 p-4 rounded shadow-lg w-1/3 popup-form2 drop-shadow-2xl">
+            
             <input id="result" type="text" class="w-full mb-4 p-2 border border-gray-300 rounded" readonly>
-            <span>Total: </span><span class="text-gray-600" id="total" th:text="${total}"></span>
+            <form th:action="@{/cashier/invoice}" id="invoiceForm" method="post">
+            <span>Total: </span><span class="text-gray-600" id="total" th:text="${total}" ></span>
             <div></div>
-            <span>Change: </span><span class="text-gray-600" id="change"></span>
+            <span>Change: </span><span class="text-gray-600" id="change" ></span>
+            
+            <!-- <form action="/invoice" id="invoiceForm" method="post"> -->
+                <input type="hidden" name="orderData" id="orderDataInput" value="">
+                <input type="hidden" name="selectedTableId" id="selectedTableIdInput" value="">
+                <input type="hidden" name="change" id="changeInput" value="change">
+                <input type="hidden" name="total" id="totalInput" value="total">
+               
+            
+                <button onclick="generateInvoice()" class="w-full px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none" type="submit">Generate Invoice</button>
+            </form>
+            
+
             <div class="grid grid-cols-4 gap-2">
                 <button onclick="appendNumber('7')" class="h-14 number bg-gray-200 p-2 rounded">7</button>
                 <button onclick="appendNumber('8')" class="h-14 number bg-gray-200 p-2 rounded">8</button>
@@ -41,6 +55,8 @@
     </div>
     <script>
         let result = document.getElementById('result');
+        let totalElement = document.getElementById('total');
+        let total = 0;
     
         function appendNumber(number) {
           result.value += number;
@@ -59,27 +75,64 @@
 
         function calculateChange() {
             let changeOutput = document.getElementById("change")
-            let input = document.getElementById("result")
-            let total = document.getElementById("total")
-            let cash_change = document.getElementById("cash_change")
-            let cash_received = document.getElementById("cash_received")
+            let input = document.getElementById('result');
+            let totalValue = parseFloat(totalElement.innerText);
 
+            let change = (parseFloat(input.value) - totalValue).toFixed(2);
+            if (isNaN(change) || change <= 0) {
+            changeOutput.innerText = 0;
+            } else {
+            let inputValue = parseFloat(input.value);
+            let changeValue = (inputValue - totalValue).toFixed(2);
 
-            let change = (parseFloat(input.value) - parseFloat(total.innerText)).toFixed(2)
-            if(isNaN(change) || change <= 0){
-                changeOutput.innerText = 0
-            }
-            else{
-                let inputValue = parseFloat(input.value)
-                let changeValue = (inputValue - parseFloat(total.innerText)).toFixed(2)
-
-                cash_received.value = inputValue
-                cash_change.value = changeValue
-
-                changeOutput.innerText = changeValue
-
+            changeOutput.innerText = changeValue;
             }
         }
+
+        // Retrieve the order data from localStorage
+                let orderDataString = localStorage.getItem('orderInfo');
+                console.log(orderDataString )
+                if (orderDataString) {
+                let orderDataList = JSON.parse(orderDataString);
+                
+                // Calculate the initial total price
+                for (let orderData of orderDataList) {
+                    total += orderData.price * orderData.quantity;
+                }
+                
+                // Update the total element
+                totalElement.innerText = total.toFixed(2);
+                }
+
+                // Add event listeners to operator buttons
+                let operatorButtons = document.getElementsByClassName('operator');
+                for (let button of operatorButtons) {
+                button.addEventListener('click', function() {
+                    if (button.innerText === 'del') {
+                    deleteNumber();
+                    } else if (button.innerText === 'C') {
+                    clearResult();
+                    }
+                });
+                }
+
+                function generateInvoice() {
+                    // Retrieve the orderData, selectedTableId, change, and total from localStorage
+                    let orderDataString = localStorage.getItem('orderInfo');
+                    let selectedTableId = localStorage.getItem('selectedTableId');
+                    let change = document.getElementById('change').innerText;
+                    let total = document.getElementById('total').innerText;
+
+                    // Populate the hidden input fields with the values
+                    document.getElementById('orderDataInput').value = orderDataString;
+                    document.getElementById('selectedTableIdInput').value = selectedTableId;
+                    document.getElementById('changeInput').value = change;
+                    document.getElementById('totalInput').value = total;
+
+                    // Submit the form
+                    document.getElementById("invoiceForm").submit();
+}
+
 
     </script>
 </body>

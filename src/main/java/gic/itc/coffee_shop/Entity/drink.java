@@ -1,5 +1,6 @@
 package gic.itc.coffee_shop.Entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,6 +29,8 @@ public class drink {
 
     @Column(name = "name")
     private String name;
+    @Column(name = "price")
+    private BigDecimal price;
 
     @Column(name = "description")
     private String description;
@@ -93,6 +96,14 @@ public class drink {
 
     public void setCategory_id(drink_categories category_id) {
         this.category_id = category_id;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
 }
