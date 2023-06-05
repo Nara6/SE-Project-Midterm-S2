@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.422s</div>
+<div class="counter">0.460s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,7 +79,7 @@
 </thead>
 <tr>
 <td class="success">contextLoads()</td>
-<td class="success">0.422s</td>
+<td class="success">0.460s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -87,14 +87,14 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>11:44:22.690 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Neither @ContextConfiguration nor @ContextHierarchy found for test class [CoffeeShopApplicationTests]: using SpringBootContextLoader
-11:44:22.703 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader -- Could not detect default resource locations for test class [gic.itc.coffee_shop.CoffeeShopApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
-11:44:22.706 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [gic.itc.coffee_shop.CoffeeShopApplicationTests]: CoffeeShopApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-11:44:22.805 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using ContextCustomizers for test class [CoffeeShopApplicationTests]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
-11:44:22.943 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider -- Identified candidate component class: file [/Users/nara/Desktop/Mananger/I4/Software-Engineer/Project/SE-Project-Midterm-S2/build/classes/java/main/gic/itc/coffee_shop/CoffeeShopApplication.class]
-11:44:22.945 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration gic.itc.coffee_shop.CoffeeShopApplication for test class gic.itc.coffee_shop.CoffeeShopApplicationTests
-11:44:23.208 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using TestExecutionListeners for test class [CoffeeShopApplicationTests]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, WithSecurityContextTestExecutionListener, EventPublishingTestExecutionListener, ReactorContextTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
-11:44:23.210 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener -- Before test class: class [CoffeeShopApplicationTests], class annotated with @DirtiesContext [false] with mode [null]
+<pre>17:46:03.656 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Neither @ContextConfiguration nor @ContextHierarchy found for test class [CoffeeShopApplicationTests]: using SpringBootContextLoader
+17:46:03.665 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader -- Could not detect default resource locations for test class [gic.itc.coffee_shop.CoffeeShopApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+17:46:03.667 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [gic.itc.coffee_shop.CoffeeShopApplicationTests]: CoffeeShopApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:46:03.708 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using ContextCustomizers for test class [CoffeeShopApplicationTests]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
+17:46:03.845 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider -- Identified candidate component class: file [C:\Users\Lenovo\Documents\YEAR4\SoftwareEngineering\SE-Project-Midterm-S2\build\classes\java\main\gic\itc\coffee_shop\CoffeeShopApplication.class]
+17:46:03.847 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration gic.itc.coffee_shop.CoffeeShopApplication for test class gic.itc.coffee_shop.CoffeeShopApplicationTests
+17:46:04.118 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Using TestExecutionListeners for test class [CoffeeShopApplicationTests]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, WithSecurityContextTestExecutionListener, EventPublishingTestExecutionListener, ReactorContextTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+17:46:04.121 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener -- Before test class: class [CoffeeShopApplicationTests], class annotated with @DirtiesContext [false] with mode [null]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -104,22 +104,28 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.0.6)
 
-2023-05-27T11:44:23.822+07:00  INFO 11347 --- [    Test worker] g.i.c.CoffeeShopApplicationTests         : Starting CoffeeShopApplicationTests using Java 18.0.1.1 with PID 11347 (started by nara in /Users/nara/Desktop/Mananger/I4/Software-Engineer/Project/SE-Project-Midterm-S2)
-2023-05-27T11:44:23.826+07:00  INFO 11347 --- [    Test worker] g.i.c.CoffeeShopApplicationTests         : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2023-05-27T11:44:25.301+07:00  INFO 11347 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-05-27T11:44:25.568+07:00  INFO 11347 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 254 ms. Found 5 JPA repository interfaces.
-2023-05-27T11:44:26.687+07:00  INFO 11347 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-05-27T11:44:26.753+07:00  INFO 11347 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
-2023-05-27T11:44:27.163+07:00  INFO 11347 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-05-27T11:44:27.607+07:00  INFO 11347 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@600bbf9e
-2023-05-27T11:44:27.612+07:00  INFO 11347 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-05-27T11:44:27.670+07:00  WARN 11347 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000511: The 5.5.0 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 5.7.0. Check the community dialects project for available legacy versions.
-2023-05-27T11:44:27.679+07:00  INFO 11347 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-2023-05-27T11:44:29.485+07:00  INFO 11347 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-05-27T11:44:29.496+07:00  INFO 11347 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-05-27T11:44:30.544+07:00  WARN 11347 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-05-27T11:44:31.301+07:00  INFO 11347 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@283595db, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@747476f1, org.springframework.security.web.context.SecurityContextHolderFilter@21252bef, org.springframework.security.web.header.HeaderWriterFilter@76a1cc1a, org.springframework.security.web.csrf.CsrfFilter@1f031994, org.springframework.security.web.authentication.logout.LogoutFilter@49318c2a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@c4bb119, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@52984065, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4b98c80c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6238b10a, org.springframework.security.web.access.ExceptionTranslationFilter@1aade3c, org.springframework.security.web.access.intercept.AuthorizationFilter@6a450cb5]
-2023-05-27T11:44:31.899+07:00  INFO 11347 --- [    Test worker] g.i.c.CoffeeShopApplicationTests         : Started CoffeeShopApplicationTests in 8.551 seconds (process running for 12.396)
+2023-06-05T17:46:05.099+07:00  INFO 2884 --- [    Test worker] g.i.c.CoffeeShopApplicationTests         : Starting CoffeeShopApplicationTests using Java 17.0.6 with PID 2884 (started by Lenovo in C:\Users\Lenovo\Documents\YEAR4\SoftwareEngineering\SE-Project-Midterm-S2)
+2023-06-05T17:46:05.102+07:00  INFO 2884 --- [    Test worker] g.i.c.CoffeeShopApplicationTests         : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2023-06-05T17:46:07.276+07:00  INFO 2884 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-05T17:46:07.479+07:00  INFO 2884 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 187 ms. Found 9 JPA repository interfaces.
+2023-06-05T17:46:08.671+07:00  INFO 2884 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-05T17:46:08.844+07:00  INFO 2884 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-06-05T17:46:09.834+07:00  INFO 2884 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-06-05T17:46:10.276+07:00  INFO 2884 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5a899811
+2023-06-05T17:46:10.280+07:00  INFO 2884 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-06-05T17:46:10.384+07:00  WARN 2884 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000511: The 5.5.0 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 5.7.0. Check the community dialects project for available legacy versions.
+2023-06-05T17:46:10.398+07:00  INFO 2884 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-06-05T17:46:12.579+07:00  INFO 2884 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-05T17:46:12.599+07:00  INFO 2884 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-05T17:46:14.173+07:00  WARN 2884 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-06-05T17:46:15.074+07:00  WARN 2884 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 05e94497-770d-49ed-82e2-07affd8aad7a
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-06-05T17:46:15.404+07:00  INFO 2884 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2a5917f6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@c34fd2, org.springframework.security.web.context.SecurityContextHolderFilter@35ec3604, org.springframework.security.web.header.HeaderWriterFilter@64bb6ba7, org.springframework.security.web.csrf.CsrfFilter@4dc23273, org.springframework.security.web.authentication.logout.LogoutFilter@352288bc, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4adb2b87, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@3e7c66b3, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@558fa64a, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@6d58ed12, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@466f7259, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c39da9e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@a55b4f9, org.springframework.security.web.access.ExceptionTranslationFilter@a89dec0, org.springframework.security.web.access.intercept.AuthorizationFilter@42d65ffc]
+2023-06-05T17:46:15.510+07:00  INFO 2884 --- [    Test worker] g.i.c.CoffeeShopApplicationTests         : Started CoffeeShopApplicationTests in 11.193 seconds (process running for 14.261)
 </pre>
 </span>
 </div>
@@ -131,7 +137,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.4.1</a> at May 27, 2023, 11:44:32 AM</p>
+<a href="http://www.gradle.org">Gradle 8.0.2</a> at Jun 5, 2023, 5:46:16 PM</p>
 </div>
 </div>
 </body>

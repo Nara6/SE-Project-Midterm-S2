@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+// import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 // @ComponentScan({"gic.itc.coffee_shop.Controllers","gic.itc.coffee_shop.Services"})
 // @EntityScan("gic.itc.coffee_shop.Entity")

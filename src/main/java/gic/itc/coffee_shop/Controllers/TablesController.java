@@ -1,5 +1,6 @@
 package gic.itc.coffee_shop.Controllers;
 
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,16 +27,16 @@ public class TablesController {
 
     @GetMapping("/cashier/table")
     public String getAllTables(Model model) {
-        try{
+        try {
             // List<tables> tables = new ArrayList<tables>();
             // // tables = tablesRepo.findAll();
             model.addAttribute("listtables", tablesRepo.findAll());
             return "table";
-        //     if(tables.isEmpty()){
-        //         return new ResponseEntity<List<tables>>(HttpStatus.NO_CONTENT);
-        //     }
-        //     return new ResponseEntity<>(tables, HttpStatus.OK);
-        }catch(Exception e){
+            // if(tables.isEmpty()){
+            // return new ResponseEntity<List<tables>>(HttpStatus.NO_CONTENT);
+            // }
+            // return new ResponseEntity<>(tables, HttpStatus.OK);
+        } catch (Exception e) {
             return "redirect:/";
         }
     }
@@ -44,22 +45,30 @@ public class TablesController {
     public String Calculate() {
 
         return "calculateprice";
-       
+
     }
 
     @PostMapping("/cashier/calculate")
-    public String index(@RequestParam(name ="confirm") String confirm) {
+    public String index(@RequestParam(name = "confirm") String confirm,
+            @RequestParam(name = "tableId") String selectedTableId) {
         // Handle form submission
         if (confirm.equalsIgnoreCase("OK")) {
-        // Perform calculations or other logic
-        return "calculateprice";
-    } else {
-        // Handle cancel action or other scenarios
-        return "redirect:/table";
+            tables optionalTable = tablesRepo.findById(Integer.parseInt(selectedTableId));
+            if (optionalTable != null) {
+                tables table = optionalTable;
+                table.setStatus(false);
+                ;
+                tablesRepo.save(table);
+                // Perform calculations or other logic
+                return "calculateprice";
+            } else {
+                // Handle table not found scenario
+                return "redirect:/table";
+            }
+        } else {
+            // Handle cancel action or other scenarios
+            return "redirect:/table";
+        }
     }
-    }
-
-    
 
 }
-

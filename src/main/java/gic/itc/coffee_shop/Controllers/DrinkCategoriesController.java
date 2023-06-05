@@ -70,20 +70,20 @@ public class DrinkCategoriesController {
         }
     }
 
-    @GetMapping("/drinkCategories/{id}")
-    public ResponseEntity<drink_categories> getDrinkCategoriesByID(@PathVariable("id") int id) {
-        try {
-            Optional<drink_categories> dc = Repo.findById(id);
+    // @GetMapping("/drinkCategories/{id}")
+    // public ResponseEntity<drink_categories> getDrinkCategoriesByID(@PathVariable("id") int id) {
+    //     try {
+    //         Optional<drink_categories> dc = Repo.findById(id);
 
-            if (dc.isPresent()) {
-                return new ResponseEntity<>(dc.get(), HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    //         if (dc.isPresent()) {
+    //             return new ResponseEntity<>(dc.get(), HttpStatus.OK);
+    //         } else {
+    //             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //         }
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 
     // create drink but it doesnt work when i uncomment the drink_categories entity
     // list in getter setter
