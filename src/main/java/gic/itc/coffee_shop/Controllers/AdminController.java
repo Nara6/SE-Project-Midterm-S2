@@ -142,7 +142,7 @@ public class AdminController {
         // System.out.println(filename);
         user users = new user();
         user_type type = new user_type();
-        type.setId(2);
+        type.setId(1);
         type.setName("Cashier");
         users.setEmail(email);
         users.setPassword(password);
