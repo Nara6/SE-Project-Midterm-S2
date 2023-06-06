@@ -46,13 +46,13 @@
     <div class="flex justify-center text-[60px] text-[#FF4B2B] font-bold mt-5 text">Table Management</div>
     <div class="">
         <div class="w-full flex justify-between flex-wrap p-7 gap-2 gap-y-3">
-            <div th:each="table:${listtables}" class="w-[200px] h-[155px] border-[4px] border-[#7C9070] hover:cursor-pointer flex justify-center items-center group flex-col text-[18px]" th:data-table-id="${table.id}"  th:data-available="${table.isStatus}" onclick="showConfirmation(this)">
+            <div th:each="table:${listtables}" class="w-[200px] h-[155px] border-[4px] border-[#7C9070] hover:cursor-pointer flex justify-center items-center group flex-col text-[18px]" th:data-table-id="${table.id}"  th:data-available="${table.isStatus}">
                 <div th:if="${table.isStatus}==false" class="text-red-400"></div>
                 <div th:text="${table.getName()}" class="invisible group-hover:visible text-green-400"></div>
                 <div th:text="${table.getId()}" th:if="${table.isStatus}==false" class="text-red-400 font-bold"></div>
                 <div th:if="${table.isStatus}==false" class="invisible group-hover:visible text-red-400">Not Available</div>
-                <div th:text="${table.getId()}" th:unless="${table.isStatus}==false" class="font-bold"></div>
-                <div th:unless="${table.isStatus}==false" class=" invisible group-hover:visible">Available</div>
+                <div th:text="${table.getId()}" th:unless="${table.isStatus}==false" class="font-bold"  onclick="showConfirmation(this)"></div>
+                <div th:unless="${table.isStatus}==false" class=" invisible group-hover:visible"  onclick="showConfirmation(this)">Available</div>
             </div>
         </div>
     </div>
@@ -89,7 +89,14 @@
         if (isAvailable === "false") {
             element.classList.add("unavailable");
             element.removeAttribute("onclick");
-        }
+        }else {
+        
+            confirmationPopup.style.display = "block";
+            overlay.style.display = "block";
+            element.classList.remove("unavailable");
+            element.setAttribute("onclick", "showConfirmation(this)");
+            localStorage.setItem('selectedTableId', tableId);
+    }
         localStorage.setItem('selectedTableId', tableId);
         // tableIdInput.value = tableId;
         // console.log(tableId);
