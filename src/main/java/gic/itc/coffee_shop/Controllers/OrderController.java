@@ -83,7 +83,7 @@ public class OrderController {
                     // Handle the case where the category does not exist
                     ModelAndView mav = new ModelAndView("error");
                     mav.addObject("errorMessage", "Invalid category");
-                    return "listdrink";
+                    return "cashier";
                 }
                 
 
