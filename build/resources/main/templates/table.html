@@ -51,8 +51,8 @@
                 <div th:text="${table.getName()}" class="invisible group-hover:visible text-green-400"></div>
                 <div th:text="${table.getId()}" th:if="${table.isStatus}==false" class="text-red-400 font-bold"></div>
                 <div th:if="${table.isStatus}==false" class="invisible group-hover:visible text-red-400">Not Available</div>
-                <div th:text="${table.getId()}" th:unless="${table.isStatus}==false" class="font-bold"  onclick="showConfirmation(this)"></div>
-                <div th:unless="${table.isStatus}==false" class=" invisible group-hover:visible"  onclick="showConfirmation(this)">Available</div>
+                <div th:text="${table.getId()}" th:unless="${table.isStatus}==false" class="font-bold"  th:data-table-id="${table.id}"  onclick="showConfirmation(this)"></div>
+                <div th:unless="${table.isStatus}==false" class=" invisible group-hover:visible"  th:data-table-id="${table.id}"  onclick="showConfirmation(this)">Available</div>
             </div>
         </div>
     </div>
@@ -83,8 +83,8 @@
         confirmationPopup.style.display = "block";
         overlay.style.display = "block";
         
-        const tableId = element.getAttribute('data-table-id');
-        const isAvailable = element.getAttribute("data-available");
+        const tableId = element.getAttribute('th:data-table-id') || element.getAttribute('data-table-id');
+        const isAvailable = element.getAttribute('th:data-available') || element.getAttribute('data-available');
 
         if (isAvailable === "false") {
             element.classList.add("unavailable");
@@ -95,8 +95,9 @@
             overlay.style.display = "block";
             element.classList.remove("unavailable");
             element.setAttribute("onclick", "showConfirmation(this)");
-            localStorage.setItem('selectedTableId', tableId);
+            // localStorage.setItem('selectedTableId', tableId);
     }
+        element.setAttribute("data-selected-table-id", tableId);
         localStorage.setItem('selectedTableId', tableId);
         // tableIdInput.value = tableId;
         // console.log(tableId);

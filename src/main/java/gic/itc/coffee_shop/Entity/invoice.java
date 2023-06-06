@@ -37,17 +37,17 @@ public class invoice {
     @JoinColumn(name = "table_id", referencedColumnName = "id")
     private tables table_id;
 
-    @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "id")
-    private user username;
+    // @ManyToOne
+    // @JoinColumn(name = "username", referencedColumnName = "id")
+    // private user username;
 
-    public user getUsername() {
-        return username;
-    }
+    // public user getUsername() {
+    //     return username;
+    // }
 
-    public void setUsername(user username) {
-        this.username = username;
-    }
+    // public void setUsername(user username) {
+    //     this.username = username;
+    // }
 
     @Column(name = "drinkName")
     private String drinkName;
