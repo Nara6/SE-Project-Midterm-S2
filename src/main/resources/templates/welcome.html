@@ -1,0 +1,118 @@
+<!-- <h2>Succesfully login !</h2> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Drink POS Interface</title>
+	<style type="text/css">
+		body {
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			padding: 20px;
+		}
+		
+		h1 {
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+		
+		label {
+			display: block;
+			margin-bottom: 10px;
+			font-weight: bold;
+		}
+		
+		input[type="text"], input[type="number"] {
+			padding: 10px;
+			font-size: 16px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			margin-bottom: 20px;
+		}
+		
+		button {
+			padding: 10px;
+			background-color: #4CAF50;
+			color: #fff;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		
+		#order-summary {
+			margin-top: 20px;
+			border: 1px solid #ccc;
+			padding: 20px;
+			border-radius: 5px;
+		}
+		
+		#order-summary h2 {
+			font-size: 20px;
+			margin-top: 0;
+			margin-bottom: 10px;
+		}
+		
+		#order-summary table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
+		
+		#order-summary table th, #order-summary table td {
+			border: 1px solid #ccc;
+			padding: 10px;
+			text-align: left;
+			vertical-align: top;
+		}
+		
+		#order-summary table th {
+			background-color: #f2f2f2;
+			font-weight: bold;
+		}
+		
+	</style>
+</head>
+<body>
+	<h1>Drink POS Interface</h1>
+	<!-- <p>Drink Name: <span th:text="${drink.name}"></span></p> -->
+	
+	<form action="#" method="post">
+		<label for="drink-name">Drink Name:</label>
+		<input type="text" id="drink-name" name="drink-name" required>
+		
+		<label for="drink-size">Drink Size (in ounces):</label>
+		<input type="number" id="drink-size" name="drink-size" min="1" max="64" required>
+		
+		<label for="drink-price">Drink Price:</label>
+		<input type="number" id="drink-price" name="drink-price" step="0.01" min="0" required>
+		
+		<button type="submit">Add Drink to Order</button>
+	</form>
+	
+	<div id="order-summary">
+		<h2>Order Summary</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Drink Name</th>
+					<th>Size (oz)</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- This is where the order items will be added dynamically using JavaScript -->
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2" style="text-align:right">Total:</td>
+					<td id="order-total">$0.00</td>
+				</tr>
+			</tfoot>
+		</table>
+		
+		<button id="place-order-button">Place Order</button>
+	</div>
+	
+	<script type="text/javascript">
+	
