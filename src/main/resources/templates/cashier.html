@@ -40,7 +40,9 @@
       <div  class="flex justify-end gap-x-[35%] items-center w-full ">
         <h2 class="font-bold text-[40px] text-align flex justify-center font-montserrat">Drink Selection</h2>
         <!-- logout -->
-        <button class="font-bold mr-5 px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none" type="submit">Log out</button>
+        <form th:action="@{/logout}" method="post">
+          <button class="font-bold mr-5 px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none" type="submit">Log out</button>
+        </form>
       </div>
         <hr class="w-[95%] h-[2px] bg-black mx-7">
         <div class="flex justify-center w-full h-[87%] mx-auto">
