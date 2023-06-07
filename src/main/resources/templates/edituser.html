@@ -352,8 +352,17 @@ background-color: #909090;
 
                     <div class="button-element">
                         <button type="submit">Done</button>
-                        <!-- <button type="submit">Cancel</button> -->
                     </div>
+                    <!-- <div class="child2">
+                        <div class="image-container">
+                            <img src="" alt="" id="output">
+                            <span>Image</span>
+                        </div>
+                        <div class="file">
+                            <label for="file">Upload</label>
+                            <input name="image_url" id="file" type="file" onchange="loadFile(event)">
+                        </div>
+                    </div> -->
                 </div>
         </div>
 
@@ -382,35 +391,35 @@ background-color: #909090;
     
 </body>
 <script>
-    // var loadFile = function (event) {
-    //     var reader = new FileReader();
-    //     reader.onload = function () {
-    //         var output = document.getElementById('output');
-    //         output.src = reader.result;
-    //     };
-    //     reader.readAsDataURL(event.target.files[0]);
-    // };
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
 
-    // const button_add = document.getElementById('add_category')
-    // const overlay = document.getElementById('overlay')
-    // const popup = document.getElementById('popup')
-    // const cancel = document.getElementById('cancel')
-    // const agree = document.getElementById('agree')
+    const button_add = document.getElementById('add_category')
+    const overlay = document.getElementById('overlay')
+    const popup = document.getElementById('popup')
+    const cancel = document.getElementById('cancel')
+    const agree = document.getElementById('agree')
 
-    // button_add.onclick = () => {
-    //     overlay.style.display = "block"
-    //     popup.style.display = "block"
-    // }
+    button_add.onclick = () => {
+        overlay.style.display = "block"
+        popup.style.display = "block"
+    }
 
-    // cancel.onclick = () => {
-    //     overlay.style.display = "none"
-    //     popup.style.display = "none"
-    // }
+    cancel.onclick = () => {
+        overlay.style.display = "none"
+        popup.style.display = "none"
+    }
 
-    // agree.onclick = () => {
-    //     overlay.style.display = "none"
-    //     popup.style.display = "none"
-    // }
+    agree.onclick = () => {
+        overlay.style.display = "none"
+        popup.style.display = "none"
+    }
 
 </script>
 

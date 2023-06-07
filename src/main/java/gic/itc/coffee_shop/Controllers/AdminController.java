@@ -106,6 +106,8 @@ public class AdminController {
         user users = new user();
         // String date = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
         // LocalDateTime date;
+        user findImage = repositoryUser.findById(id);
+
         LocalDateTime date1 = LocalDateTime.now();
         user_type type = new user_type();
         type.setId(2);
@@ -116,6 +118,7 @@ public class AdminController {
         users.setUsername(username);
         users.setUser_type_id(type);
         users.setOrderTime(date1);
+        users.setImage_url(findImage.getImage_url());
         users.setAge(age);
         users.setDob(dob);
         if(gender==0){
@@ -142,7 +145,7 @@ public class AdminController {
         // System.out.println(filename);
         user users = new user();
         user_type type = new user_type();
-        type.setId(1);
+        type.setId(2);
         type.setName("Cashier");
         users.setEmail(email);
         users.setPassword(password);
@@ -225,9 +228,11 @@ public class AdminController {
     public String editDrinkByID(@PathVariable("id") int id, @RequestParam("category") int category, @RequestParam("name") String name, @RequestParam("description") String description){
         drink drinks = new drink();
         drink_categories categories = new drink_categories();
+        drink findImage = repositoryDrink.findById(id);
         categories.setId(category);
         drinks.setId(id);
         drinks.setName(name);
+        drinks.setImage_url(findImage.getImage_url());
         drinks.setDescription(description);
         drinks.setCategory_id(categories);
         repositoryDrink.save(drinks);

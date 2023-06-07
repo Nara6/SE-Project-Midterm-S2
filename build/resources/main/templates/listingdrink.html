@@ -206,25 +206,25 @@
         </nav>
         <div class="w-full flex bg">
             <div class=" bg-white w-[60%] m-5 mr-0">
-                <div class="flex justify-between p-6 bg-[#F5F5F5] text-gray-700 uppercase font-bold">
-                    <div class="w-[10px]">
+                <div class="flex justify-around bg-[#F5F5F5] items-center text-gray-700 font-bold w-full h-[70px] pl-5 uppercase">
+                    <div class="w-full">
                         ID
                     </div>
-                    <div class="w-[50px] mr-[100px]"> 
+                    <div class="w-full"> 
                         Name
                     </div>
-                    <div class="w-[50px] mr-[50px]"> 
+                    <div class="w-full text-center"> 
                         Type
                     </div>
-                    <div class="w-[50px] mr-[20px]">
+                    <div class="w-full text-center">
                         Action
                     </div>
                 </div> 
-                <div th:each="data: ${drinklisting}" class="flex ml-6 pt-0 justify-between mr-6">
-                    <a class="w-[10px]" th:text="${data.getId()}" th:href="@{/admin/drink/listing/{id} (id=${data.getId()})}"></a>
-                    <a class="w-[50px] mr-[100px]" role="button" th:href="@{/admin/drink/listing/{id} (id=${data.getId()})}" th:text="${data.getName()}"></a>
-                    <a class="w-[50px] mr-[50px]" th:text="${data.getCategory_id().getName()}" th:href="@{/admin/drink/listing/{id} (id=${data.getId()})}"></a>
-                    <div class="flex gap-x-2 mr-[20px]">
+                <div th:each="data: ${drinklisting}" class="flex justify-around w-full items-center pl-5 pr-[40px]">
+                    <a class="w-full" th:text="${data.getId()}" th:href="@{/admin/drink/listing/{id} (id=${data.getId()})}"></a>
+                    <a class="w-full text-gray-600 ml-[-20px]" role="button" th:href="@{/admin/drink/listing/{id} (id=${data.getId()})}" th:text="${data.getName()}"></a>
+                    <a class="text-gray-600 w-full ml-[50px]" th:text="${data.getCategory_id().getName()}" th:href="@{/admin/drink/listing/{id} (id=${data.getId()})}"></a>
+                    <div class="flex gap-x-2 items-center">
                         <a th:href="@{/admin/drink/delete/{id} (id=${data.getId()})}">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#DE3163" class="w-6 h-6" role="button">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
@@ -240,7 +240,7 @@
                 </div>
             </div>
             <div class=" w-[40%] flex items-center font-bold text-[20px] p-5 flex-col bg-white m-4 rounded-[30px] h-[400px]">
-                <span class="text-[#F45050]" style="font-family:'Montserrat','Courier New', Courier, monospace;">DRINK INFORMATION</span>
+                <span class="text-[#0e2a47]" style="font-family:'Montserrat','Courier New', Courier, monospace;">DRINK INFORMATION</span>
                 <div class="flex w-full">
                     
 

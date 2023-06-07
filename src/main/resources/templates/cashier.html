@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cashier</title>
     <html xmlns:th="http://www.thymeleaf.org"></html>
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -95,16 +95,16 @@
             </div>
             <div class="right w-[25%] bg-white border-2 rounded-[20px] m-[20px]">
                 <h2 class="p-5 align-items font-bold">Order information</h2>
-              <form action="/saveOrder" method="post" id="orderForm">
+              <form th:action="@{/cashier/saveorder}" method="post" id="orderForm">
                   <div id="orderInfo"></div>    
                   <div class="">
-                  <button class="inline w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px] active:bg-[#F5F7FB] active:text-black" id="confirmButton"> confirm order </button>
+                  <button class="w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px] active:bg-[#F5F7FB] active:text-black" id="confirmButton"> confirm order </button>
 
                   <!-- Hidden input field to store the order data -->
                   <input type="hidden" name="orderData" id="orderData">
                   </div>
               </form>
-              <button class="inline w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px] active:bg-[#F5F7FB] active:text-black  ml-[15px]" id="clearButton" > clear </button>
+              <button class="w-[200px] h-[3px] p-4 flex justify-center items-center bg-black rounded-[60px] border-2 border-gray-500 font-semibold text-white m-[15px] active:bg-[#F5F7FB] active:text-black  ml-[15px]" id="clearButton" > clear </button>
               </div>  
 
               

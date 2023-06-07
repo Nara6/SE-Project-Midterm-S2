@@ -66,7 +66,15 @@ public class invoice {
 
     @Column(name = "price")
     private BigDecimal price;
+    @Column(name = "orderdate")
+    private String date;
     
+    public String getDate(){
+        return date;
+    }
+    public void setDate(String date){
+        this.date = date;
+    }
 
     public BigDecimal getChanged() {
         return changed;
