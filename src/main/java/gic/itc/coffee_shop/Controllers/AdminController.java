@@ -32,11 +32,14 @@ import gic.itc.coffee_shop.Entity.drink;
 import gic.itc.coffee_shop.Entity.drink_categories;
 import gic.itc.coffee_shop.Entity.tables;
 import gic.itc.coffee_shop.Entity.user;
+import gic.itc.coffee_shop.Entity.invoice;
 import gic.itc.coffee_shop.Entity.user_type;
 import gic.itc.coffee_shop.Repository.DrinkCategoriesRepo;
 import gic.itc.coffee_shop.Repository.DrinkRepo;
 import gic.itc.coffee_shop.Repository.TablesRepo;
 import gic.itc.coffee_shop.Repository.UserRepo;
+import gic.itc.coffee_shop.Repository.SaleRepo;
+
 
 @Controller
 public class AdminController {
@@ -48,6 +51,8 @@ public class AdminController {
     DrinkCategoriesRepo repositoryDrinkCategory;
     @Autowired 
     TablesRepo repositoryTable;
+    @Autowired 
+    SaleRepo repositorySale;
 
     @GetMapping("/login")
     public String login() {
@@ -106,6 +111,8 @@ public class AdminController {
         user users = new user();
         // String date = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
         // LocalDateTime date;
+        user findImage = repositoryUser.findById(id);
+
         LocalDateTime date1 = LocalDateTime.now();
         user_type type = new user_type();
         type.setId(2);
@@ -116,6 +123,7 @@ public class AdminController {
         users.setUsername(username);
         users.setUser_type_id(type);
         users.setOrderTime(date1);
+        users.setImage_url(findImage.getImage_url());
         users.setAge(age);
         users.setDob(dob);
         if(gender==0){
@@ -142,7 +150,7 @@ public class AdminController {
         // System.out.println(filename);
         user users = new user();
         user_type type = new user_type();
-        type.setId(1);
+        type.setId(2);
         type.setName("Cashier");
         users.setEmail(email);
         users.setPassword(password);
@@ -225,9 +233,11 @@ public class AdminController {
     public String editDrinkByID(@PathVariable("id") int id, @RequestParam("category") int category, @RequestParam("name") String name, @RequestParam("description") String description){
         drink drinks = new drink();
         drink_categories categories = new drink_categories();
+        drink findImage = repositoryDrink.findById(id);
         categories.setId(category);
         drinks.setId(id);
         drinks.setName(name);
+        drinks.setImage_url(findImage.getImage_url());
         drinks.setDescription(description);
         drinks.setCategory_id(categories);
         repositoryDrink.save(drinks);
@@ -422,6 +432,33 @@ public class AdminController {
         repositoryTable.save(table);
 
         return "redirect:/admin/table/listing";
+    }
+                       //Sales
+    // <=========================================>
+    // Retrieve allSale
+    @GetMapping("/admin/sale/listing")
+    public String listSale(Model model){
+        List<invoice> sales = (List<invoice>) repositorySale.findAll();
+        // System.out.println(users);
+        model.addAttribute("listsale",sales);
+        return "listsale";
+    }
+    // Retrieve saleByID
+    @GetMapping("/admin/sale/listing/{id}")
+    public String listSaleByID(@PathVariable("id") int id, Model model){
+        List<invoice> sales = (List<invoice>) repositorySale.findAll();
+
+        invoice sale = (invoice) repositorySale.findById(id);
+        model.addAttribute("listsale",sales);
+        model.addAttribute("listsalebyid", sale);
+
+        return "listsalebyid";
+    }
+    // Delete SaleByID
+    @GetMapping("/admin/sale/delete/{id}")
+    public String deleteSaleByID(@PathVariable("id") int id){
+        repositorySale.deleteById(id);
+        return "redirect:/admin/sale/listing";
     }
 
 }

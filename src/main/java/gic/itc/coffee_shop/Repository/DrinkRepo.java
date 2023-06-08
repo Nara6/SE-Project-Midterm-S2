@@ -18,6 +18,8 @@ public interface DrinkRepo extends CrudRepository<drink, Integer> {
     List<drink> findByCategory_id(@Param("category_id") int category_id);
     Iterable<drink> findAllById(int id);
     drink findById(int id);
+    @Query("SELECT COUNT(*) FROM drink")
+    int totalDrink();
 
     // retrieve a list of drinks that belong to a specific category.
     // @Query("SELECT d FROM drink_categories dc JOIN drink d On dc.id = d.category_id where dc.id=:category_id")

@@ -3,6 +3,8 @@ package gic.itc.coffee_shop.Controllers;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.aspectj.apache.bcel.generic.InvokeInstruction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,6 +118,10 @@ public class InvoiceController {
                 invoices.setPrice(price);
                 invoices.setChanged(changeValue);
                 invoices.setTotal(totalValue);
+                DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime ldt = LocalDateTime.now();
+                String formattedString = ldt.format(CUSTOM_FORMATTER);  
+                invoices.setDate(formattedString);
 
                 tmp.setTable_id(table);
                 tmp.setDrinkName(drinkName);

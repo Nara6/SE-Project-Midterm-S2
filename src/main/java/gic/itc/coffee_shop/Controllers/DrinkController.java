@@ -98,7 +98,7 @@ public class DrinkController {
     List<drink_categories> categories = (List<drink_categories>) drinkCategoryRepo.findAll();
     model.addAttribute("categories",categories);
 
-    return "listdrink";
+    return "cashier";
 }
 
 
