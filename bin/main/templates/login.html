@@ -127,7 +127,7 @@
 	<div class="form-container">
 		<form th:action="@{/login}" th:object="${users}" method="post">
 			<h1>LOGIN FORM</h1>
-			<input name="email" type="email" placeholder="Email" />
+			<input name="email" type="email" id="email" placeholder="Email" />
 			<input name="password" type="password" placeholder="Password" />
 			<a href="#">Forgot your password?</a>
 			<button>Log in</button>
@@ -135,4 +135,15 @@
 	</div>
 </div>
 </body>
+
+<script>
+        const email = document.getElementById('email');
+
+        
+        email.addEventListener('input', function(event) {
+        
+        const email = event.target.value;
+        localStorage.setItem('email', email);
+        });
+</script>
 </html>

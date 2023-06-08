@@ -56,7 +56,7 @@ public class InvoiceController {
     @PostMapping("/cashier/invoice")
     public String saveOrder(@RequestParam("orderData") String orderDataString,
             @RequestParam("selectedTableId") String selectedTableId,
-            @RequestParam("total") String total, @RequestParam("change") String change, @RequestParam("result") String result, Model model) {
+            @RequestParam("total") String total, @RequestParam("change") String change, @RequestParam("result") String result, @RequestParam("email") String email, Model model) {
         try {
             // Use ObjectMapper to convert the JSON string to a List<OrderData>
             ObjectMapper objectMapper = new ObjectMapper();
@@ -79,7 +79,8 @@ public class InvoiceController {
                 // //retreive drink name id and size id based on names
                 Optional<drink_size> drinkSizeOptional = sizeRepo.findByName(drinkSize);
                 Optional<drink> drinkOptional = drinkRepo.findByName(drinkName);
-                // Optional<user> userOptional = userRepo.findByEmail("test4@gamil.com");
+
+                // Optional<user> userOptional = userRepo.findByEmail(email);
 
                 if (drinkSizeOptional.isPresent() && drinkOptional.isPresent()) {
 
@@ -101,6 +102,14 @@ public class InvoiceController {
                     return "table";
                 }
                 tables table = tableRepo.findById(Integer.parseInt(selectedTableId));
+                Optional<user> userOptional = userRepo.findEmailByEmail(email);
+                if(userOptional.isPresent()){
+                    user users = userOptional.get();
+                    invoices.setUser_id(users);;
+                }
+               
+
+
                 BigDecimal totalValue = new BigDecimal(total);
                 BigDecimal changeValue = new BigDecimal(change);
                 BigDecimal cashValue = new BigDecimal(result); //recieved cash from customer
@@ -119,6 +128,7 @@ public class InvoiceController {
                 invoices.setPrice(price);
                 invoices.setChanged(changeValue);
                 invoices.setTotal(totalValue);
+                // invoices.setUsername(userOptional.getUsername());
                 DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime ldt = LocalDateTime.now();
                 String formattedString = ldt.format(CUSTOM_FORMATTER);  

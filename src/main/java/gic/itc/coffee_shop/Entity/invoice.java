@@ -37,17 +37,11 @@ public class invoice {
     @JoinColumn(name = "table_id", referencedColumnName = "id")
     private tables table_id;
 
-    // @ManyToOne
-    // @JoinColumn(name = "username", referencedColumnName = "id")
-    // private user username;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private user user_id;
 
-    // public user getUsername() {
-    //     return username;
-    // }
-
-    // public void setUsername(user username) {
-    //     this.username = username;
-    // }
+    
 
     @Column(name = "drinkName")
     private String drinkName;
@@ -155,6 +149,12 @@ public class invoice {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+    public user getUser_id() {
+        return user_id;
+    }
+    public void setUser_id(user user_id) {
+        this.user_id = user_id;
     }
 
 }

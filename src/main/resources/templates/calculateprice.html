@@ -20,6 +20,7 @@
             <!-- <form action="/invoice" id="invoiceForm" method="post"> -->
                 <input type="hidden" name="orderData" id="orderDataInput" value="">
                 <input type="hidden" name="selectedTableId" id="selectedTableIdInput" value="">
+                <input type="hidden" name="email" id="userInput" value="">
                 <input type="hidden" name="change" id="changeInput" value="change">
                 <input type="hidden" name="total" id="totalInput" value="total">
                 <input type="hidden" name="result" id="resultInput" value="result">
@@ -121,6 +122,7 @@
                     // Retrieve the orderData, selectedTableId, change, and total from localStorage
                     let orderDataString = localStorage.getItem('orderInfo');
                     let selectedTableId = localStorage.getItem('selectedTableId');
+                    let email = localStorage.getItem('email');
                     let change = document.getElementById('change').innerText;
                     let total = document.getElementById('total').innerText;
                     let result = document.getElementById('result').value;
@@ -128,6 +130,7 @@
                     // Populate the hidden input fields with the values
                     document.getElementById('orderDataInput').value = orderDataString;
                     document.getElementById('selectedTableIdInput').value = selectedTableId;
+                    document.getElementById('userInput').value = email;
                     document.getElementById('changeInput').value = change;
                     document.getElementById('totalInput').value = total;
                     document.getElementById('resultInput').value = result;
