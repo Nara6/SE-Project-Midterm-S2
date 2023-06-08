@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="cruddrink.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"
+    rel="stylesheet" />
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+    <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    <script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+        fontFamily: {
+            sans: ["Roboto", "sans-serif"],
+            body: ["Roboto", "sans-serif"],
+            mono: ["ui-monospace", "monospace"],
+        },
+        },
+        corePlugins: {
+        preflight: false,
+        },
+    };
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+*{
+    box-sizing: border-box;
+    font-size: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:'Montserrat','Courier New', Courier, monospace;
+    background-image: url("/img/bg-create.svg");
+}
+
+.form {
+    width: 900px;
+    height: 600px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 40px;
+    border-top-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    z-index: 999;
+    background: #fff;
+}
+
+.form .title{
+    position: relative;
+    margin-top: 50px;
+}
+
+.form .title::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: 1px solid rgb(160, 135, 250);
+    height: 1px;
+    width: 80%;
+}
+
+.form .title h4{
+    font-weight: 600;
+    font-size: 32px;
+}
+
+.form .title p{
+    font-size: 18px;
+}
+
+.form .even-column{
+    display: flex;
+    align-items: center;
+}
+
+.form .even-column > *{
+    flex-basis: 100%;
+    /* border: 1px solid black; */
+}
+
+.form .even-column .child .input-element{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.form .even-column .child .input-element label{
+    position: absolute;
+    font-size: 12px;
+    left: 0px;
+    background: #FF4B2B;
+    width: 110px;
+    color: #fff;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.form .even-column .child .input-element input{
+    width: 100%;
+    padding: 5px 10px;
+    border: 1px solid rgb(53, 85, 100);
+    border-radius: 5px;
+    outline: none;
+    padding-left: 120px;
+    padding-right: 30px;
+}
+
+.form .even-column .child .input-element:nth-child(4) div{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.form .even-column .child .button-element{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form .even-column .child .button-element button{
+    border: none;
+    padding: 7px 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.form .even-column .child .button-element button:nth-child(1){
+    flex: 3;
+    background: #FF4B2B;
+    color: #fff;
+}
+
+.form .even-column .child .button-element button:nth-child(2){
+    flex: 1;
+    background: rgb(0,0,0);
+    color: #fff;
+}
+
+.form .even-column .child2{
+    height: 300px;
+    display: flex;
+    gap: 60px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form .even-column .child2 .image-container{
+    border: 1px solid slategray;
+    border-radius: 10px;
+    height: 200px;
+    width: 300px;
+    overflow: hidden;
+}
+
+.form .even-column .child2 .image-container img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.form .even-column .child2 .image-container span{
+    font-size: 32px;
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: slategray;
+}
+
+.form .even-column .child2 .file input{
+    display: none;
+}
+
+.form .even-column .child2 .file label{
+    padding: 7px 40px;
+    background: #FF4B2B;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 800px;
+    cursor: pointer;
+}
+
+
+
+/* container */
+
+
+.container{
+    width: 400px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1001;
+    padding: 20px 20px;
+    border-radius: 10px;
+    display: none;
+}
+   .container .box1{
+    border-bottom: 1px solid silver;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+
+   }
+   .container .box2{
+    padding: 5px;
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 5px;
+    padding-right: 15px;
+   }
+   .container .box2 input{
+    height: 20px;
+    border: 1px solid silver;
+   }
+   .container label{
+    width: 120px;
+   }
+   .container span{
+    width: 10px;
+   }
+   .container .input{
+    display: flex;
+    align-items: center;
+
+   }
+   .container .button{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 5px;
+   }
+   .container .button input{
+    
+    text-align: center;
+    padding: 5px;
+     border: none;
+     border-radius: 5px;
+     color: white;
+     cursor: pointer;
+
+   }
+   .container .button :nth-child(1){
+    flex: 3;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FF4B2B;
+   
+   }
+   .container .button :nth-child(2){
+    flex: 1;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(0,0,0);
+   }
+
+/*  */
+
+.overlay{
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.2;
+    display: none;
+}
+/* .cancelDrink button {
+    border: none;
+    padding: 7px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #FF4B2B;
+    color: #fff;
+    flex: 3;
+} */
+    </style>
+    
+</head>
+
+<body>
+    <form th:action="@{/admin/user/creating}" th:object="${user}" method="post" enctype="multipart/form-data">
+    <div class="form">
+        <div class="title">
+            <h4>CREATE NEW USER</h4>
+            <p>Input user information</p>
+        </div>
+        <div class="even-column">
+            <div class="child">
+                <div class="input-element">
+                    <label for="">Username</label>
+                    <input type="text" name="name">
+                </div>
+                <div class="input-element">
+                    <label for="">Email</label>
+                    <input type="text" name="email">
+                </div>
+                <div class="input-element">
+                    <label for="">Age</label>
+                    <input type="text" name="age">
+                </div>
+                <select name="gender" class="w-full h-[40px] border-[2px] border-black mb-4 text-center">
+                    <option th:value="0">Male</option>
+                    <option th:value="1">Female</option>
+                </select>
+                <div
+                    class="relative mb-3 border-black border-[2px]"
+                    data-te-datepicker-init
+                    data-te-format="yyyy-mm-dd"
+                    data-te-input-wrapper-init>
+                    <input name="dob" 
+                        type="text"
+                        class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                        placeholder="Select a date" />
+                    <label
+                        for="floatingInput"
+                        class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                        >Select a date</label
+                    >
+                </div>
+                
+  
+                <div class="input-element">
+                    <label for="">Password</label>
+                    <input type="password" name="password">
+                </div>
+                <div class="button-element">
+                    <button>Done</button>
+                    <!-- <button>Cancel</button> -->
+                </div>
+            </div>
+            <div class="child2">
+                <div class="image-container">
+                    <img src="" alt="" id="output">
+                    <span>Image</span>
+                </div>
+                <div class="file">
+                    <label for="file">Upload</label>
+                    <input name="image_url" id="file" type="file" onchange="loadFile(event)">
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+
+    <!-- <form class="cancelDrink"> 
+        <button>Cancel</button>
+    </form> -->
+
+    
+    <!-- <div class="container" id="popup"> -->
+        <!-- <form th:action="@{/addDrinkCategory}" th:object="${dc}" method="post">
+        <div class="box1">
+            <h3>New Category</h3>
+
+        </div>
+        <div class="box2">
+            <div class="input">
+                <label for="catecode">Category code </label><span>: </span>
+                <input type="text" id="catecode" name="id"><br>
+
+            </div>
+            <div class="input">
+                <label for="catecode">Category name </label><span>: </span>
+                <input type="text" id="catename" name="name"><br>
+
+            </div>
+
+        </div>
+        <div class="button">
+            <button value="OK" id="agree"> OK </button>
+        <form th:action="@{/cancelAddDrinkCategory}" th:object="${dc}" method="post"> -->
+            <!-- <button  value="Cancel" id="cancel" > Cancel </button> -->
+        <!-- </form> -->
+            <!-- <input type="button" value="OK" id="agree">
+            <input type="button" value="Cancel" id="cancel"> -->
+
+
+        <!-- </div> -->
+    <!-- </form> -->
+    <!-- </div> -->
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script> -->
+    <!-- <div class="overlay" id="overlay"></div> -->
+</body>
+<script>
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+
+    const button_add = document.getElementById('add_category')
+    const overlay = document.getElementById('overlay')
+    const popup = document.getElementById('popup')
+    const cancel = document.getElementById('cancel')
+    const agree = document.getElementById('agree')
+
+    button_add.onclick = () => {
+        overlay.style.display = "block"
+        popup.style.display = "block"
+    }
+
+    cancel.onclick = () => {
+        overlay.style.display = "none"
+        popup.style.display = "none"
+    }
+
+    agree.onclick = () => {
+        overlay.style.display = "none"
+        popup.style.display = "none"
+    }
+
+</script>
+
+</html>
