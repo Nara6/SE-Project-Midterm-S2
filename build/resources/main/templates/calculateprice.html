@@ -22,6 +22,7 @@
                 <input type="hidden" name="selectedTableId" id="selectedTableIdInput" value="">
                 <input type="hidden" name="change" id="changeInput" value="change">
                 <input type="hidden" name="total" id="totalInput" value="total">
+                <input type="hidden" name="result" id="resultInput" value="result">
                
             
                 <button onclick="generateInvoice()" class="w-full px-3 py-1 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-300 focus:outline-none" type="submit">Generate Invoice</button>
@@ -122,12 +123,14 @@
                     let selectedTableId = localStorage.getItem('selectedTableId');
                     let change = document.getElementById('change').innerText;
                     let total = document.getElementById('total').innerText;
+                    let result = document.getElementById('result').value;
 
                     // Populate the hidden input fields with the values
                     document.getElementById('orderDataInput').value = orderDataString;
                     document.getElementById('selectedTableIdInput').value = selectedTableId;
                     document.getElementById('changeInput').value = change;
                     document.getElementById('totalInput').value = total;
+                    document.getElementById('resultInput').value = result;
 
                     // Submit the form
                     document.getElementById("invoiceForm").submit();

@@ -37,7 +37,7 @@
         hr {
             width: 95%;
             height: 2px;
-            background-color: #000000;
+            background-color: #767575;
             margin: 7px;
         }
 
@@ -109,7 +109,20 @@
         .order{
             display: flex;
             justify-content: start;
+            width: 300px;
+            align-items: center;
             gap: 20px;
+            margin: 0;
+        }
+        
+        .orderinfo p {
+            display: inline;
+            width: 300px;
+            margin: 2px;
+        }
+        .footer{
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -121,6 +134,8 @@
             <div class="left">
                 <div class="right">
                     <h2 class="title">GIC coffee and bakery</h2>
+                    <h4>Address: ITC, Russian Conf, Norodom Blvd, Phnom Penh </h4>
+                    <h4>Tel: +855 69697079</h4>
                     <hr>
                     <form th:action="@{/cashier/receipt}" method="get" id="receipt-form">
                         <div id="orderInfo"></div>
@@ -129,8 +144,23 @@
                                 <!-- <div class="subtotal"> -->
                                     <p>Order number:</p>
                                     <p th:text="${invoices[invoices.size() - 1].id}"></p>
-                                    
-                                </div> 
+                                </div>
+                                
+                                    <div th:each="receipt : ${invoices}" class="order">
+                                        <div th:if="${receiptStat.last}" clas="orderinfo">
+                                            <span >table no: </span>
+                                              <span th:text="${receipt.table_id.id}"></span>
+                                        </div>
+                                    </div>
+
+                                    <div th:each="invoice : ${receipt}" class="order">
+                                        <div th:if="${invoiceStat.last}" clas="orderinfo">
+                                            <span >Order date: </span>
+                                              <span th:text="${invoice.date}"></span>
+                                        </div>
+                                    </div>
+                                
+                                 
                         </div>
                         <div th:each="receipt : ${invoices}" class="flex justify-between m-auto px-[5%] py-[10px] ">
                             <div class="drink-info">
@@ -142,23 +172,37 @@
                             <hr>
                             <div class="subtotal-info" th:if="${receiptStat.last}">
                                 <div class="subtotal">
-                                    <p>Subtotal: </p>
+                                    <p>Subtotal: $</p>
                                     <p th:text="${receipt.total}"> </p>
                                     
                                 </div>
                                 <div class="subtotal">
-                                    <p>Tax: $0.00</p>
+                                    <p>Tax: $ 0.00</p>
                                 </div>
                                
 
                                 <div class="subtotal">
-                                    <p>Total : </p>
+                                    <p>Total : $</p>
                                     <p th:text="${receipt.total}"></p>
                                 </div>
                                 
+                                <div class="subtotal">
+                                    <p>cash received : $</p>
+                                    <p th:text="${receipt.cash_received}"></p>
+                                </div>
+
+                                <div class="subtotal">
+                                    <p>changed : $</p>
+                                    <p th:text="${receipt.changed}"></p>
+                                </div>
                             </div>
                         </div>
                     </form>
+                    <hr>
+                    <div class="footer">
+                        <p>   wifi password: gic@cafe.ITC </p> 
+                        <p> delivery number: +855 232322 </p> 
+                    </div>
 
                     <form th:action="@{/cashier/clearInvoice}" method="post">
                         <button onclick="clearLocalStorage()"  class="clear-button" type="submit">Print Receipt</button>

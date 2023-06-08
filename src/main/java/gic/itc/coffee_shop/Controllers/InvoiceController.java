@@ -56,7 +56,7 @@ public class InvoiceController {
     @PostMapping("/cashier/invoice")
     public String saveOrder(@RequestParam("orderData") String orderDataString,
             @RequestParam("selectedTableId") String selectedTableId,
-            @RequestParam("total") String total, @RequestParam("change") String change, Model model) {
+            @RequestParam("total") String total, @RequestParam("change") String change, @RequestParam("result") String result, Model model) {
         try {
             // Use ObjectMapper to convert the JSON string to a List<OrderData>
             ObjectMapper objectMapper = new ObjectMapper();
@@ -103,6 +103,7 @@ public class InvoiceController {
                 tables table = tableRepo.findById(Integer.parseInt(selectedTableId));
                 BigDecimal totalValue = new BigDecimal(total);
                 BigDecimal changeValue = new BigDecimal(change);
+                BigDecimal cashValue = new BigDecimal(result); //recieved cash from customer
 
                 // Optional<user> userOptional = userRepo.findByEmail("test1@gamil.com");
                 // if(userOptional.isPresent()){
@@ -130,6 +131,7 @@ public class InvoiceController {
                 tmp.setChanged(changeValue);
                 tmp.setTotal(totalValue);
                 tmp.setPrice(price);
+                tmp.setCash_received(cashValue);
                 
 
                 invoiceRepo.save(invoices);

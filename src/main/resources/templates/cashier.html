@@ -48,7 +48,7 @@
         <div class="flex justify-center w-full h-[87%] mx-auto">
             <div class="left w-[70%] h-full rounded-lg overflow-auto">
               
-                <form action="/listDrink" method="get">
+                <form action="/cashier/listDrink" method="get">
                     <div class="flex flex-wrap gap-4 p-4 mx-[15px]">
                         <div th:each="category : ${categories}">
                             <button class="category-button w-[100px] h-[30px] p-5 flex justify-center items-center bg-[#F5F7FB] rounded-2xl border-2 border-gray-500 font-semibold text-slate-700 font-montserrat active:bg-black active:text-white active:black" type="submit" name="category" th:value="${category.id}" th:text="${category.name}">

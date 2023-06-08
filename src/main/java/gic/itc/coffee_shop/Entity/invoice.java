@@ -66,6 +66,7 @@ public class invoice {
 
     @Column(name = "price")
     private BigDecimal price;
+    
     @Column(name = "orderdate")
     private String date;
     
