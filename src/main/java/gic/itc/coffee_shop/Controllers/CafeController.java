@@ -23,8 +23,10 @@ import org.springframework.web.servlet.view.RedirectView;
 import gic.itc.coffee_shop.Entity.drink_categories;
 import gic.itc.coffee_shop.Entity.user;
 import gic.itc.coffee_shop.Entity.user_type;
-import gic.itc.coffee_shop.Repository.DrinkCategoriesRepo;
+import gic.itc.coffee_shop.Repository.DrinkRepo;
 import gic.itc.coffee_shop.Repository.UserRepo;
+import gic.itc.coffee_shop.Repository.SaleRepo;
+import gic.itc.coffee_shop.Repository.OrderRepo;
 import gic.itc.coffee_shop.Repository.UserTypeRepo;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,6 +36,12 @@ import jakarta.servlet.http.HttpServletRequest;
 public class CafeController {
     @Autowired
     UserRepo Repository;
+    @Autowired
+    SaleRepo SaleRepository;
+    @Autowired
+    DrinkRepo DrinkRepository;
+    @Autowired
+    OrderRepo OrderRepository;
 
 
     @GetMapping("/access-denied")
@@ -48,9 +56,16 @@ public class CafeController {
    
     @GetMapping("/admin")
     public String adminDashboard1(Model model) {
-        List<user> users = (List<user>) Repository.findAll();
-        System.out.println(users);
-        model.addAttribute("listuser", users);
+        int userDash = Repository.findAllUser();
+        float totalSale = SaleRepository.findTotalSale();
+        int totalDrink = DrinkRepository.totalDrink();
+        int totalServe = OrderRepository.totalServe();
+
+        model.addAttribute("countUser", userDash);
+        model.addAttribute("totalSale", totalSale);
+        model.addAttribute("totalDrink", totalDrink);
+        model.addAttribute("totalServe", totalServe);
+
         return "admin";
 
     }

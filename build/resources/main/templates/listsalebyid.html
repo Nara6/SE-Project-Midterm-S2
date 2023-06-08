@@ -13,13 +13,108 @@
         @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
         body{
             font-family: 'Roboto', sans-serif;
+            backdrop-filter: blur(8px);
+        }
+        button {
+        background-color: #04AA6D;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        opacity: 0.9;
         }
 
-         .bg{
+        button:hover {
+        opacity:1;
+        }
+
+        /* Float cancel and delete buttons and add an equal width */
+        .cancelbtn, .deletebtn {
+        float: left;
+        width: 50%;
+        }
+
+        /* Add a color to the cancel button */
+        .cancelbtn {
+        background-color: #ccc;
+        color: black;
+        }
+
+        /* Add a color to the delete button */
+        .deletebtn {
+        background-color: #f44336;
+        }
+
+        /* Add padding and center-align text to the container */
+        .container {
+        padding: 16px;
+        text-align: center;
+        }
+
+        /* The Modal (background) */
+        .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: #474e5d;
+        padding-top: 50px;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        /* Style the horizontal ruler */
+        hr {
+        border: 1px solid #f1f1f1;
+        margin-bottom: 25px;
+        }
+        
+        /* The Modal Close Button (x) */
+        .close {
+        position: absolute;
+        right: 35px;
+        top: 15px;
+        font-size: 40px;
+        font-weight: bold;
+        color: #f1f1f1;
+        }
+
+        .close:hover,
+        .close:focus {
+        color: #f44336;
+        cursor: pointer;
+        }
+
+        /* Clear floats */
+        .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+        }
+
+        /* Change styles for cancel button and delete button on extra small screens */
+        @media screen and (max-width: 300px) {
+        .cancelbtn, .deletebtn {
+            width: 100%;
+        }
+        }
+        .bg{
             background-image: url("/img/bg.svg");
+            /* -webkit-filter: blur(8px); */
         }
     </style>
-
 </head>
 <body>
     <div class="w-full h-screen flex flex-col">
@@ -219,56 +314,88 @@
                     </li>
                 </ul>
             </nav>
-            <div class="w-full bg flex">
-                <div class="bg-white w-[60%] rounded-[30px] m-5 mr-0 overflow-y-auto">
-                    <div class="flex justify-between p-6 bg-[#F5F5F5] text-gray-700 uppercase font-bold ">
-                     
-                        <div class="w-[50px]"> 
-                            Name
+            <div class="w-full flex bg">
+                <div class="bg-white w-[60%] m-5 mr-0">
+                    <div class="flex justify-between bg-[#F5F5F5] items-center text-gray-700 font-bold w-full h-[70px] pl-5 uppercase">
+                        <div class="w-full">
+                            order-id
+                        </div >
+                        <div class="w-full"> 
+                            price
                         </div>
-                        <div class="w-[100px]">
-                            Status
+                        <div class="w-full text-center">
+                            Order-Date
                         </div>
-                        <div class="w-[50px]">
+                        <div class="w-full text-center">
                             Action
                         </div>
                     </div> 
-                    <div th:each="data: ${listtable}" class="flex ml-6 pt-0 justify-between mr-6 ">
-                        <a class="w-[50px]" role="button" th:href="@{/admin/table/listing/{id} (id=${data.getId()})}" th:text="${data.getName()}"></a>
-                        <a class="w-[100px] text-green-500" th:if="${data.isStatus()}==true" th:href="@{/admin/table/listing/{id} (id=${data.getId()})}">Available</a>
-                        <a class="w-[100px] text-red-500" th:unless="${data.isStatus()}==true" th:href="@{/admin/table/listing/{id} (id=${data.getId()})}">Not Available</a>
-                        <!-- <a class="w-[50px]" th:text="${data.getUser_type_id().getName()}" th:href="@{/admin/user/listing/{id} (id=${data.getId()})}"></a> -->
-                        <div class="flex gap-x-2">
-                            <a th:href="@{/admin/table/delete/{id} (id=${data.getId()})}">
+                    <div th:each="data: ${listsale}" class="flex justify-between w-full items-center pl-5 mt-[3px]">
+                        <a class="w-full" role="button" th:href="@{/admin/sale/listing/{id} (id=${data.getId()})}" th:text="${data.getId()}"></a>
+                        <a class="w-full text-gray-600" th:text="${data.getTotal()}" th:href="@{/admin/sale/listing/{id} (id=${data.getId()})}"></a>
+                        <a class="w-full text-center text-gray-600" th:text="${data.getDate()}" th:href="@{/admin/sale/listing/{id} (id=${data.getId()})}"></a>
+                        <div class="flex gap-x-2 w-full justify-center">
+                            <a th:href="@{/admin/sale/delete/{id} (id=${data.getId()})}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#DE3163" class="w-6 h-6" role="button">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                   </svg>
                             </a>
-                            <a href="">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#6495ED" class="w-6 h-6" role="button">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-                                  </svg>
-                            </a> 
+                        </div>
+                    </div>
+                    <div class="popup page">
+                        <div id="id01" class="modal">
+                        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+                        <form class="modal-content">
+                            <div class="container">
+                            <h1>Delete Item</h1>
+                            <p>Are you sure you want to delete?</p>
+                            
+                            <div class="clearfix">
+                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="deletebtn" id="deletebtn">Delete</button>
+                            </div>
+                            </div>
+                        </form>
                         </div>
                     </div>
                 </div>
-                <div class=" w-[40%] flex items-center font-bold text-[20px] p-5 flex-col bg-white m-4 rounded-[30px] h-[400px]">
-                    <span class="text-[#0e2a47]" style="font-family:'Montserrat','Courier New', Courier, monospace;">TABLE INFORMATION</span>
+                <div class=" w-[40%] flex items-center font-bold text-[20px] p-5 flex-col bg-white m-4 rounded-[30px] h-[400px] drop-shadow-xl">
+                    <span class="text-[#0e2a47]" style="font-family:'Montserrat','Courier New', Courier, monospace;">SALE DETAILS</span>
                     <div class="flex w-full">
                         
                         <!-- <div>
                             <img src="https://i.etsystatic.com/38881100/r/il/0d08bc/4642496341/il_fullxfull.4642496341_8mof.jpg" alt="" class="w-[200px] h-[200px] mt-4 rounded-full">
                         </div> -->
                         <div class="flex flex-col ml-3 mt-4 gap-y-2">
-                            <span th:text="${'Name: '+listtablebyid.getName()}"></span>
                             <div>
-                                <span>Status:</span>
-                                <span class="w-[100px] text-green-500" th:if="${listtablebyid.isStatus()}==true">Available</span>
-                                <span class="w-[100px] text-red-500" th:unless="${listtablebyid.isStatus()}==true" >Not Available</span>
+                                <span>Drink: </span>
+                                <span class="text-gray-600" th:text="${listsalebyid.getDrinkName()}"></span>
                             </div>
+                            <div>
+                                <span>Size: </span>
+                                <span class="text-gray-600" th:text="${listsalebyid.getDrinkSize()}"></span>
+                            </div>
+                            <div>
+                                <span>Price: </span>
+                                <span class="text-gray-600" th:text="${listsalebyid.getPrice()}"></span>
+                            </div>
+                            <div>
+                                <span>Changed: </span>
+                                <span class="text-gray-600" th:text="${listsalebyid.getChanged()}"></span>
+                            </div>
+                            <div>
+                                <span>Table:</span>
+                                <span class="text-gray-600" th:text="${listsalebyid.getTable_id().getName()}"></span>
+                            </div>
+                            <div>
+                                <span>Date:</span>
+                                <span class="text-sky-600" th:text="${listsalebyid.getDate()}"></span>
+                            </div>
+                            <!-- <span class="text-sky-600" th:text="${'Date: '+listsalebyid.getDate()}"></span> -->
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
         
@@ -276,6 +403,10 @@
             
     </div>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
-
+    <!-- <script>
+        document.getElementById('deletebtn').addEventListener('click', ()=>{
+            document.getElementById('edit').href="/admin/drink/listing";
+        })
+    </script> -->
 </body>
 </html>

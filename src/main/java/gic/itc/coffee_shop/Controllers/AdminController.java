@@ -32,11 +32,14 @@ import gic.itc.coffee_shop.Entity.drink;
 import gic.itc.coffee_shop.Entity.drink_categories;
 import gic.itc.coffee_shop.Entity.tables;
 import gic.itc.coffee_shop.Entity.user;
+import gic.itc.coffee_shop.Entity.invoice;
 import gic.itc.coffee_shop.Entity.user_type;
 import gic.itc.coffee_shop.Repository.DrinkCategoriesRepo;
 import gic.itc.coffee_shop.Repository.DrinkRepo;
 import gic.itc.coffee_shop.Repository.TablesRepo;
 import gic.itc.coffee_shop.Repository.UserRepo;
+import gic.itc.coffee_shop.Repository.SaleRepo;
+
 
 @Controller
 public class AdminController {
@@ -48,6 +51,8 @@ public class AdminController {
     DrinkCategoriesRepo repositoryDrinkCategory;
     @Autowired 
     TablesRepo repositoryTable;
+    @Autowired 
+    SaleRepo repositorySale;
 
     @GetMapping("/login")
     public String login() {
@@ -427,6 +432,33 @@ public class AdminController {
         repositoryTable.save(table);
 
         return "redirect:/admin/table/listing";
+    }
+                       //Sales
+    // <=========================================>
+    // Retrieve allSale
+    @GetMapping("/admin/sale/listing")
+    public String listSale(Model model){
+        List<invoice> sales = (List<invoice>) repositorySale.findAll();
+        // System.out.println(users);
+        model.addAttribute("listsale",sales);
+        return "listsale";
+    }
+    // Retrieve saleByID
+    @GetMapping("/admin/sale/listing/{id}")
+    public String listSaleByID(@PathVariable("id") int id, Model model){
+        List<invoice> sales = (List<invoice>) repositorySale.findAll();
+
+        invoice sale = (invoice) repositorySale.findById(id);
+        model.addAttribute("listsale",sales);
+        model.addAttribute("listsalebyid", sale);
+
+        return "listsalebyid";
+    }
+    // Delete SaleByID
+    @GetMapping("/admin/sale/delete/{id}")
+    public String deleteSaleByID(@PathVariable("id") int id){
+        repositorySale.deleteById(id);
+        return "redirect:/admin/sale/listing";
     }
 
 }

@@ -62,7 +62,7 @@
         <nav class="px-4 pt-4 scroller w-64 overflow-y-auto">
             <ul class="flex flex-col space-y-2">
 
-                <li class="text-sm text-gray-500 ">
+                <li class="text-sm text-gray-500 bg-gray-100 dark:text-white dark:bg-gray-700 rounded-lg">
                     <a href="#dashboard"
                         class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700 ">
                         <div class="pr-2">
@@ -205,47 +205,74 @@
                         </button>
                         <ul id="dropdown-example4" class="hidden py-2 space-y-2">
                               <li>
-                                 <a th:href="@{/admin/table/listing}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Listing</a>
+                                 <a th:href="@{/admin/sale/listing}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Listing</a>
                               </li>
                       
-                             
+ 
                         </ul>
                      </li>
                 </li>
             </ul>
         </nav>
-        <div class="w-full bg-white flex bg">
-            <!-- <div class=" w-[65%]">
-                <div th:each="data: ${listuser}" class="flex ml-6 pt-0 justify-between mr-6">
-                    <a th:text="${data.getId()}" th:href="@{/admin/user/listing/{id} (id=${data.getId()})}"></a>
-                    <a role="button" th:href="@{/admin/user/listing/{id} (id=${data.getId()})}" th:text="${data.getUsername()}"></a>
-                    <a th:text="${data.getEmail()}" th:href="@{/admin/user/listing/{id} (id=${data.getId()})}"></a>
-                    <a th:text="${data.getUser_type_id().getName()}" th:href="@{/admin/user/listing/{id} (id=${data.getId()})}"></a>
-                    <div class="flex gap-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="w-6 h-6" role="button">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                          </svg>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" role="button">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-                          </svg>
-                          
+        <div class="w-full bg-white flex flex-col">
+            <div class="flex w-full justify-between p-7">
+                <div class="bg-gray-800 w-[270px] h-[180px] shadow-md rounded-xl">
+                    <div class="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-pink-600 to-pink-400 text-white shadow-pink-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="w-6 h-6 text-white"><path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd"></path></svg></div>
+                    <div class="p-4 text-center mt-[45px] text-white">
+                        <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Users</p>
+                        <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900" th:text="${countUser}"></h4>
                     </div>
                 </div>
-            </div> -->
-            <!-- <div class=" w-[40%] flex items-center font-bold text-[20px] p-5 flex-col bg-[#F0F0F0] m-4 rounded-[30px] h-[400px]">
-
-            </div> -->
+                <div class="bg-gray-800 w-[270px] h-[180px] shadow-md rounded-xl">
+                    <div class="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-orange-600 to-orange-400 text-white shadow-orange-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="w-6 h-6 text-white"><path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"></path></svg></div>
+                    <div class="p-4 text-center mt-[45px] text-white">
+                        <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Sales</p>
+                        <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900" th:text="${'$'+totalSale}"></h4>
+                    </div>
+                </div>
+                <div class="bg-gray-800 w-[270px] h-[180px] shadow-md rounded-xl">
+                    <div class="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-green-600 to-green-400 text-white shadow-green-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center"><svg fill="currentColor" viewBox="0 0 16 16" id="drink-coffee-s-16px" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="Path_125" data-name="Path 125" d="M-46.073-24a1.155,1.155,0,0,0-.651-1.053.5.5,0,0,1-.223-.671.5.5,0,0,1,.671-.223A2.165,2.165,0,0,1-45.073-24a2.165,2.165,0,0,1-1.2,1.947A.5.5,0,0,1-46.5-22a.5.5,0,0,1-.447-.276.5.5,0,0,1,.223-.671A1.155,1.155,0,0,0-46.073-24Zm3.349,1.053a.5.5,0,0,0-.223.671A.5.5,0,0,0-42.5-22a.5.5,0,0,0,.224-.053A2.165,2.165,0,0,0-41.073-24a2.165,2.165,0,0,0-1.2-1.947.5.5,0,0,0-.671.223.5.5,0,0,0,.223.671A1.155,1.155,0,0,1-42.073-24,1.155,1.155,0,0,1-42.724-22.947Zm4,0a.5.5,0,0,0-.223.671A.5.5,0,0,0-38.5-22a.5.5,0,0,0,.224-.053A2.165,2.165,0,0,0-37.073-24a2.165,2.165,0,0,0-1.2-1.947.5.5,0,0,0-.671.223.5.5,0,0,0,.223.671A1.155,1.155,0,0,1-38.073-24,1.155,1.155,0,0,1-38.724-22.947ZM-32-18a3,3,0,0,1-3,3h-.182a6.511,6.511,0,0,1-2.87,4H-35.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-12a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h2.552A6.494,6.494,0,0,1-48-16.5v-4a.5.5,0,0,1,.5-.5H-35A3,3,0,0,1-32-18Zm-15,0h11v-2H-47Zm14,0a2,2,0,0,0-2-2v4A2,2,0,0,0-33-18Z" transform="translate(48 25.999)"></path> </g></svg></div>
+                    <div class="p-4 text-center mt-[45px] text-white">
+                        <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Total Drink</p>
+                        <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900" th:text="${totalDrink}"></h4>
+                    </div>
+                </div>
+                <div class="bg-gray-800 w-[270px] h-[180px] shadow-md rounded-xl">
+                    <div class="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-blue-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center"><svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M10 1C9.73478 1 9.48043 1.10536 9.29289 1.29289L3.29289 7.29289C3.10536 7.48043 3 7.73478 3 8V20C3 21.6569 4.34315 23 6 23H7C7.55228 23 8 22.5523 8 22C8 21.4477 7.55228 21 7 21H6C5.44772 21 5 20.5523 5 20V9H10C10.5523 9 11 8.55228 11 8V3H18C18.5523 3 19 3.44772 19 4V9C19 9.55228 19.4477 10 20 10C20.5523 10 21 9.55228 21 9V4C21 2.34315 19.6569 1 18 1H10ZM9 7H6.41421L9 4.41421V7ZM11 12C10.4477 12 10 12.4477 10 13V17V21C10 21.5523 10.4477 22 11 22H15H21C21.5523 22 22 21.5523 22 21V17V13C22 12.4477 21.5523 12 21 12H15H11ZM12 16V14H14V16H12ZM16 16V14H20V16H16ZM16 20V18H20V20H16ZM14 18V20H12V18H14Z"></path> </g></svg></div>
+                    <div class="p-4 text-center mt-[45px] text-white">
+                        <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Total Serve</p>
+                        <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900" th:text="${totalServe}"></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="flex w-full h-[200px] justify-center gap-x-[100px] mt-5">
+                <div class="w-[50%] h-[400px]">
+                    <canvas
+                      data-te-chart="line"
+                      data-te-dataset-label="Total Sale"
+                      data-te-labels="['December','November' ,'October' , 'September','August','July' ,'June', 'May' ,'April' ,'March','February' ,'January']"
+                      data-te-dataset-data="[2112, 343, 545, 423, 2365,2545, 4423, 2365,2545, 3423, 2365,1000]">
+                    </canvas>
+                </div>
+                <div class="w-[30%]">
+                    <canvas
+                      data-te-chart="pie"
+                      data-te-dataset-label="Total Serve"
+                      data-te-labels="['Setthika', 'Nara' , 'MeyHorng']"
+                      data-te-dataset-data="[2112, 2343, 9000]"
+                      data-te-dataset-background-color="['rgba(63, 81, 181, 0.5)', 'rgba(77, 182, 172, 0.5)', 'rgba(66, 133, 244, 0.5)', 'rgba(156, 39, 176, 0.5)', 'rgba(233, 30, 99, 0.5)', 'rgba(66, 73, 244, 0.4)', 'rgba(66, 133, 244, 0.2)']">
+                    </canvas>
+                </div>
+            </div>
+            
         </div>
     </div>
     
 
         
 </div>
-<!-- <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>-->
-<script>
-
-</script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 
 </body>
 </html>
