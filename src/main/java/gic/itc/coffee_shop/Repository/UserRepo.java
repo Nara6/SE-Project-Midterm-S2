@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.jpa.repository.Query;
-
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import gic.itc.coffee_shop.Entity.user;
@@ -20,6 +20,9 @@ public interface UserRepo extends CrudRepository<user,Integer>{
     user findById(int id);
     @Query("SELECT COUNT(*) FROM user")
     int findAllUser();
+    @Query("SELECT u FROM user u where u.user_type_id=2")
+    List<user> findAllCashier();
+    
 
 
     

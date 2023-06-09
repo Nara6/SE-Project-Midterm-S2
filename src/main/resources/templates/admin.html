@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+
     <style>
         .bg{
             background-image: url("/img/bg.svg");
@@ -63,7 +64,7 @@
             <ul class="flex flex-col space-y-2">
 
                 <li class="text-sm text-gray-500 bg-gray-100 dark:text-white dark:bg-gray-700 rounded-lg">
-                    <a href="#dashboard"
+                    <a th:href="@{/admin}"
                         class="flex items-center w-full py-1 px-2 rounded relative hover:text-white hover:bg-gray-700 ">
                         <div class="pr-2">
                             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -233,7 +234,7 @@
                 <div class="bg-gray-800 w-[270px] h-[180px] shadow-md rounded-xl">
                     <div class="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-green-600 to-green-400 text-white shadow-green-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center"><svg fill="currentColor" viewBox="0 0 16 16" id="drink-coffee-s-16px" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="Path_125" data-name="Path 125" d="M-46.073-24a1.155,1.155,0,0,0-.651-1.053.5.5,0,0,1-.223-.671.5.5,0,0,1,.671-.223A2.165,2.165,0,0,1-45.073-24a2.165,2.165,0,0,1-1.2,1.947A.5.5,0,0,1-46.5-22a.5.5,0,0,1-.447-.276.5.5,0,0,1,.223-.671A1.155,1.155,0,0,0-46.073-24Zm3.349,1.053a.5.5,0,0,0-.223.671A.5.5,0,0,0-42.5-22a.5.5,0,0,0,.224-.053A2.165,2.165,0,0,0-41.073-24a2.165,2.165,0,0,0-1.2-1.947.5.5,0,0,0-.671.223.5.5,0,0,0,.223.671A1.155,1.155,0,0,1-42.073-24,1.155,1.155,0,0,1-42.724-22.947Zm4,0a.5.5,0,0,0-.223.671A.5.5,0,0,0-38.5-22a.5.5,0,0,0,.224-.053A2.165,2.165,0,0,0-37.073-24a2.165,2.165,0,0,0-1.2-1.947.5.5,0,0,0-.671.223.5.5,0,0,0,.223.671A1.155,1.155,0,0,1-38.073-24,1.155,1.155,0,0,1-38.724-22.947ZM-32-18a3,3,0,0,1-3,3h-.182a6.511,6.511,0,0,1-2.87,4H-35.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-12a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h2.552A6.494,6.494,0,0,1-48-16.5v-4a.5.5,0,0,1,.5-.5H-35A3,3,0,0,1-32-18Zm-15,0h11v-2H-47Zm14,0a2,2,0,0,0-2-2v4A2,2,0,0,0-33-18Z" transform="translate(48 25.999)"></path> </g></svg></div>
                     <div class="p-4 text-center mt-[45px] text-white">
-                        <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Total Drink</p>
+                        <p class="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">Inventory</p>
                         <h4 class="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900" th:text="${totalDrink}"></h4>
                     </div>
                 </div>
@@ -246,7 +247,41 @@
                 </div>
             </div>
             <div class="flex w-full h-[200px] justify-center gap-x-[100px] mt-5">
-                <div class="w-[50%] h-[400px]">
+                
+                <!-- <div class="w-[30%]">
+                    <canvas id="pie-chart"></canvas>
+                </div> -->
+                <div class="shadow-lg rounded-lg w-[30%] h-[440px] flex justify-center flex-col">
+                    <div class="mt-[-30px] py-3 px-5 bg-gray-50 text-center">
+                        Total Serve by each cashier
+                    </div>
+                    <canvas id="chartBar"></canvas>
+                </div>
+                <script th:inline="javascript">
+                    /* Generate JavaScript code to set data in localStorage */
+                    var dataList = [[${findAllCashier}]];
+                    var dataJsonArray = [];
+            
+                    /* Loop through the dataList and convert each element to JSON */
+                    /* Assuming each element has a property called 'name' */
+                    // for (var i = 0; i < dataList.length; i++) {
+                    //     var element = dataList[i];
+                    //     var elementJson = JSON.stringify(element);
+                    //     dataJsonArray.push(elementJson);
+                    // }
+                    dataList.forEach((username)=>{
+                        var element = username["username"];
+                        // console.log("\"+${element}+\"");
+                        var elementJson = JSON.stringify(element);
+                        dataJsonArray.push(elementJson);
+                    })
+            
+                    localStorage.setItem('myData', JSON.stringify(dataJsonArray));
+                </script>
+                <div class="w-[50%] h-[440px] shadow-xl rounded-lg">
+                    <div class="py-3 px-5 bg-gray-50 text-center">
+                        Total Sale in year
+                    </div>
                     <canvas
                       data-te-chart="line"
                       data-te-dataset-label="Total Sale"
@@ -254,15 +289,47 @@
                       data-te-dataset-data="[2112, 343, 545, 423, 2365,2545, 4423, 2365,2545, 3423, 2365,1000]">
                     </canvas>
                 </div>
-                <div class="w-[30%]">
-                    <canvas
-                      data-te-chart="pie"
-                      data-te-dataset-label="Total Serve"
-                      data-te-labels="['Setthika', 'Nara' , 'MeyHorng']"
-                      data-te-dataset-data="[2112, 2343, 9000]"
-                      data-te-dataset-background-color="['rgba(63, 81, 181, 0.5)', 'rgba(77, 182, 172, 0.5)', 'rgba(66, 133, 244, 0.5)', 'rgba(156, 39, 176, 0.5)', 'rgba(233, 30, 99, 0.5)', 'rgba(66, 73, 244, 0.4)', 'rgba(66, 133, 244, 0.2)']">
-                    </canvas>
+                <div th:each="data: ${findAllCashier}" hidden>
+                    <div th:text="${data.getUsername()}"></div>
                 </div>
+
+<!-- Required chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Chart bar -->
+<script>
+    var storedData = localStorage.getItem('myData');
+    var dataList = JSON.parse(storedData);
+    const dataBarChart = {
+    labels: dataList,
+        datasets: [{
+        label: 'My First dataset',
+        backgroundColor: [
+                'rgba(63, 81, 181, 0.5)',
+                'rgba(77, 182, 172, 0.5)',
+                'rgba(66, 133, 244, 0.5)',
+                'rgba(156, 39, 176, 0.5)',
+                'rgba(233, 30, 99, 0.5)',
+                'rgba(66, 73, 244, 0.4)',
+                'rgba(66, 133, 244, 0.2)',
+            ],
+        data: [6, 10, 5],
+    }]
+  };
+
+  const configBarChart = {
+    type: 'pie',
+    data: dataBarChart,
+    options: {}
+  };
+
+
+  var chartBar = new Chart(
+    document.getElementById('chartBar'),
+    configBarChart
+  );
+</script>
+                
             </div>
             
         </div>
@@ -271,8 +338,38 @@
 
         
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+<!-- <script>
+    var storedData = localStorage.getItem('myData');
+    var dataList = JSON.parse(storedData);
+    console.log(typeof dataList);
+    console.log(typeof storedData);
+    initTE({ Chart });
+    const dataPie = {
+    type: 'pie',
+    data: {
+        labels: storedData,
+        datasets: [
+        {
+            label: 'Traffic',
+            data: [2112, 2343, 2545, 3423, 2365, 1985, 987],
+            backgroundColor: [
+            'rgba(63, 81, 181, 0.5)',
+            'rgba(77, 182, 172, 0.5)',
+            'rgba(66, 133, 244, 0.5)',
+            'rgba(156, 39, 176, 0.5)',
+            'rgba(233, 30, 99, 0.5)',
+            'rgba(66, 73, 244, 0.4)',
+            'rgba(66, 133, 244, 0.2)',
+            ],
+        },
+        ],
+    },
+    };
 
+    new Chart(document.getElementById('pie-chart'), dataPie);
+</script> -->
 </body>
 </html>
