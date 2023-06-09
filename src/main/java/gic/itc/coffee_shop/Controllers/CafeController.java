@@ -60,11 +60,17 @@ public class CafeController {
         float totalSale = SaleRepository.findTotalSale();
         int totalDrink = DrinkRepository.totalDrink();
         int totalServe = OrderRepository.totalServe();
+        List<user> findAllCashier = Repository.findAllCashier();
+        List<Integer> findEachServe = Repository.getServeCount();
+
 
         model.addAttribute("countUser", userDash);
         model.addAttribute("totalSale", totalSale);
         model.addAttribute("totalDrink", totalDrink);
         model.addAttribute("totalServe", totalServe);
+        model.addAttribute("findAllCashier", findAllCashier);
+        model.addAttribute("findEachServe", findEachServe);
+
 
         return "admin";
 

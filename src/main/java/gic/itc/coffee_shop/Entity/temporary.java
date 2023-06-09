@@ -44,6 +44,9 @@ public class temporary {
     @Column(name = "price")
     private BigDecimal price;
 
+    @Column(name = "cash_received")
+    private BigDecimal cash_received;
+
     
     public user getUsername() {
         return username;
@@ -146,6 +149,14 @@ public class temporary {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getCash_received() {
+        return cash_received;
+    }
+
+    public void setCash_received(BigDecimal cash_received) {
+        this.cash_received = cash_received;
     }
 
 }
