@@ -61,17 +61,16 @@ public class CafeController {
         int totalDrink = DrinkRepository.totalDrink();
         int totalServe = OrderRepository.totalServe();
         List<user> findAllCashier = Repository.findAllCashier();
-        // for(user name : findAllCashier){
-        //     System.out.println(name.getUsername());
-        // }
-        System.out.println(findAllCashier);
-        // findAllCashier.forEach((users)->System.out.println(users.getUsername()));
+        List<Integer> findEachServe = Repository.getServeCount();
+
 
         model.addAttribute("countUser", userDash);
         model.addAttribute("totalSale", totalSale);
         model.addAttribute("totalDrink", totalDrink);
         model.addAttribute("totalServe", totalServe);
         model.addAttribute("findAllCashier", findAllCashier);
+        model.addAttribute("findEachServe", findEachServe);
+
 
         return "admin";
 

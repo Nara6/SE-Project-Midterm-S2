@@ -172,7 +172,6 @@
                         </ul>
                      </li>
                      
-
                 </li>
 
                 <li class="text-sm text-gray-500 ">
@@ -252,7 +251,7 @@
                     <canvas id="pie-chart"></canvas>
                 </div> -->
                 <div class="shadow-lg rounded-lg w-[30%] h-[440px] flex justify-center flex-col">
-                    <div class="mt-[-30px] py-3 px-5 bg-gray-50 text-center">
+                    <div class="mt-[-30px] py-3 px-5 bg-gray-50 text-center font-[600] text-blue-gray-600 font-sans antialiased">
                         Total Serve by each cashier
                     </div>
                     <canvas id="chartBar"></canvas>
@@ -260,33 +259,34 @@
                 <script th:inline="javascript">
                     /* Generate JavaScript code to set data in localStorage */
                     var dataList = [[${findAllCashier}]];
+                    var dataList1 = [[${findEachServe}]];
                     var dataJsonArray = [];
-            
-                    /* Loop through the dataList and convert each element to JSON */
-                    /* Assuming each element has a property called 'name' */
-                    // for (var i = 0; i < dataList.length; i++) {
-                    //     var element = dataList[i];
-                    //     var elementJson = JSON.stringify(element);
-                    //     dataJsonArray.push(elementJson);
-                    // }
+                    var dataJsonArray1 = [];
+
                     dataList.forEach((username)=>{
                         var element = username["username"];
                         // console.log("\"+${element}+\"");
                         var elementJson = JSON.stringify(element);
                         dataJsonArray.push(elementJson);
                     })
-            
+                    dataList1.forEach((username)=>{
+                        var element = username;
+                        // console.log("\"+${element}+\"");
+                        var elementJson = JSON.stringify(element);
+                        dataJsonArray1.push(elementJson);
+                    })
+                    localStorage.setItem('myEachServe', JSON.stringify(dataJsonArray1));
                     localStorage.setItem('myData', JSON.stringify(dataJsonArray));
                 </script>
                 <div class="w-[50%] h-[440px] shadow-xl rounded-lg">
-                    <div class="py-3 px-5 bg-gray-50 text-center">
+                    <div class="py-3 px-5 bg-gray-50 text-center font-[600] text-blue-gray-600 font-sans antialiased">
                         Total Sale in year
                     </div>
                     <canvas
                       data-te-chart="line"
                       data-te-dataset-label="Total Sale"
                       data-te-labels="['January','February','March','April' , 'May','June','July','August', 'September' ,'October','November','December']"
-                      data-te-dataset-data="[2112, 343, 545, 423, 2365,2545, 4423, 2365,2545, 3423, 2365,1000]">
+                      data-te-dataset-data="[2112, 2343, 2545, 2423, 2365,1845]">
                     </canvas>
                 </div>
                 <div th:each="data: ${findAllCashier}" hidden>
@@ -300,10 +300,12 @@
 <script>
     var storedData = localStorage.getItem('myData');
     var dataList = JSON.parse(storedData);
+    var myEachServe = localStorage.getItem('myEachServe');
+    var dataList1 = JSON.parse(myEachServe);
     const dataBarChart = {
     labels: dataList,
         datasets: [{
-        label: 'My First dataset',
+        label: 'Serve:',
         backgroundColor: [
                 'rgba(63, 81, 181, 0.5)',
                 'rgba(77, 182, 172, 0.5)',
@@ -313,7 +315,7 @@
                 'rgba(66, 73, 244, 0.4)',
                 'rgba(66, 133, 244, 0.2)',
             ],
-        data: [6, 10, 5],
+        data: dataList1,
     }]
   };
 

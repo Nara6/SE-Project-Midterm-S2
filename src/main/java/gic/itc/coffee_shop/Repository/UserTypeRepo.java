@@ -12,3 +12,6 @@ public interface UserTypeRepo extends CrudRepository<user_type, Integer> {
     Optional<user_type> findByName(String name);
 
 }
+
+
+

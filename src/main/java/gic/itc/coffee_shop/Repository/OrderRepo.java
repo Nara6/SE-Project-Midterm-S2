@@ -7,7 +7,7 @@ import gic.itc.coffee_shop.Entity.orders;
 
 @Repository
 public interface OrderRepo extends CrudRepository<orders,Integer>{
-    @Query("SELECT COUNT(*) FROM orders")
+    @Query("SELECT COUNT(*) FROM invoice")
     int totalServe();
 
 }

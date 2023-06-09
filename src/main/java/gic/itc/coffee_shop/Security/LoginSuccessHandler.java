@@ -20,7 +20,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
         String redirectURL = request.getContextPath();
-
+        
         if (userDetails.hasRole("Admin")) {
             redirectURL = "admin";
         } else if (userDetails.hasRole("Cashier")) {
